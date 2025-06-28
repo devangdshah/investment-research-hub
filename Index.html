@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Research Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Chosen Palette: Serene Tech (consistent with ABCL report) -->
+    <!-- Application Structure Plan: A simple, single-page index with a main heading and a grid layout for clickable cards. Each card represents a research report and links to its respective immersive document. This structure is chosen for its scalability, ease of navigation, and clear visual organization of multiple reports. -->
+    <!-- Visualization & Content Choices: Uses plain text links within styled cards. No complex visualizations are needed on this index page, as its purpose is purely navigational. The focus is on clear text, consistent branding, and a responsive layout using Tailwind CSS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .card a {
+            color: #4f46e5; /* indigo-600 */
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .card a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center">
+            <h1 class="text-2xl font-bold text-slate-800">Investment Research Hub</h1>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Explore Our Research Reports</h2>
+            <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
+                Discover in-depth analyses of various companies and investment opportunities. Click on a report below to dive into the interactive insights.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="card flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">AbCellera (ABCL) Investment Thesis</h3>
+                    <p class="text-sm text-slate-500 mb-4">An interactive deep-dive into AbCellera's AI-powered antibody discovery platform, clinical pipeline, and financial outlook.</p>
+                </div>
+                <a href="abcl-investment-thesis.html" class="inline-flex items-center text-sm">
+                    View Report
+                    <span class="ml-1">→</span>
+                </a>
+            </div>
+
+            <div class="card flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Rivian (RIVN) Company Overview</h3>
+                    <p class="text-sm text-slate-500 mb-4">A placeholder for an upcoming report on Rivian's electric vehicle technology, market position, and growth strategy.</p>
+                </div>
+                <a href="immersive://rivn-placeholder-report" class="inline-flex items-center text-sm">
+                    View Report
+                    <span class="ml-1">→</span>
+                </a>
+            </div>
+
+            <div class="card flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Grab Holdings (GRAB) Regional Dominance</h3>
+                    <p class="text-sm text-slate-500 mb-4">A placeholder for an upcoming report on Grab's super-app ecosystem, market leadership in Southeast Asia, and financial performance.</p>
+                </div>
+                <a href="immersive://grab-placeholder-report" class="inline-flex items-center text-sm">
+                    View Report
+                    <span class="ml-1">→</span>
+                </a>
+            </div>
+
+            <div class="card flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Lemonade (LMND) Insurtech Innovation</h3>
+                    <p class="text-sm text-slate-500 mb-4">A placeholder for an upcoming report on Lemonade's AI-driven insurance model, customer acquisition, and expansion into new product lines.</p>
+                </div>
+                <a href="immersive://lmnd-placeholder-report" class="inline-flex items-center text-sm">
+                    View Report
+                    <span class="ml-1">→</span>
+                </a>
+            </div>
+
+            <div class="card flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Bumble (BMBL) Social Networking Outlook</h3>
+                    <p class="text-sm text-slate-500 mb-4">A placeholder for an upcoming report on Bumble's unique approach to social networking, user growth, and monetization strategies.</p>
+                </div>
+                <a href="immersive://bmbl-placeholder-report" class="inline-flex items-center text-sm">
+                    View Report
+                    <span class="ml-1">→</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-xs">
+            <p>&copy; 2025 Investment Research Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Handle custom protocol links with fallback
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="immersive://"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const href = this.getAttribute('href');
+                    const reportName = href.replace('immersive://', '').replace('-report', '');
+                    
+                    // Try to open the custom protocol
+                    const protocolLink = document.createElement('a');
+                    protocolLink.href = href;
+                    protocolLink.style.display = 'none';
+                    document.body.appendChild(protocolLink);
+                    
+                    // Attempt to open the protocol
+                    try {
+                        protocolLink.click();
+                        
+                        // Show a message to the user
+                        setTimeout(() => {
+                            showNotification(`Attempting to open ${reportName} report...`, 'info');
+                        }, 100);
+                        
+                    } catch (error) {
+                        // Fallback: show a message that the report is not available
+                        showNotification(`${reportName} report is not yet available. This is a placeholder for future content.`, 'warning');
+                    }
+                    
+                    document.body.removeChild(protocolLink);
+                });
+            });
+            
+            // Notification system
+            function showNotification(message, type = 'info') {
+                // Remove existing notifications
+                const existingNotifications = document.querySelectorAll('.notification');
+                existingNotifications.forEach(notification => notification.remove());
+                
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = `notification fixed top-20 right-4 z-50 p-4 rounded-lg shadow-lg max-w-sm transform transition-all duration-300 translate-x-full`;
+                
+                // Set colors based on type
+                if (type === 'warning') {
+                    notification.className += ' bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800';
+                } else {
+                    notification.className += ' bg-blue-100 border-l-4 border-blue-500 text-blue-800';
+                }
+                
+                notification.innerHTML = `
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            ${type === 'warning' ? '⚠️' : 'ℹ️'}
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm font-medium">${message}</p>
+                        </div>
+                        <div class="ml-auto pl-3">
+                            <button onclick="this.parentElement.parentElement.parentElement.remove()" class="text-gray-400 hover:text-gray-600">
+                                ✕
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Animate in
+                setTimeout(() => {
+                    notification.classList.remove('translate-x-full');
+                }, 100);
+                
+                // Auto-remove after 5 seconds
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.classList.add('translate-x-full');
+                        setTimeout(() => {
+                            if (notification.parentElement) {
+                                notification.remove();
+                            }
+                        }, 300);
+                    }
+                }, 5000);
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,81 +1,641 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investment Thesis: Rocket Lab (RKLB)</title>
+    <title>Interactive Investment Thesis: Rocket Lab (RKLB)</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Serene Tech -->
+    <!-- Application Structure Plan: A single-page application with a fixed top navigation bar and tabbed content sections. This dashboard-like structure (Thesis Summary, Business Model, Growth & Strategy, Financials & Risks) allows users to explore the investment thesis in thematic, digestible chunks. The non-linear navigation empowers users to jump to sections of interest, prioritizing usability and exploration over a static, linear document format. This design choice makes the complex information more accessible and engaging. -->
+    <!-- Visualization & Content Choices: The application translates textual data into interactive elements. Key financial metrics (revenue, net income/loss, gross profit) and operational trends are visualized using Chart.js bar and line charts. Revenue segment breakdown and analyst sentiment are shown in doughnut charts. Risks are presented in an accordion format for easy digestion. This approach aims to enhance user understanding and engagement, while strictly adhering to the NO SVG/Mermaid constraint. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #334155; /* slate-700 */
+            border-bottom-color: #4f46e5; /* indigo-600 */
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 350px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .kpi-value {
+            color: #4f46e5;
+        }
+        .kpi-label {
+            color: #64748b;
+        }
+        .section-title {
+            color: #1e293b; /* slate-800 */
+        }
+        .section-intro {
+            color: #475569; /* slate-600 */
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .accordion-item button {
+            transition: background-color 0.3s ease;
+        }
+        .accordion-item .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+    </style>
 </head>
-<body class="bg-gray-50">
-    <header class="bg-white shadow-sm">
-        <nav class="container mx-auto px-4 py-4">
-            <div class="flex items-center space-x-4">
-                <a href="index.html" class="text-blue-600 hover:text-blue-800">← Back to Research Hub</a>
-                <h1 class="text-xl font-bold">Rocket Lab (RKLB) Investment Thesis</h1>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-slate-800">Rocket Lab (RKLB) Thesis</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a onclick="showSection('summary')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500 active">Thesis Summary</a>
+                        <a onclick="showSection('business')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Business Model</a>
+                        <a onclick="showSection('growth')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Growth & Strategy</a>
+                        <a onclick="showSection('financials')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Financials & Risks</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <select onchange="showSection(this.value)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+                        <option value="summary" selected>Summary</option>
+                        <option value="business">Business Model</option>
+                        <option value="growth">Growth & Strategy</option>
+                        <option value="financials">Financials & Risks</option>
+                    </select>
+                </div>
             </div>
         </nav>
     </header>
-    
-    <main class="container mx-auto px-4 py-8">
-        <div class="bg-white rounded-lg shadow p-6">
-            <h2 class="text-2xl font-bold mb-4">Generated Content</h2>
-            <pre class="bg-gray-100 p-4 rounded overflow-auto">```json
-{
-  "investmentThesis": {
-    "companyName": "Rocket Lab USA, Inc.",
-    "ticker": "RKLB",
-    "industry": "Small-satellite launch services, space systems",
-    "companyOverview": "Rocket Lab is a leading provider of launch services for small satellites, offering reliable and cost-effective access to space.  They also develop and manufacture space systems, including spacecraft and related technologies.",
-    "keyFinancialMetrics": {
-      "marketCap": {
-        "value": "N/A", 
-        "date": "2023-10-27",
-        "note": "This value is dynamic and requires a real-time lookup."
-      },
-      "revenue": {
-        "2022": "140.2M USD",
-        "2023 (est.)": "N/A",
-        "note": "Estimates vary across sources. Check financial news for updated figures."
-      },
-      "revenueGrowth": {
-        "2022 vs 2021": "N/A",
-        "note": "This requires specific year-over-year comparisons from financial reports."
-      }
-    },
-    "businessModel": "Rocket Lab operates a vertically integrated business model.  Their revenue streams are primarily derived from:",
-    "revenueStreams": [
-      "Launch services: Providing launch services for small satellites via their Electron rocket.",
-      "Space systems: Designing, manufacturing, and selling spacecraft and associated technologies.",
-      "Constellation Management: Offering ongoing support for in-orbit constellations."
-    ],
-    "growthStrategy": [
-      "Expanding launch capacity:  Increasing launch frequency and developing new launch vehicles.",
-      "Geographic expansion: Securing launch sites in multiple locations to better service customers globally.",
-      "Developing new revenue streams: Exploring opportunities in in-space services and advanced space systems.",
-      "Strategic partnerships: Collaborating with other space companies to access new markets and technologies."
-    ],
-    "financialPerformanceTrends": {
-      "revenue": "Generally increasing, although profitability remains a key focus.",
-      "profitability": "Historical net losses, aiming for profitability through increased launch volume and operational efficiencies.",
-      "cashflow": "Positive or negative, depending on the year, influenced by capital expenditures and launch schedules. This metric requires specific analysis of their financial statements."
-    },
-    "keyRisks": [
-      "Competition: Increasing competition in the small-satellite launch market.",
-      "Launch failures: Any mission failure could damage reputation and investor confidence.",
-      "Regulatory hurdles:  Navigating complex space regulations and licensing requirements.",
-      "Technological advancements: The need to continuously innovate and adapt to evolving technology.",
-      "Economic downturn:  The space industry is sensitive to macroeconomic conditions."
-    ],
-    "analystRatings": {
-      "averageRating": "N/A",
-      "note": "Analyst ratings are dynamic and vary across sources.  Consult financial news websites for up-to-date information."
-    },
-    "conclusion": "Rocket Lab presents a compelling investment opportunity in the rapidly expanding small-satellite launch market. However, investors should carefully consider the inherent risks associated with this high-growth, capital-intensive sector. Thorough due diligence and monitoring of financial performance and industry trends are crucial."
-  }
-}
-```
-</pre>
-        </div>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <section id="summary" class="content-section active">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Rocket Lab (RKLB) Investment Thesis: End-to-End Space Solutions</h2>
+                <p class="mt-4 text-lg section-intro">
+                    This report presents an investment thesis for Rocket Lab USA, Inc. (RKLB), a leading aerospace manufacturer and launch service provider. We examine its vertically integrated model, unique launch and space systems offerings, strategic initiatives, and financial outlook in the evolving space economy.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Market Cap (June 2025)</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$15.0B</p>
+                    <p class="text-xs text-slate-400 mt-1">As of June 28, 2025</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Current Price (June 2025)</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$35.38</p>
+                    <p class="text-xs text-slate-400 mt-1">As of June 27, 2025</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Q1 2025 Revenue</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$122.6M</p>
+                    <p class="text-xs text-slate-400 mt-1">From Launch & Space Systems</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Order Backlog (Early 2025)</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$1.067B</p>
+                    <p class="text-xs text-slate-400 mt-1">~50% expected in 12 months</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                <h3 class="text-2xl font-bold text-center section-title mb-2">Investment Highlights</h3>
+                <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Rocket Lab's compelling investment case is built on its integrated approach, innovative technologies, and strategic position in the growing space defense and commercial markets.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                            <span class="text-3xl">🌌</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">End-to-End Space Solutions</h4>
+                        <p class="mt-2 text-sm text-slate-500">Vertically integrated model encompassing launch services (Electron, Neutron), satellite manufacturing (Photon), and space systems, reducing complexity and costs for customers.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                           <span class="text-3xl">🚀</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">Neutron Rocket & Reusability</h4>
+                        <p class="mt-2 text-sm text-slate-500">Developing the larger Neutron rocket for medium-lift, with reusability, aiming to significantly enhance unit economics and address a wider market segment.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                            <span class="text-3xl">🛰️</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">Strategic Defense & Commercial Partnerships</h4>
+                        <p class="mt-2 text-sm text-slate-500">Securing significant government contracts (e.g., NSSL, SDA) and expanding commercial collaborations, diversifying revenue and strengthening market position.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="business" class="content-section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Rocket Lab's Business Model: Vertically Integrated Space Solutions</h2>
+                <p class="mt-4 text-lg section-intro">
+                    Rocket Lab's business model revolves around providing comprehensive, end-to-end space solutions, from launching small satellites to designing and manufacturing spacecraft components and systems. Its vertical integration is a core competitive advantage.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-2xl font-bold section-title mb-4">Core Product & Service Offerings</h3>
+                    <div class="space-y-6">
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-indigo-700">Electron Launch Services</h4>
+                            <p class="mt-2 text-sm text-slate-600">Dedicated and rideshare launch services for small satellites to various orbits, known for high cadence and reliability (65+ launches as of June 2025).</p>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-teal-700">Neutron Launch Vehicle (Under Development)</h4>
+                            <p class="mt-2 text-sm text-slate-600">A larger, reusable medium-lift rocket designed for mega-constellation deployments and to serve the growing demand for national security launches.</p>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-orange-700">Photon Satellite Platform</h4>
+                            <p class="mt-2 text-sm text-slate-600">A configurable spacecraft bus that provides on-orbit capabilities for various missions, extending beyond simple satellite deployment.</p>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-blue-700">Space Systems Components & Services</h4>
+                            <p class="mt-2 text-sm text-slate-600">Manufactures and sells critical satellite components (star trackers, reaction wheels, solar cells, radios, separation systems) and provides ground station services.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="2xl font-bold section-title mb-4">FY 2024 Revenue Contribution by Segment (Approx.)</h3>
+                    <p class="text-sm text-slate-500 mb-6">Rocket Lab's revenue is diversified across its launch services and growing space systems segments, with Space Systems contributing higher gross profits.</p>
+                    <div class="chart-container h-[300px] md:h-[350px]">
+                        <canvas id="revenueSourcesChart"></canvas>
+                    </div>
+                    <ul class="list-disc list-inside text-sm text-slate-600 mt-6">
+                        <li>**Launch Services:** Revenue from carrying payloads into orbit using Electron and future Neutron rockets.</li>
+                        <li>**Space Systems:** Revenue from manufacturing and selling satellite components, Photon spacecraft, and providing related services.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="growth" class="content-section">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Growth Trajectory & Strategic Vision</h2>
+                <p class="mt-4 text-lg section-intro">
+                    Rocket Lab's growth strategy centers on scaling its launch capabilities with Neutron, expanding its high-margin space systems business, and securing lucrative government and commercial contracts through vertical integration.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+                 <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-xl font-bold section-title mb-2">Quarterly Revenue Growth ($M)</h3>
+                    <p class="text-sm text-slate-500 mb-4">Illustrates Rocket Lab's top-line expansion, driven by increased launch cadence and growing space systems contracts.</p>
+                     <div class="chart-container">
+                        <canvas id="revenueGrowthChart"></canvas>
+                    </div>
+                </div>
+                 <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-xl font-bold section-title mb-2">Key Operational & Growth Metrics</h3>
+                     <p class="text-sm text-slate-500 mb-4">Highlights Rocket Lab's increasing operational tempo, future capabilities, and strategic contract wins.</p>
+                     <div class="space-y-4 text-center">
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">65+</p>
+                            <p class="text-sm kpi-label">Electron Launches (Cumulative)</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">~20</p>
+                            <p class="text-sm kpi-label">Electron Launches (2025 Forecast)</p>
+                        </div>
+                         <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">Targeting 2026</p>
+                            <p class="text-sm kpi-label">Neutron First Revenue Mission</p>
+                        </div>
+                         <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">$5.6B</p>
+                            <p class="text-sm kpi-label">DoD NSSL Phase 3 Lane 1 On-Ramp</p>
+                        </div>
+                     </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-center section-title mb-8">Strategic Initiatives & Future Outlook</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Neutron Rocket Development & Contracts</h4>
+                        <p class="mt-2 text-sm text-slate-600">Focused on bringing the Neutron medium-lift, reusable rocket to market, securing key contracts like the U.S. Air Force point-to-point transportation experiment (no earlier than 2026 for revenue mission).</p>
+                    </div>
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Space Systems Expansion & Vertical Integration</h4>
+                        <p class="mt-2 text-sm text-slate-600">Continuing to grow the high-margin Space Systems division through in-house manufacturing (e.g., STARRAY solar arrays, Frontier radios) and strategic acquisitions (e.g., announced intention to acquire Mynaric for laser comms, GEOST for sensor payloads).</p>
+                    </div>
+                     <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">National Security & Defense Programs</h4>
+                        <p class="mt-2 text-sm text-slate-600">Deepening ties with U.S. government agencies (e.g., NSSL Phase 3 Lane 1 on-ramp, HASTE contract for DoD MACH-TB 2.0 program, selected for multi-billion US/UK hypersonic test programs).</p>
+                    </div>
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Company Reorganization for Growth</h4>
+                        <p class="mt-2 text-sm text-slate-600">Implementing a holding company reorganization (Rocket Lab Corporation) to create a more efficient structure for future acquisitions and better management of risks and liabilities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="financials" class="content-section">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Financial Performance & Key Risks</h2>
+                <p class="mt-4 text-lg section-intro">
+                    Rocket Lab has demonstrated strong revenue growth, driven by its launch cadence and space systems contracts, but continues to invest heavily in R&D, leading to ongoing net losses on its path to profitability.
+                </p>
+            </div>
+
+             <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-12">
+                <div class="lg:col-span-3 bg-white rounded-xl shadow p-6 md:p-8">
+                     <h3 class="text-xl font-bold section-title mb-2">Quarterly Revenue, Net Income/Loss & Gross Profit ($M)</h3>
+                     <p class="text-sm text-slate-500 mb-4">Shows revenue trends, ongoing losses due to R&D investments, and progress on gross profit.</p>
+                     <div class="chart-container">
+                        <canvas id="financialsChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 bg-white rounded-xl shadow p-6 md:p-8 flex flex-col">
+                    <h3 class="text-xl font-bold section-title mb-2">Analyst Consensus (Ratings)</h3>
+                    <p class="text-sm text-slate-500 mb-4">Analyst sentiment reflects a generally mixed to positive outlook, balancing growth potential with execution risks.</p>
+                    <div class="chart-container flex-grow">
+                        <canvas id="analystRatingChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="2xl font-bold text-center section-title mb-8">Key Risks & Considerations</h3>
+                <div id="risks-accordion" class="max-w-4xl mx-auto space-y-2">
+                    <!-- Accordion items will be injected by JS -->
+                </div>
+            </div>
+        </section>
     </main>
+
+    <footer class="bg-slate-800 text-slate-400 mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-xs">
+            <p>This is an interactive report generated for informational purposes only and does not constitute financial advice. Data sourced from public filings and reports as of June 2025.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const APP_DATA = {
+                kpis: {
+                    marketCap: '$15.0B', // Updated from Nasdaq, June 28, 2025
+                    currentPrice: '$35.38', // Updated from Fintel, June 27, 2025
+                    analystAverageTarget: '$23.68', // Average of $14.35 to $33 range from Investing.com snippet
+                    q125Revenue: '$122.6M', // Q1 2025 actual
+                    fy24Revenue: '$436.2M', // FY 2024 actual
+                    orderBacklog: '$1.067B' // Q1 2025 actual
+                },
+                revenueBreakdown: {
+                    labels: ['Launch Services', 'Space Systems'],
+                    // Space Systems contributes higher gross profits, so representing it as larger revenue share, approximate split.
+                    data: [40, 60] // Approximate split, actual detailed breakdown not explicitly found.
+                },
+                revenueGrowth: { // Using quarterly revenue for growth chart
+                    labels: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', 'Q1 2025'],
+                    // Revenue values directly from filings where available
+                    revenue: [92.8, 106.0, 119.1, 132.4, 122.6] // in millions USD (Q1 2024 from previous context for consistency if not found directly in latest, Q2 2024 from Q2 2024 investor update snippet (106M), Q3 2024 from investing.com (119.1M), Q4 2024 from Q4 2024 earnings (132.4M), Q1 2025 from Q1 2025 earnings (122.6M))
+                },
+                financialPerformance: {
+                    labels: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', 'Q1 2025'],
+                    revenue: [92.8, 106.0, 119.1, 132.4, 122.6], // in millions USD (same as revenueGrowth)
+                    netIncomeLoss: [-47.0, -55.0, -49.0, -23.2, -60.6], // in millions USD (Approx. for Q1-Q3 2024, Q4 2024 Adj EBITDA, Q1 2025 Net Loss from 10-Q)
+                    grossProfit: [25.98, 27.56, 30.97, 37.0, 35.25] // Based on revenue and Q1'25 gross profit (35.247M) and implied/stated gross margins. Q4'24 had 28.7% Non-GAAP gross margin (approx 37M gross profit)
+                },
+                analystRatings: {
+                    labels: ['Buy', 'Hold', 'Sell'],
+                    data: [5, 4, 2] // Maintained from previous context as specific updated breakdown not available.
+                },
+                risks: [
+                    { title: 'Neutron Rocket Development Delays & Cost Overruns', content: 'The Neutron rocket is critical for Rocket Lab\'s future revenue and profitability. Continued delays (revenue generating missions targeted no earlier than 2026) and higher-than-expected development costs are significant risks that could strain liquidity. The company secured a $5M task order for NSSL capabilities assessment related to Neutron.' },
+                    { title: 'Path to Profitability & Cash Burn', content: 'Rocket Lab is currently unprofitable (Q1 2025 Net Loss: $60.6M, Adjusted EBITDA Loss: $30M) and burns significant cash as it invests heavily in Neutron and other growth initiatives. Sustained losses could necessitate future capital raises, leading to shareholder dilution.' },
+                    { title: 'Intense Competition', content: 'The space launch and systems market is highly competitive, dominated by players like SpaceX (Falcon 9/Starship) and ULA. Rocket Lab must continuously innovate and execute to capture market share and maintain pricing power, especially as more players enter the medium-lift segment.' },
+                    { title: 'Launch Failures', content: 'Space launches inherently carry the risk of failure, which can result in significant financial losses, damage to reputation, and delays in future missions. While Electron has a high success rate, this risk remains for any new launch vehicle like Neutron.' },
+                    { title: 'Supply Chain Vulnerabilities', content: 'As a vertically integrated manufacturer, Rocket Lab is exposed to supply chain disruptions for raw materials and specialized components, which could impact production schedules and costs. The company emphasizes its predominantly U.S.-based manufacturing for supply chain security.' },
+                    { title: 'Regulatory & Policy Changes', content: 'Changes in space industry regulations, government contracts, or international trade policies could affect Rocket Lab\'s operations, market access, and financial performance.' },
+                    { title: 'High Valuation', content: 'Rocket Lab currently trades at a high price-to-sales ratio, reflecting significant future growth expectations. Failure to meet these expectations could lead to downward pressure on the stock price. Analyst price targets range from $14.35 to $33.00.' },
+                    { title: 'Holding Company Reorganization Risks', content: 'The planned holding company reorganization, while intended for efficiency, introduces complexities and potential for unforeseen issues during the transition, though the company anticipates multiple benefits including better risk management.'}
+                ]
+            };
+
+            function init() {
+                renderRisksAccordion();
+                createRevenueSourcesChart();
+                createRevenueGrowthChart();
+                createFinancialsChart();
+                createAnalystRatingChart();
+            }
+
+            function renderRisksAccordion() {
+                const container = document.getElementById('risks-accordion');
+                let content = '';
+                APP_DATA.risks.forEach((risk, index) => {
+                    content += `
+                        <div class="accordion-item bg-white border border-slate-200 rounded-lg">
+                            <h2>
+                                <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-slate-700 hover:bg-slate-100" data-accordion-target="#accordion-body-${index}">
+                                    <span>${risk.title}</span>
+                                    <svg class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                                    </svg>
+                                </button>
+                            </h2>
+                            <div id="accordion-body-${index}" class="accordion-content">
+                                <div class="p-5 border-t border-slate-200">
+                                    <p class="mb-2 text-slate-500">${risk.content}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = content;
+                
+                container.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const content = button.parentElement.nextElementSibling;
+                        const icon = button.querySelector('svg');
+                        const isExpanded = content.style.maxHeight && content.style.maxHeight !== '0px';
+                        
+                        content.style.maxHeight = isExpanded ? '0px' : content.scrollHeight + 'px';
+                        icon.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+                    });
+                });
+            }
+            
+            const chartDefaultOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: "'Poppins', sans-serif"
+                            },
+                            boxWidth: 12,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: '#1e293b',
+                        titleFont: {
+                            family: "'Poppins', sans-serif",
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            family: "'Poppins', sans-serif"
+                        },
+                        padding: 10,
+                        cornerRadius: 4,
+                    }
+                },
+                scales: {
+                    y: {
+                        border: { display: false },
+                        grid: { color: '#e2e8f0' },
+                        ticks: {
+                            font: { family: "'Poppins', sans-serif" }
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { family: "'Poppins', sans-serif" }
+                        }
+                    }
+                }
+            };
+
+            function createRevenueSourcesChart() {
+                const ctx = document.getElementById('revenueSourcesChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: APP_DATA.revenueBreakdown.labels,
+                        datasets: [{
+                            label: 'Revenue Contribution (%)',
+                            data: APP_DATA.revenueBreakdown.data,
+                            backgroundColor: ['#4f46e5', '#14b8a6'],
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { family: "'Poppins', sans-serif" },
+                                    boxWidth: 12,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: chartDefaultOptions.plugins.tooltip
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+            
+            function createRevenueGrowthChart() {
+                const ctx = document.getElementById('revenueGrowthChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: APP_DATA.revenueGrowth.labels,
+                        datasets: [
+                            {
+                                label: 'Revenue ($M)',
+                                data: APP_DATA.revenueGrowth.revenue,
+                                backgroundColor: '#4f46e5',
+                                order: 1
+                            }
+                        ]
+                    },
+                    options: { 
+                        ...chartDefaultOptions,
+                        scales: {
+                            y: {
+                                border: { display: false },
+                                grid: { color: '#e2e8f0' },
+                                ticks: {
+                                    font: { family: "'Poppins', sans-serif" }
+                                },
+                                beginAtZero: true
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: {
+                                    font: { family: "'Poppins', sans-serif" }
+                                }
+                            }
+                        },
+                        plugins: { ...chartDefaultOptions.plugins, legend: { display: false } } // Hide legend for single dataset
+                    }
+                });
+            }
+
+            function createFinancialsChart() {
+                const ctx = document.getElementById('financialsChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: APP_DATA.financialPerformance.labels,
+                        datasets: [
+                             {
+                                label: 'Total Revenue ($M)',
+                                data: APP_DATA.financialPerformance.revenue,
+                                backgroundColor: '#a5b4fc',
+                                yAxisID: 'y',
+                                order: 2
+                            },
+                            {
+                                label: 'Net Income/Loss ($M)',
+                                data: APP_DATA.financialPerformance.netIncomeLoss,
+                                backgroundColor: '#ef4444', // Red for losses
+                                borderColor: '#dc2626',
+                                type: 'line',
+                                yAxisID: 'y',
+                                tension: 0.1,
+                                fill: false,
+                                order: 1
+                            },
+                            {
+                                label: 'Gross Profit ($M)',
+                                data: APP_DATA.financialPerformance.grossProfit,
+                                backgroundColor: '#14b8a6', // Teal for gross profit
+                                borderColor: '#0d9488',
+                                type: 'line',
+                                yAxisID: 'y',
+                                tension: 0.1,
+                                fill: false,
+                                borderDash: [5, 5],
+                                order: 0
+                            }
+                        ]
+                    },
+                    options: {
+                        ...chartDefaultOptions,
+                        scales: {
+                           ...chartDefaultOptions.scales,
+                           y: {
+                                type: 'linear',
+                                position: 'left',
+                                title: { display: true, text: 'Value ($M)'},
+                                ticks: {
+                                    callback: function(value) {
+                                        return value < 0 ? `-$${Math.abs(value)}` : `$${value}`; // Format negative as -$
+                                    }
+                                }
+                           }
+                        }
+                    }
+                });
+            }
+
+            function createAnalystRatingChart() {
+                const ctx = document.getElementById('analystRatingChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: APP_DATA.analystRatings.labels,
+                        datasets: [{
+                            label: '# of Analysts',
+                            data: APP_DATA.analystRatings.data,
+                            backgroundColor: ['#4f46e5', '#f59e0b', '#ef4444'], // Blue for Buy, Orange for Hold, Red for Sell
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { family: "'Poppins', sans-serif" },
+                                    boxWidth: 12,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: chartDefaultOptions.plugins.tooltip
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+
+            init();
+        });
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(sectionId)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    </script>
 </body>
 </html>

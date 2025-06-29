@@ -1,0 +1,24 @@
+{
+  "name": "investment-research-hub-",
+  "version": "1.0.0",
+  "description": "A comprehensive platform for investment research reports and analysis. This interactive website provides detailed investment theses for various companies with modern, responsive design.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devangdshah/investment-research-hub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devangdshah/investment-research-hub/issues"
+  },
+  "homepage": "https://github.com/devangdshah/investment-research-hub#readme",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "dotenv": "^17.0.0"
+  }
+}

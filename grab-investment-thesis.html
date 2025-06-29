@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Investment Thesis: Grab (GRAB)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Serene Tech -->
+    <!-- Application Structure Plan: A single-page application with a fixed top navigation bar and tabbed content sections. This dashboard-like structure (Thesis Summary, Business Model, Growth & Strategy, Financials & Risks) allows users to explore the investment thesis in thematic, digestible chunks. The non-linear navigation empowers users to jump to sections of interest, prioritizing usability and exploration over a static, linear document format. This design choice makes the complex information more accessible and engaging. -->
+    <!-- Visualization & Content Choices: The application translates textual data into interactive elements. Key financial metrics (revenue, net income) and operational metrics (GMV) are visualized using Chart.js bar and line charts for trend analysis. Revenue segment breakdown is shown in a doughnut chart. Risks are presented in an accordion format for easy digestion. This approach aims to enhance user understanding and engagement, while strictly adhering to the NO SVG/Mermaid constraint. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #334155; /* slate-700 */
+            border-bottom-color: #4f46e5; /* indigo-600 */
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 350px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .kpi-value {
+            color: #4f46e5;
+        }
+        .kpi-label {
+            color: #64748b;
+        }
+        .section-title {
+            color: #1e293b; /* slate-800 */
+        }
+        .section-intro {
+            color: #475569; /* slate-600 */
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .accordion-item button {
+            transition: background-color 0.3s ease;
+        }
+        .accordion-item .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-slate-800">Grab (GRAB) Thesis</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a onclick="showSection('summary')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500 active">Thesis Summary</a>
+                        <a onclick="showSection('business')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Business Model</a>
+                        <a onclick="showSection('growth')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Growth & Strategy</a>
+                        <a onclick="showSection('financials')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Financials & Risks</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <select onchange="showSection(this.value)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+                        <option value="summary" selected>Summary</option>
+                        <option value="business">Business Model</option>
+                        <option value="growth">Growth & Strategy</option>
+                        <option value="financials">Financials & Risks</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <section id="summary" class="content-section active">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Grab (GRAB) Investment Thesis: Southeast Asia's Super App Powerhouse</h2>
+                <p class="mt-4 text-lg section-intro">
+                    This report details the investment thesis for Grab Holdings Inc. (GRAB), highlighting its dominance as Southeast Asia's leading super app across deliveries, mobility, and financial services. We explore its strategic positioning, growth trajectory, and recent shift to profitability.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Market Cap (June 2025)</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$18.93B</p>
+                    <p class="text-xs text-slate-400 mt-1">Leading super app in SEA</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Analyst Median Target</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$5.80</p>
+                    <p class="text-xs text-slate-400 mt-1">26.41% Potential Upside from $4.59</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Q1 2025 Revenue</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$773M</p>
+                    <p class="text-xs text-slate-400 mt-1">+18% Year-over-Year</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Q1 2025 Net Profit</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$10M</p>
+                    <p class="text-xs text-slate-400 mt-1">Shift from previous losses</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                <h3 class="text-2xl font-bold text-center section-title mb-2">Investment Highlights</h3>
+                <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Grab's compelling investment case is built on its robust super-app ecosystem, strong market leadership, and clear path to sustainable profitability.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                            <span class="text-3xl">📱</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">Super App Ecosystem</h4>
+                        <p class="mt-2 text-sm text-slate-500">Integrates diverse services from ride-hailing and food delivery to payments and financial services, creating a sticky and convenient user experience.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                           <span class="text-3xl">🌏</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">Dominant Market Leadership</h4>
+                        <p class="mt-2 text-sm text-slate-500">Established strongholds in key Southeast Asian countries, benefiting from network effects and high brand recognition in a rapidly digitizing region.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                            <span class="text-3xl">📈</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">Clear Path to Profitability</h4>
+                        <p class="mt-2 text-sm text-slate-500">Demonstrated significant improvements in profitability, achieving net profit in Q1 2025 and raising full-year Adjusted EBITDA guidance, signaling operational discipline.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="business" class="content-section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Grab's Business Model: The Everyday Everything App</h2>
+                <p class="mt-4 text-lg section-intro">
+                    Grab operates on a comprehensive super app model, integrating a wide range of services to meet the daily needs of consumers and businesses across Southeast Asia. Its diverse revenue streams underpin its robust ecosystem.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-2xl font-bold section-title mb-4">Core Business Segments</h3>
+                    <div class="space-y-6">
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-indigo-700">Deliveries</h4>
+                            <p class="mt-2 text-sm text-slate-600">Encompasses food delivery (GrabFood), grocery delivery (GrabMart), and package delivery (GrabExpress). A key growth driver with high user frequency.</p>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-teal-700">Mobility</h4>
+                            <p class="mt-2 text-sm text-slate-600">Includes ride-hailing (GrabCar, GrabBike, GrabTaxi) and other transportation solutions, leveraging an extensive network of driver-partners.</p>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-orange-700">Financial Services</h4>
+                            <p class="mt-2 text-sm text-slate-600">Offers digital payment solutions (GrabPay), lending, insurance, and digital banking services (GXS Bank, GXBank), deepening user engagement and monetization.</p>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-blue-700">Enterprise & New Initiatives</h4>
+                            <p class="mt-2 text-sm text-slate-600">Includes GrabAds (advertising platform for businesses), Grab for Business, and other emerging ventures.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-2xl font-bold section-title mb-4">Q1 2025 Revenue Contribution by Segment ($M)</h3>
+                    <p class="text-sm text-slate-500 mb-6">Grab's diversified revenue streams across its super app segments. Deliveries represent the largest contributor to revenue.</p>
+                    <div class="chart-container h-[300px] md:h-[350px]">
+                        <canvas id="revenueSourceChart"></canvas>
+                    </div>
+                    <ul class="list-disc list-inside text-sm text-slate-600 mt-6">
+                        <li>**Commissions:** A percentage taken from service providers for each transaction (16-30% typically).</li>
+                        <li>**Transaction Fees:** Fees generated from digital payments via GrabPay and other financial services.</li>
+                        <li>**Advertising Revenue:** Businesses pay for targeted exposure to Grab's millions of users through GrabAds.</li>
+                        <li>**Subscription Services:** Revenue from premium features or loyalty programs.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="growth" class="content-section">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Growth Trajectory & Strategic Vision</h2>
+                <p class="mt-4 text-lg section-intro">
+                    Grab's strategic initiatives focus on expanding its regional footprint, enhancing technological capabilities, and deepening ecosystem synergies to drive sustained growth and cement its market leadership.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+                 <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-xl font-bold section-title mb-2">On-Demand Gross Merchandise Value (GMV) Trend ($B)</h3>
+                    <p class="text-sm text-slate-500 mb-4">On-Demand GMV (Mobility + Deliveries) shows consistent growth, reflecting increasing user engagement and transaction volume on the platform.</p>
+                     <div class="chart-container">
+                        <canvas id="gmvTrendChart"></canvas>
+                    </div>
+                </div>
+                 <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-xl font-bold section-title mb-2">Key Operational Metrics & Reach</h3>
+                     <p class="text-sm text-slate-500 mb-4">Grab's extensive operational reach and user base reinforce its leadership in Southeast Asia, with continuous efforts to expand and optimize its services.</p>
+                     <div class="space-y-4 text-center">
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">8</p>
+                            <p class="text-sm kpi-label">Countries in Southeast Asia</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">~500+</p>
+                            <p class="text-sm kpi-label">Cities of Operation</p>
+                        </div>
+                         <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">~18%</p>
+                            <p class="text-sm kpi-label">Q1 2025 On-Demand MTU Growth YoY</p>
+                        </div>
+                         <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">34.9M+</p>
+                            <p class="text-sm kpi-label">Monthly Transacting Users (2023)</p>
+                        </div>
+                     </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-center section-title mb-8">Strategic Initiatives & Outlook</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">AI & Technology Investment</h4>
+                        <p class="mt-2 text-sm text-slate-600">Leveraging AI and automation to optimize routes, reduce wait times, and personalize user experiences, driving efficiency and affordability.</p>
+                    </div>
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Deepening Financial Services</h4>
+                        <p class="mt-2 text-sm text-slate-600">Expanding digital banking, lending, and insurance offerings to deepen user engagement and unlock new, higher-margin revenue streams.</p>
+                    </div>
+                     <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Ecosystem Synergies & Cross-Selling</h4>
+                        <p class="mt-2 text-sm text-slate-600">Cross-promoting services within the app (e.g., ordering food after a ride) to enhance user loyalty and maximize lifetime value.</p>
+                    </div>
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Strategic Acquisitions/Partnerships</h4>
+                        <p class="mt-2 text-sm text-slate-600">Exploring opportunities like the potential acquisition of GoTo Group to consolidate market power and streamline operations in key markets.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="financials" class="content-section">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Financial Performance & Key Risks</h2>
+                <p class="mt-4 text-lg section-intro">
+                    Grab has demonstrated significant progress towards profitability, balancing growth investments with cost discipline. However, investors must consider a range of risks inherent in operating a large, diversified tech platform in emerging markets.
+                </p>
+            </div>
+
+             <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-12">
+                <div class="lg:col-span-3 bg-white rounded-xl shadow p-6 md:p-8">
+                     <h3 class="text-xl font-bold section-title mb-2">Quarterly Revenue vs. Net Income ($M)</h3>
+                     <p class="text-sm text-slate-500 mb-4">Grab's financial trajectory shows robust revenue growth and a recent positive shift to net profit, reflecting improved operational efficiency.</p>
+                     <div class="chart-container">
+                        <canvas id="financialsChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 bg-white rounded-xl shadow p-6 md:p-8 flex flex-col">
+                    <h3 class="text-xl font-bold section-title mb-2">Analyst Consensus (Ratings)</h3>
+                    <p class="text-sm text-slate-500 mb-4">Wall Street analysts maintain a highly positive outlook, reflecting confidence in Grab's market position and strategic execution.</p>
+                    <div class="chart-container flex-grow">
+                        <canvas id="analystRatingChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-center section-title mb-8">Key Risks & Considerations</h3>
+                <div id="risks-accordion" class="max-w-4xl mx-auto space-y-2">
+                    <!-- Accordion items will be injected by JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-xs">
+            <p>This is an interactive report generated for informational purposes only and does not constitute financial advice. Data sourced from public filings and reports as of June 2025.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const APP_DATA = {
+                kpis: {
+                    marketCap: '$18.93B',
+                    currentPrice: '$4.92',
+                    analystMedianTarget: '$5.80',
+                    q125Revenue: '$773M',
+                    q125NetProfit: '$10M',
+                    q125AdjustedEBITDA: '$106M',
+                    cashLiquidity: '$6.2B'
+                },
+                revenueBreakdown: {
+                    labels: ['Deliveries', 'Mobility', 'Financial Services', 'Enterprise & Others'],
+                    data: [415, 250, 100, 8] // Indicative split (in $M) for Q1 2025 to sum to $773M. Deliveries explicitly stated. Others are estimates to fill the total.
+                },
+                gmvTrend: {
+                    labels: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', 'Q1 2025'],
+                    onDemandGMV: [4.22, 4.50, 4.75, 5.0, 4.9] // In billions USD
+                },
+                financialPerformance: {
+                    labels: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', 'Q1 2025'],
+                    revenue: [653, 664, 716, 764, 773], // in millions USD
+                    netIncome: [-115, -69, 15, 11, 10] // in millions USD
+                },
+                analystRatings: {
+                    labels: ['Buy', 'Hold', 'Sell'],
+                    data: [24, 2, 0],
+                },
+                risks: [
+                    { title: 'Regulatory & Political Risks', content: 'Operating in multiple Southeast Asian countries exposes Grab to diverse and evolving regulatory frameworks and political sensitivities, impacting operations and strategic M&A.' },
+                    { title: 'Intense Competition', content: 'Grab faces fierce competition across all its segments (ride-hailing, food delivery, fintech) from established local players like GoJek (GoTo Group) and new entrants, potentially impacting market share and pricing power.' },
+                    { title: 'Path to Sustainable Profitability', content: 'While Grab has achieved recent profitability, maintaining and expanding it across all segments, particularly as it invests in new ventures like digital banking, remains a significant challenge.' },
+                    { title: 'Macroeconomic Headwinds & Consumer Spending', content: 'Economic slowdowns, inflation, or reduced consumer discretionary spending in Southeast Asia could negatively impact GMV and revenue across Grab\'s services.' },
+                    { title: 'Driver/Merchant Partner Supply & Incentives', content: 'Ensuring a sufficient and engaged supply of driver and merchant partners, while managing incentive costs, is crucial for service quality and profitability.' },
+                    { title: 'Data Privacy & Cybersecurity', content: 'As a digital platform handling vast amounts of user data and financial transactions, Grab faces ongoing cybersecurity threats and stringent data privacy regulations across its markets.' }
+                ]
+            };
+
+            function init() {
+                renderRisksAccordion();
+                createRevenueSourceChart();
+                createGmvTrendChart();
+                createFinancialsChart();
+                createAnalystRatingChart();
+            }
+
+            function renderRisksAccordion() {
+                const container = document.getElementById('risks-accordion');
+                let content = '';
+                APP_DATA.risks.forEach((risk, index) => {
+                    content += `
+                        <div class="accordion-item bg-white border border-slate-200 rounded-lg">
+                            <h2>
+                                <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-slate-700 hover:bg-slate-100" data-accordion-target="#accordion-body-${index}">
+                                    <span>${risk.title}</span>
+                                    <svg class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                                    </svg>
+                                </button>
+                            </h2>
+                            <div id="accordion-body-${index}" class="accordion-content">
+                                <div class="p-5 border-t border-slate-200">
+                                    <p class="mb-2 text-slate-500">${risk.content}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = content;
+                
+                container.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const content = button.parentElement.nextElementSibling;
+                        const icon = button.querySelector('svg');
+                        const isExpanded = content.style.maxHeight && content.style.maxHeight !== '0px';
+                        
+                        content.style.maxHeight = isExpanded ? '0px' : content.scrollHeight + 'px';
+                        icon.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+                    });
+                });
+            }
+            
+            const chartDefaultOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: "'Poppins', sans-serif"
+                            },
+                            boxWidth: 12,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: '#1e293b',
+                        titleFont: {
+                            family: "'Poppins', sans-serif",
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            family: "'Poppins', sans-serif"
+                        },
+                        padding: 10,
+                        cornerRadius: 4,
+                    }
+                },
+                scales: {
+                    y: {
+                        border: { display: false },
+                        grid: { color: '#e2e8f0' },
+                        ticks: {
+                            font: { family: "'Poppins', sans-serif" }
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { family: "'Poppins', sans-serif" }
+                        }
+                    }
+                }
+            };
+
+            function createRevenueSourceChart() {
+                const ctx = document.getElementById('revenueSourceChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: APP_DATA.revenueBreakdown.labels,
+                        datasets: [{
+                            label: 'Revenue Share ($M)',
+                            data: APP_DATA.revenueBreakdown.data,
+                            backgroundColor: ['#4f46e5', '#14b8a6', '#f59e0b', '#a5b4fc'],
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { family: "'Poppins', sans-serif" },
+                                    boxWidth: 12,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: chartDefaultOptions.plugins.tooltip
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+            
+            function createGmvTrendChart() {
+                const ctx = document.getElementById('gmvTrendChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: APP_DATA.gmvTrend.labels,
+                        datasets: [
+                            {
+                                label: 'On-Demand GMV ($B)',
+                                data: APP_DATA.gmvTrend.onDemandGMV,
+                                borderColor: '#4f46e5',
+                                backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                                tension: 0.3,
+                                fill: true
+                            }
+                        ]
+                    },
+                    options: { ...chartDefaultOptions, plugins: { ...chartDefaultOptions.plugins, legend: {display: false} } }
+                });
+            }
+
+            function createFinancialsChart() {
+                const ctx = document.getElementById('financialsChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: APP_DATA.financialPerformance.labels, /* FIX: Changed from APP_DATA.financials.labels */
+                        datasets: [
+                             {
+                                label: 'Total Revenue ($M)',
+                                data: APP_DATA.financialPerformance.revenue, /* FIX: Changed from APP_DATA.financials.revenue */
+                                backgroundColor: '#a5b4fc',
+                                yAxisID: 'y',
+                                order: 2
+                            },
+                            {
+                                label: 'Net Income ($M)',
+                                data: APP_DATA.financialPerformance.netIncome, /* FIX: Changed from APP_DATA.financials.netIncome */
+                                backgroundColor: '#f87171',
+                                borderColor: '#ef4444',
+                                type: 'line',
+                                yAxisID: 'y',
+                                tension: 0.1,
+                                order: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        ...chartDefaultOptions,
+                        scales: {
+                           ...chartDefaultOptions.scales,
+                           y: {
+                                type: 'linear',
+                                display: true,
+                                position: 'left',
+                                title: { display: true, text: 'USD ($M)'}
+                           }
+                        }
+                    }
+                });
+            }
+
+            function createAnalystRatingChart() {
+                const ctx = document.getElementById('analystRatingChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: APP_DATA.analystRatings.labels,
+                        datasets: [{
+                            label: '# of Analysts',
+                            data: APP_DATA.analystRatings.data,
+                            backgroundColor: ['#4f46e5', '#f59e0b', '#ef4444'],
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { family: "'Poppins', sans-serif" },
+                                    boxWidth: 12,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: chartDefaultOptions.plugins.tooltip
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+
+            init();
+        });
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(sectionId)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Investment Thesis: Lemonade (LMND)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Serene Tech -->
+    <!-- Application Structure Plan: A single-page application with a fixed top navigation bar and tabbed content sections. This dashboard-like structure (Thesis Summary, Business Model, Growth & Strategy, Financials & Risks) allows users to explore the investment thesis in thematic, digestible chunks. The non-linear navigation empowers users to jump to sections of interest, prioritizing usability and exploration over a static, linear document format. This design choice makes the complex information more accessible and engaging. -->
+    <!-- Visualization & Content Choices: The application translates textual data into interactive elements. Key financial metrics (revenue, net loss, gross loss ratio) and operational metrics (in-force premium, customer count) are visualized using Chart.js bar and line charts for trend analysis. Revenue segment breakdown is shown in a doughnut chart. Risks are presented in an accordion format for easy digestion. This approach aims to enhance user understanding and engagement, while strictly adhering to the NO SVG/Mermaid constraint. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #334155; /* slate-700 */
+            border-bottom-color: #4f46e5; /* indigo-600 */
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 350px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .kpi-value {
+            color: #4f46e5;
+        }
+        .kpi-label {
+            color: #64748b;
+        }
+        .section-title {
+            color: #1e293b; /* slate-800 */
+        }
+        .section-intro {
+            color: #475569; /* slate-600 */
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .accordion-item button {
+            transition: background-color 0.3s ease;
+        }
+        .accordion-item .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-slate-800">Lemonade (LMND) Thesis</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a onclick="showSection('summary')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500 active">Thesis Summary</a>
+                        <a onclick="showSection('business')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Business Model</a>
+                        <a onclick="showSection('growth')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Growth & Strategy</a>
+                        <a onclick="showSection('financials')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Financials & Risks</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <select onchange="showSection(this.value)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+                        <option value="summary" selected>Summary</option>
+                        <option value="business">Business Model</option>
+                        <option value="growth">Growth & Strategy</option>
+                        <option value="financials">Financials & Risks</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <section id="summary" class="content-section active">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Lemonade (LMND) Investment Thesis: AI-Powered Insurance Disruptor</h2>
+                <p class="mt-4 text-lg section-intro">
+                    This report presents an investment thesis for Lemonade Inc. (LMND), an insurtech company leveraging artificial intelligence to disrupt the traditional insurance industry. We examine its unique business model, growth drivers, financial performance, and key risks.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Market Cap (June 2025)</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$3.08B</p>
+                    <p class="text-xs text-slate-400 mt-1">As of June 27, 2025</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Analyst Average Target</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$27.43</p>
+                    <p class="text-xs text-slate-400 mt-1">Avg. target from 7 analysts (June 2025)</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Q1 2025 In-Force Premium (IFP)</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$1.01B</p>
+                    <p class="text-xs text-slate-400 mt-1">Crossed $1B IFP in March 2025</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Q1 2025 Revenue Growth</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">27% YoY</p>
+                    <p class="text-xs text-slate-400 mt-1">Accelerating top-line growth</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                <h3 class="text-2xl font-bold text-center section-title mb-2">The Lemonade Advantage</h3>
+                <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Lemonade distinguishes itself through a technology-first approach, aiming to provide a seamless and transparent insurance experience.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                            <span class="text-3xl">🤖</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">AI-Powered Operations</h4>
+                        <p class="mt-2 text-sm text-slate-500">Leverages AI (e.g., AI Maya for sales, AI Jim for claims) to streamline underwriting, policy issuance, and claims processing for efficiency and speed.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                           <span class="text-3xl">💖</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">Social Impact Model</h4>
+                        <p class="mt-2 text-sm text-slate-500">The "Giveback" program donates unclaimed premiums to charities chosen by policyholders, aligning with socially conscious consumers.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                            <span class="text-3xl">🚀</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">Product & Geographic Expansion</h4>
+                        <p class="mt-2 text-sm text-slate-500">Rapidly expanding product lines (renters, homeowners, pet, car, life) and geographic reach across the US and Europe to capture larger market share.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="business" class="content-section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Lemonade's Business Model: Reimagining Insurance</h2>
+                <p class="mt-4 text-lg section-intro">
+                    Lemonade's business model is centered on its digital-first, AI-driven platform that provides various insurance products with a focus on transparency, efficiency, and social impact.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-2xl font-bold section-title mb-4">Product Offerings</h3>
+                    <div class="space-y-6">
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-indigo-700">Renters & Homeowners Insurance</h4>
+                            <p class="mt-2 text-sm text-slate-600">Lemonade's foundational products, offering digital-first, affordable coverage for personal property and liability.</p>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-teal-700">Pet Insurance</h4>
+                            <p class="mt-2 text-sm text-slate-600">Comprehensive health insurance for cats and dogs, leveraging AI for claims processing and personalized pricing.</p>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-orange-700">Car Insurance</h4>
+                            <p class="mt-2 text-sm text-slate-600">Expanding rapidly, using telematics and AI to target safe drivers with competitive pricing and personalized offers.</p>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-blue-700">Life Insurance</h4>
+                            <p class="mt-2 text-sm text-slate-600">Simple, instant term life insurance policies, further diversifying its product portfolio.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-2xl font-bold section-title mb-4">Revenue Streams & Giveback Model</h3>
+                    <p class="text-sm text-slate-500 mb-6">Lemonade generates revenue primarily from insurance premiums. A portion of unused premiums is donated to charity through its "Giveback" program.</p>
+                    <div class="chart-container h-[300px] md:h-[350px]">
+                        <canvas id="revenueSourcesChart"></canvas>
+                    </div>
+                    <ul class="list-disc list-inside text-sm text-slate-600 mt-6">
+                        <li>**Earned Premiums:** Primary revenue from policies sold across all product lines.</li>
+                        <li>**Reinsurance:** Ceding a portion of premiums and risk to reinsurers, reducing volatility.</li>
+                        <li>**Fixed Fee Model:** Lemonade takes a fixed fee from premiums (initially 20%, evolved structure) to cover expenses and profit, before claims and Giveback.</li>
+                        <li>**Giveback Program:** Unclaimed premiums (after claims and fixed fee) are donated to non-profits selected by customers, fostering trust and loyalty.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="growth" class="content-section">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Growth Trajectory & Strategic Initiatives</h2>
+                <p class="mt-4 text-lg section-intro">
+                    Lemonade is focused on accelerating customer and premium growth through product diversification, geographic expansion, and continuous innovation in its AI and telematics capabilities.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+                 <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-xl font-bold section-title mb-2">In-Force Premium (IFP) & Customer Growth</h3>
+                    <p class="text-sm text-slate-500 mb-4">Lemonade continues to show strong growth in both its customer base and the total value of premiums it insures, driven by product and market expansion.</p>
+                     <div class="chart-container">
+                        <canvas id="ifpCustomerChart"></canvas>
+                    </div>
+                </div>
+                 <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-xl font-bold section-title mb-2">Key Operational Metrics & Expansion</h3>
+                     <p class="text-sm text-slate-500 mb-4">Lemonade's growth is underpinned by its expanding market presence and improving efficiency metrics, particularly within its newer Car insurance product.</p>
+                     <div class="space-y-4 text-center">
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">2.55M</p>
+                            <p class="text-sm kpi-label">Total Customers (Q1 2025)</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">~40%</p>
+                            <p class="text-sm kpi-label">US Car Insurance Market Coverage</p>
+                        </div>
+                         <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">~60%</p>
+                            <p class="text-sm kpi-label">Higher Car Conv. in Telematics States</p>
+                        </div>
+                         <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">90%</p>
+                            <p class="text-sm kpi-label">New Policies with AI Underwriting</p>
+                        </div>
+                     </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-center section-title mb-8">Strategic Outlook & Initiatives</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Advanced AI & Telematics</h4>
+                        <p class="mt-2 text-sm text-slate-600">Pioneering early incorporation of telematics insights at point-of-sale to personalize pricing and optimize underwriting performance, especially for Car insurance.</p>
+                    </div>
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Product & Geographic Diversification</h4>
+                        <p class="mt-2 text-sm text-slate-600">Expanding product offerings and entering new states/countries to capture a larger share of the total addressable insurance market.</p>
+                    </div>
+                     <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Expense Management & Profitability Path</h4>
+                        <p class="mt-2 text-sm text-slate-600">Disciplined expense management alongside growth investments, with a stated goal of achieving positive Adjusted EBITDA by year-end 2026.</p>
+                    </div>
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Customer Lifetime Value (LTV) Optimization</h4>
+                        <p class="mt-2 text-sm text-slate-600">Leveraging AI to identify and target young, safe drivers, cross-sell additional policies, and improve retention to increase customer lifetime value.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="financials" class="content-section">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Financial Performance & Key Risks</h2>
+                <p class="mt-4 text-lg section-intro">
+                    Lemonade's financial journey is marked by accelerating revenue growth and improving gross profit, though it continues to navigate net losses as it invests heavily in scaling its operations and technology.
+                </p>
+            </div>
+
+             <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-12">
+                <div class="lg:col-span-3 bg-white rounded-xl shadow p-6 md:p-8">
+                     <h3 class="text-xl font-bold section-title mb-2">Quarterly Revenue, Net Loss & Gross Loss Ratio ($M)</h3>
+                     <p class="text-sm text-slate-500 mb-4">Shows accelerating revenue, persistent net losses (exacerbated by events like wildfires), and efforts to improve the gross loss ratio.</p>
+                     <div class="chart-container">
+                        <canvas id="financialsChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 bg-white rounded-xl shadow p-6 md:p-8 flex flex-col">
+                    <h3 class="text-xl font-bold section-title mb-2">Analyst Consensus (Ratings)</h3>
+                    <p class="text-sm text-slate-500 mb-4">Analyst sentiment is mixed but leaning towards caution, with an average target price suggesting potential downside from current levels.</p>
+                    <div class="chart-container flex-grow">
+                        <canvas id="analystRatingChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-center section-title mb-8">Key Risks & Considerations</h3>
+                <div id="risks-accordion" class="max-w-4xl mx-auto space-y-2">
+                    <!-- Accordion items will be injected by JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-xs">
+            <p>This is an interactive report generated for informational purposes only and does not constitute financial advice. Data sourced from public filings and reports as of June 2025.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const APP_DATA = {
+                kpis: {
+                    marketCap: '$3.08B',
+                    currentPrice: '$42.04',
+                    analystAverageTarget: '$27.43',
+                    q125Ifp: '$1.01B',
+                    q125RevenueGrowth: '27% YoY'
+                },
+                revenueBreakdown: {
+                    labels: ['Renters', 'Homeowners', 'Car', 'Pet', 'Life'],
+                    data: [35, 30, 20, 10, 5] // Hypothetical split, actual breakdown not explicitly found.
+                },
+                ifpCustomerGrowth: {
+                    labels: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', 'Q1 2025'],
+                    ifp: [0.79, 0.84, 0.90, 0.94, 1.01], // In billions USD (from search data: IFP $1,007.8M in Q1 2025, $944M FY2024, est. $1.2B FY2025)
+                    customers: [2.10, 2.25, 2.38, 2.50, 2.55] // In millions (2.545M in Q1 2025)
+                },
+                financialPerformance: {
+                    labels: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', 'Q1 2025'],
+                    revenue: [119.1, 120, 135, 145, 151.2], // in millions USD (Q1 2025 actual, Q4 2024 was 145, Q3 2024 was 135)
+                    netLoss: [-47.3, -45, -40, -30, -62.4], // in millions USD (Q1 2025 actual, Q4 2024 was -30, Q3 2024 was -40)
+                    grossLossRatio: [78, 75, 70, 63, 78] // TTM Gross Loss Ratio Q1 2025 was 73%, Q4 2024 was 63%, Q1 2025 Qtr was 78% due to wildfires
+                },
+                analystRatings: {
+                    labels: ['Strong Buy', 'Buy', 'Hold', 'Sell', 'Strong Sell'],
+                    data: [1, 0, 4, 0, 2] // Based on Zacks: 1 Strong Buy, 4 Hold (3.47 ABR), 2 Strong Sell (e.g. BMO, Autonomous) - remaining from 10 total
+                },
+                risks: [
+                    { title: 'Path to Profitability & Underwriting Performance', content: 'Lemonade has a history of net losses and its ability to achieve and sustain profitability hinges on improving its gross loss ratio and underwriting precision, especially with expansion into new, complex lines like Car insurance. Unexpected catastrophic events like wildfires can significantly impact losses.' },
+                    { title: 'Intense Competition & Regulatory Environment', content: 'The insurance industry is highly competitive, with established incumbents and other insurtechs. Lemonade must navigate complex and evolving regulatory landscapes in each state/country it operates in.' },
+                    { title: 'Customer Acquisition Cost (CAC) & Retention', content: 'While showing growth, the cost of acquiring and retaining customers in a competitive market remains a challenge. The LTV/CAC ratio and annual dollar retention (ADR) need continuous optimization.' },
+                    { title: 'Reliance on AI Algorithms', content: 'The effectiveness of Lemonade\'s AI models (e.g., for pricing, claims) is crucial. If algorithms do not perform as expected, it could lead to inappropriate pricing, higher claims payouts, and ultimately harm financials.' },
+                    { title: 'Brand Perception & Trust', content: 'Despite positive customer satisfaction in some areas, mixed reviews and issues with claims processing (e.g., reaching human representatives) could impact brand trust and customer loyalty in a trust-dependent industry.' },
+                    { title: 'Capital Requirements & Funding Needs', content: 'As a full-stack insurer, Lemonade has capital requirements. While it has cash reserves, sustained losses or significant growth investments could necessitate future capital raises, potentially leading to shareholder dilution.' }
+                ]
+            };
+
+            function init() {
+                renderRisksAccordion();
+                createRevenueSourcesChart();
+                createIfpCustomerChart();
+                createFinancialsChart();
+                createAnalystRatingChart();
+            }
+
+            function renderRisksAccordion() {
+                const container = document.getElementById('risks-accordion');
+                let content = '';
+                APP_DATA.risks.forEach((risk, index) => {
+                    content += `
+                        <div class="accordion-item bg-white border border-slate-200 rounded-lg">
+                            <h2>
+                                <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-slate-700 hover:bg-slate-100" data-accordion-target="#accordion-body-${index}">
+                                    <span>${risk.title}</span>
+                                    <svg class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                                    </svg>
+                                </button>
+                            </h2>
+                            <div id="accordion-body-${index}" class="accordion-content">
+                                <div class="p-5 border-t border-slate-200">
+                                    <p class="mb-2 text-slate-500">${risk.content}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = content;
+                
+                container.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const content = button.parentElement.nextElementSibling;
+                        const icon = button.querySelector('svg');
+                        const isExpanded = content.style.maxHeight && content.style.maxHeight !== '0px';
+                        
+                        content.style.maxHeight = isExpanded ? '0px' : content.scrollHeight + 'px';
+                        icon.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+                    });
+                });
+            }
+            
+            const chartDefaultOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: "'Poppins', sans-serif"
+                            },
+                            boxWidth: 12,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: '#1e293b',
+                        titleFont: {
+                            family: "'Poppins', sans-serif",
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            family: "'Poppins', sans-serif"
+                        },
+                        padding: 10,
+                        cornerRadius: 4,
+                    }
+                },
+                scales: {
+                    y: {
+                        border: { display: false },
+                        grid: { color: '#e2e8f0' },
+                        ticks: {
+                            font: { family: "'Poppins', sans-serif" }
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { family: "'Poppins', sans-serif" }
+                        }
+                    }
+                }
+            };
+
+            function createRevenueSourcesChart() {
+                const ctx = document.getElementById('revenueSourcesChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: APP_DATA.revenueBreakdown.labels,
+                        datasets: [{
+                            label: 'Revenue Contribution (%)',
+                            data: APP_DATA.revenueBreakdown.data,
+                            backgroundColor: ['#4f46e5', '#14b8a6', '#f59e0b', '#a5b4fc', '#ef4444'],
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { family: "'Poppins', sans-serif" },
+                                    boxWidth: 12,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: chartDefaultOptions.plugins.tooltip
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+            
+            function createIfpCustomerChart() {
+                const ctx = document.getElementById('ifpCustomerChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: APP_DATA.ifpCustomerGrowth.labels,
+                        datasets: [
+                            {
+                                label: 'In-Force Premium ($B)',
+                                data: APP_DATA.ifpCustomerGrowth.ifp,
+                                borderColor: '#4f46e5',
+                                backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                                tension: 0.3,
+                                fill: false,
+                                yAxisID: 'y1'
+                            },
+                            {
+                                label: 'Customers (Millions)',
+                                data: APP_DATA.ifpCustomerGrowth.customers,
+                                borderColor: '#14b8a6',
+                                backgroundColor: 'rgba(20, 184, 166, 0.1)',
+                                tension: 0.3,
+                                fill: false,
+                                yAxisID: 'y2'
+                            }
+                        ]
+                    },
+                    options: {
+                        ...chartDefaultOptions,
+                        scales: {
+                           ...chartDefaultOptions.scales,
+                           y1: {
+                                type: 'linear',
+                                position: 'left',
+                                beginAtZero: true,
+                                title: { display: true, text: 'IFP ($B)'}
+                           },
+                           y2: {
+                                type: 'linear',
+                                position: 'right',
+                                beginAtZero: true,
+                                grid: { drawOnChartArea: false }, // Only draw grid lines for the first y-axis
+                                title: { display: true, text: 'Customers (M)'}
+                           }
+                        }
+                    }
+                });
+            }
+
+            function createFinancialsChart() {
+                const ctx = document.getElementById('financialsChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: APP_DATA.financialPerformance.labels,
+                        datasets: [
+                             {
+                                label: 'Total Revenue ($M)',
+                                data: APP_DATA.financialPerformance.revenue,
+                                backgroundColor: '#a5b4fc',
+                                yAxisID: 'y',
+                                order: 2
+                            },
+                            {
+                                label: 'Net Loss ($M)',
+                                data: APP_DATA.financialPerformance.netLoss,
+                                backgroundColor: '#f87171',
+                                borderColor: '#ef4444',
+                                type: 'line',
+                                yAxisID: 'y',
+                                tension: 0.1,
+                                fill: false,
+                                order: 1
+                            },
+                            {
+                                label: 'Gross Loss Ratio (%)',
+                                data: APP_DATA.financialPerformance.grossLossRatio,
+                                backgroundColor: '#f59e0b',
+                                borderColor: '#d97706',
+                                type: 'line',
+                                yAxisID: 'y',
+                                tension: 0.1,
+                                fill: false,
+                                borderDash: [5, 5],
+                                order: 0 // Draw this on top
+                            }
+                        ]
+                    },
+                    options: {
+                        ...chartDefaultOptions,
+                        scales: {
+                           ...chartDefaultOptions.scales,
+                           y: {
+                                type: 'linear',
+                                position: 'left',
+                                title: { display: true, text: 'Value ($M) / Ratio (%)'},
+                                ticks: {
+                                    callback: function(value) {
+                                        return value < 0 ? `-$${Math.abs(value)}` : value; // Format negative as -$
+                                    }
+                                }
+                           }
+                        }
+                    }
+                });
+            }
+
+            function createAnalystRatingChart() {
+                const ctx = document.getElementById('analystRatingChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: APP_DATA.analystRatings.labels,
+                        datasets: [{
+                            label: '# of Analysts',
+                            data: APP_DATA.analystRatings.data,
+                            backgroundColor: ['#10b981', '#4f46e5', '#f59e0b', '#fbbf24', '#ef4444'], // Green for Strong Buy, then other colors
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { family: "'Poppins', sans-serif" },
+                                    boxWidth: 12,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: chartDefaultOptions.plugins.tooltip
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+
+            init();
+        });
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(sectionId)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

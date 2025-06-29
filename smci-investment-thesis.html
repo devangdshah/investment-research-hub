@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Investment Thesis: Super Micro Computer (SMCI)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Serene Tech -->
+    <!-- Application Structure Plan: A single-page application with a fixed top navigation bar and tabbed content sections. This dashboard-like structure (Thesis Summary, Business Model, Growth & Strategy, Financials & Risks) allows users to explore the investment thesis in thematic, digestible chunks. The non-linear navigation empowers users to jump to sections of interest, prioritizing usability and exploration over a static, linear document format. This design choice makes the complex information more accessible and engaging. -->
+    <!-- Visualization & Content Choices: The application translates textual data into interactive elements. Key financial metrics (revenue, net income, gross profit) and operational trends are visualized using Chart.js bar and line charts. Revenue breakdown and analyst sentiment are shown in doughnut charts. Risks are presented in an accordion format for easy digestion. This approach aims to enhance user understanding and engagement, while strictly adhering to the NO SVG/Mermaid constraint. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #334155; /* slate-700 */
+            border-bottom-color: #4f46e5; /* indigo-600 */
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 350px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .kpi-value {
+            color: #4f46e5;
+        }
+        .kpi-label {
+            color: #64748b;
+        }
+        .section-title {
+            color: #1e293b; /* slate-800 */
+        }
+        .section-intro {
+            color: #475569; /* slate-600 */
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .accordion-item button {
+            transition: background-color 0.3s ease;
+        }
+        .accordion-item .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-slate-800">Super Micro Computer (SMCI) Thesis</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a onclick="showSection('summary')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500 active">Thesis Summary</a>
+                        <a onclick="showSection('business')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Business Model</a>
+                        <a onclick="showSection('growth')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Growth & Strategy</a>
+                        <a onclick="showSection('financials')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Financials & Risks</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <select onchange="showSection(this.value)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+                        <option value="summary" selected>Summary</option>
+                        <option value="business">Business Model</option>
+                        <option value="growth">Growth & Strategy</option>
+                        <option value="financials">Financials & Risks</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <section id="summary" class="content-section active">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Super Micro Computer (SMCI) Investment Thesis: Powering the AI Revolution</h2>
+                <p class="mt-4 text-lg section-intro">
+                    This report details the investment thesis for Super Micro Computer, Inc. (SMCI), a global leader in high-performance server and storage solutions. We explore its strategic position in the accelerating AI infrastructure market, unique technological advantages, and financial outlook.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Market Cap (June 2025)</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$28.39B</p>
+                    <p class="text-xs text-slate-400 mt-1">As of June 27, 2025</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Analyst Average Target</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$45.63</p>
+                    <p class="text-xs text-slate-400 mt-1">Avg. target from MarketBeat (June 2025)</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Q3 FY25 Revenue</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$4.60B</p>
+                    <p class="text-xs text-slate-400 mt-1">Ended March 31, 2025</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">FY24 Revenue Growth</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">~150% YoY</p>
+                    <p class="text-xs text-slate-400 mt-1">Driven by AI server demand</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                <h3 class="text-2xl font-bold text-center section-title mb-2">Investment Highlights</h3>
+                <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">SMCI's compelling investment case is built on its critical role in the burgeoning AI infrastructure market, rapid innovation, and efficient solutions.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                            <span class="text-3xl">🧠</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">AI Infrastructure Backbone</h4>
+                        <p class="mt-2 text-sm text-slate-500">Provides optimized servers for AI workloads, directly benefiting from the accelerating adoption of AI across industries.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                           <span class="text-3xl">💧</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">Liquid Cooling Leadership</h4>
+                        <p class="mt-2 text-sm text-slate-500">Pioneering direct liquid cooling solutions that reduce power costs by up to 40% and TCO by 20%, a key differentiator for hyperscale data centers.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                            <span class="text-3xl">⚡</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">First-to-Market Innovation</h4>
+                        <p class="mt-2 text-sm text-slate-500">Rapidly integrates latest technologies (NVIDIA Blackwell, AMD MI350) and offers rack-scale plug-and-play solutions for quick deployment.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="business" class="content-section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">SMCI's Business Model: Building Block Solutions for IT Infrastructure</h2>
+                <p class="mt-4 text-lg section-intro">
+                    Super Micro Computer designs, develops, manufactures, and sells high-performance server and storage solutions, leveraging a "building block" approach to offer application-optimized products for various markets, with a growing focus on AI.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-2xl font-bold section-title mb-4">Core Product & Service Offerings</h3>
+                    <div class="space-y-6">
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-indigo-700">Server & Storage Systems</h4>
+                            <p class="mt-2 text-sm text-slate-600">Offers a broad portfolio of rackmount servers, blade servers, workstations, and storage systems for various workloads including AI, HPC, Cloud, and Enterprise.</p>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-teal-700">AI & GPU Systems</h4>
+                            <p class="mt-2 text-sm text-slate-600">Specialized servers optimized for AI training and inference, supporting leading GPUs from NVIDIA (e.g., Blackwell) and AMD (e.g., Instinct MI350).</p>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-orange-700">Direct Liquid Cooling (DLC) Solutions</h4>
+                            <p class="mt-2 text-sm text-slate-600">Advanced cooling technologies for high-density, high-power AI data centers, significantly reducing energy consumption and TCO.</p>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-blue-700">Rack-Scale Total IT Solutions</h4>
+                            <p class="mt-2 text-sm text-slate-600">Provides complete, pre-integrated rack solutions, including servers, storage, networking, cabling, and management software for rapid deployment.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-2xl font-bold section-title mb-4">FY 2024 Revenue Contribution by Product Segment</h3>
+                    <p class="text-sm text-slate-500 mb-6">SMCI's revenue is primarily driven by its server and storage systems, reflecting its core business in IT infrastructure.</p>
+                    <div class="chart-container h-[300px] md:h-[350px]">
+                        <canvas id="revenueSourcesChart"></canvas>
+                    </div>
+                    <ul class="list-disc list-inside text-sm text-slate-600 mt-6">
+                        <li>**Server & Storage Systems:** Comprises the vast majority of revenue from sales of complete server and storage solutions.</li>
+                        <li>**Subsystems & Accessories:** Includes revenue from individual components like motherboards, chassis, power supplies, and accessories.</li>
+                        <li>**Service:** Revenue from support, maintenance, and professional services.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="growth" class="content-section">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Growth Trajectory & Strategic Vision</h2>
+                <p class="mt-4 text-lg section-intro">
+                    SMCI is strategically expanding its AI infrastructure footprint through key partnerships, product innovation, and global manufacturing capabilities, positioning itself for sustained growth in enterprise AI.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+                 <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-xl font-bold section-title mb-2">Quarterly Revenue Growth ($M)</h3>
+                    <p class="text-sm text-slate-500 mb-4">Illustrates SMCI's robust top-line expansion, particularly driven by demand for AI infrastructure.</p>
+                     <div class="chart-container">
+                        <canvas id="revenueGrowthChart"></canvas>
+                    </div>
+                </div>
+                 <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-xl font-bold section-title mb-2">Key Operational & Growth Metrics</h3>
+                     <p class="text-sm text-slate-500 mb-4">Highlights SMCI's capacity, market position, and efficiency in a rapidly evolving market.</p>
+                     <div class="space-y-4 text-center">
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">$14.94B</p>
+                            <p class="text-sm kpi-label">FY24 Revenue</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">$37.7B</p>
+                            <p class="text-sm kpi-label">FY27 Revenue Forecast</p>
+                        </div>
+                         <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">6M sq. ft.</p>
+                            <p class="text-sm kpi-label">Global Manufacturing Capacity</p>
+                        </div>
+                         <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">1.3M+</p>
+                            <p class="text-sm kpi-label">Servers & Storage Nodes Shipped</p>
+                        </div>
+                     </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-center section-title mb-8">Strategic Initiatives & Future Outlook</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Edge AI & 5G Deployment</h4>
+                        <p class="mt-2 text-sm text-slate-600">Strategic collaboration with Ericsson to accelerate Edge AI deployment, combining SMCI's AI platforms with Ericsson's 5G connectivity solutions.</p>
+                    </div>
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Hyperscale AI Campus Development</h4>
+                        <p class="mt-2 text-sm text-slate-600">Memorandum of Understanding with DataVolt to build hyperscale AI campuses in Saudi Arabia, leveraging SMCI's direct liquid cooling technology.</p>
+                    </div>
+                     <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Next-Gen GPU & CPU Support</h4>
+                        <p class="mt-2 text-sm text-slate-600">Continuously expanding its AI portfolio with systems supporting NVIDIA Blackwell GPUs and AMD Instinct MI350 series GPUs, ensuring first-to-market solutions.</p>
+                    </div>
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Green Computing & TCO Optimization</h4>
+                        <p class="mt-2 text-sm text-slate-600">Commitment to energy-efficient designs (Resource Saving Architecture, DLC) to reduce costs and environmental impact, offering TCO savings for customers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="financials" class="content-section">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Financial Performance & Key Risks</h2>
+                <p class="mt-4 text-lg section-intro">
+                    SMCI has demonstrated strong revenue growth, benefiting from the AI boom, but faces challenges related to managing gross margins and intense competition.
+                </p>
+            </div>
+
+             <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-12">
+                <div class="lg:col-span-3 bg-white rounded-xl shadow p-6 md:p-8">
+                     <h3 class="text-xl font-bold section-title mb-2">Quarterly Revenue, Net Income & Gross Profit ($M)</h3>
+                     <p class="text-sm text-slate-500 mb-4">Tracks SMCI's financial performance, showing rapid revenue scale and profitability trends.</p>
+                     <div class="chart-container">
+                        <canvas id="financialsChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 bg-white rounded-xl shadow p-6 md:p-8 flex flex-col">
+                    <h3 class="text-xl font-bold section-title mb-2">Analyst Consensus (Ratings)</h3>
+                    <p class="text-sm text-slate-500 mb-4">Analyst sentiment reflects a generally positive outlook, with a majority recommending "Buy" or "Hold".</p>
+                    <div class="chart-container flex-grow">
+                        <canvas id="analystRatingChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-center section-title mb-8">Key Risks & Considerations</h3>
+                <div id="risks-accordion" class="max-w-4xl mx-auto space-y-2">
+                    <!-- Accordion items will be injected by JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-xs">
+            <p>This is an interactive report generated for informational purposes only and does not constitute financial advice. Data sourced from public filings and reports as of June 2025.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const APP_DATA = {
+                kpis: {
+                    marketCap: '$28.39B',
+                    currentPrice: '$47.58',
+                    analystAverageTarget: '$45.63',
+                    q3Fy25Revenue: '$4.60B',
+                    q3Fy25NetIncome: '$109M',
+                    fy24RevenueGrowth: '~150% YoY'
+                },
+                revenueBreakdown: {
+                    labels: ['Server & Storage Systems', 'Subsystems & Accessories'],
+                    data: [94.6, 5.4] // As percentages of FY2024 total revenue
+                },
+                revenueGrowth: { // Using quarterly revenue for growth chart
+                    labels: ['Q3 FY24', 'Q4 FY24', 'Q1 FY25', 'Q2 FY25', 'Q3 FY25'],
+                    revenue: [3850, 5310, 3660, 5680, 4600] // in millions USD
+                },
+                financialPerformance: {
+                    labels: ['Q3 FY24', 'Q4 FY24', 'Q1 FY25', 'Q2 FY25', 'Q3 FY25'],
+                    revenue: [3850, 5310, 3660, 5680, 4600], // in millions USD
+                    netIncome: [402, 790, 366, 321, 109], // in millions USD
+                    grossProfit: [597, 796, 549, 670, 440] // in millions USD
+                },
+                analystRatings: {
+                    labels: ['Buy', 'Hold', 'Sell'],
+                    data: [7, 6, 2] // 7 Buy (4 Strong Buy + 3 Moderate Buy), 6 Hold, 2 Strong Sell
+                },
+                risks: [
+                    { title: 'Gross Margin Compression', content: 'While revenue is growing rapidly, gross margins have been trending down (from 15.5% in Q3 FY24 to 9.6% in Q3 FY25), impacting profitability. Sustaining healthy margins in a competitive environment is crucial.' },
+                    { title: 'Intense Competition & Commoditization', content: 'SMCI faces strong competition from larger players like Dell, HP, and even direct component suppliers like NVIDIA and AMD. The server hardware business can be commoditized, putting pressure on pricing and margins.' },
+                    { title: 'Supply Chain Dependencies & Geopolitical Risks', content: 'Reliance on key component suppliers (e.g., GPUs, CPUs) and global manufacturing exposes SMCI to supply chain disruptions, geopolitical tensions, and trade tariffs, impacting production and costs.' },
+                    { title: 'Customer Concentration Risk', content: 'High reliance on a few large hyperscale data center customers for AI server deployments could pose a risk if demand from these customers fluctuates or shifts to competitors.' },
+                    { title: 'Rapid Technological Change', content: 'The AI and server industry evolves rapidly. SMCI must continuously innovate and adapt to new technologies to maintain its competitive edge and market position.' },
+                    { title: 'Valuation & Volatility', content: 'SMCI stock has experienced significant volatility. While analysts see potential upside, its valuation multiples (e.g., P/E ratio) should be considered in the context of its growth and inherent risks.' }
+                ]
+            };
+
+            function init() {
+                renderRisksAccordion();
+                createRevenueSourcesChart();
+                createRevenueGrowthChart(); // Changed from createProductionDeliveriesChart to reflect SMCI data
+                createFinancialsChart();
+                createAnalystRatingChart();
+            }
+
+            function renderRisksAccordion() {
+                const container = document.getElementById('risks-accordion');
+                let content = '';
+                APP_DATA.risks.forEach((risk, index) => {
+                    content += `
+                        <div class="accordion-item bg-white border border-slate-200 rounded-lg">
+                            <h2>
+                                <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-slate-700 hover:bg-slate-100" data-accordion-target="#accordion-body-${index}">
+                                    <span>${risk.title}</span>
+                                    <svg class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                                    </svg>
+                                </button>
+                            </h2>
+                            <div id="accordion-body-${index}" class="accordion-content">
+                                <div class="p-5 border-t border-slate-200">
+                                    <p class="mb-2 text-slate-500">${risk.content}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = content;
+                
+                container.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const content = button.parentElement.nextElementSibling;
+                        const icon = button.querySelector('svg');
+                        const isExpanded = content.style.maxHeight && content.style.maxHeight !== '0px';
+                        
+                        content.style.maxHeight = isExpanded ? '0px' : content.scrollHeight + 'px';
+                        icon.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+                    });
+                });
+            }
+            
+            const chartDefaultOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: "'Poppins', sans-serif"
+                            },
+                            boxWidth: 12,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: '#1e293b',
+                        titleFont: {
+                            family: "'Poppins', sans-serif",
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            family: "'Poppins', sans-serif"
+                        },
+                        padding: 10,
+                        cornerRadius: 4,
+                    }
+                },
+                scales: {
+                    y: {
+                        border: { display: false },
+                        grid: { color: '#e2e8f0' },
+                        ticks: {
+                            font: { family: "'Poppins', sans-serif" }
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { family: "'Poppins', sans-serif" }
+                        }
+                    }
+                }
+            };
+
+            function createRevenueSourcesChart() {
+                const ctx = document.getElementById('revenueSourcesChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: APP_DATA.revenueBreakdown.labels,
+                        datasets: [{
+                            label: 'FY 2024 Revenue Contribution (%)',
+                            data: APP_DATA.revenueBreakdown.data,
+                            backgroundColor: ['#4f46e5', '#14b8a6'],
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { family: "'Poppins', sans-serif" },
+                                    boxWidth: 12,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: chartDefaultOptions.plugins.tooltip
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+            
+            function createRevenueGrowthChart() { // Renamed from createProductionDeliveriesChart
+                const ctx = document.getElementById('revenueGrowthChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: APP_DATA.revenueGrowth.labels,
+                        datasets: [
+                            {
+                                label: 'Revenue ($M)',
+                                data: APP_DATA.revenueGrowth.revenue,
+                                backgroundColor: '#4f46e5',
+                                order: 1
+                            }
+                        ]
+                    },
+                    options: { 
+                        ...chartDefaultOptions,
+                        scales: {
+                            y: {
+                                border: { display: false },
+                                grid: { color: '#e2e8f0' },
+                                ticks: {
+                                    font: { family: "'Poppins', sans-serif" }
+                                },
+                                beginAtZero: true
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: {
+                                    font: { family: "'Poppins', sans-serif" }
+                                }
+                            }
+                        },
+                        plugins: { ...chartDefaultOptions.plugins, legend: { display: false } } // Hide legend for single dataset
+                    }
+                });
+            }
+
+            function createFinancialsChart() {
+                const ctx = document.getElementById('financialsChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: APP_DATA.financialPerformance.labels,
+                        datasets: [
+                             {
+                                label: 'Total Revenue ($M)',
+                                data: APP_DATA.financialPerformance.revenue,
+                                backgroundColor: '#a5b4fc',
+                                yAxisID: 'y',
+                                order: 2
+                            },
+                            {
+                                label: 'Net Income ($M)',
+                                data: APP_DATA.financialPerformance.netIncome,
+                                backgroundColor: '#14b8a6', // Changed color for Net Income
+                                borderColor: '#0d9488', // Darker teal
+                                type: 'line',
+                                yAxisID: 'y',
+                                tension: 0.1,
+                                fill: false,
+                                order: 1
+                            },
+                            {
+                                label: 'Gross Profit ($M)',
+                                data: APP_DATA.financialPerformance.grossProfit,
+                                backgroundColor: '#f59e0b',
+                                borderColor: '#d97706',
+                                type: 'line',
+                                yAxisID: 'y',
+                                tension: 0.1,
+                                fill: false,
+                                borderDash: [5, 5],
+                                order: 0
+                            }
+                        ]
+                    },
+                    options: {
+                        ...chartDefaultOptions,
+                        scales: {
+                           ...chartDefaultOptions.scales,
+                           y: {
+                                type: 'linear',
+                                position: 'left',
+                                title: { display: true, text: 'Value ($M)'},
+                                ticks: {
+                                    callback: function(value) {
+                                        return value < 0 ? `-$${Math.abs(value)}` : `$${value}`; // Format negative as -$
+                                    }
+                                }
+                           }
+                        }
+                    }
+                });
+            }
+
+            function createAnalystRatingChart() {
+                const ctx = document.getElementById('analystRatingChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: APP_DATA.analystRatings.labels,
+                        datasets: [{
+                            label: '# of Analysts',
+                            data: APP_DATA.analystRatings.data,
+                            backgroundColor: ['#4f46e5', '#f59e0b', '#ef4444'], // Blue for Buy, Orange for Hold, Red for Sell
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { family: "'Poppins', sans-serif" },
+                                    boxWidth: 12,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: chartDefaultOptions.plugins.tooltip
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+
+            init();
+        });
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(sectionId)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

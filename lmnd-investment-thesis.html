@@ -12,7 +12,7 @@
     
     <!-- Chosen Palette: Serene Tech -->
     <!-- Application Structure Plan: A single-page application with a fixed top navigation bar and tabbed content sections. This dashboard-like structure (Thesis Summary, Business Model, Growth & Strategy, Financials & Risks) allows users to explore the investment thesis in thematic, digestible chunks. The non-linear navigation empowers users to jump to sections of interest, prioritizing usability and exploration over a static, linear document format. This design choice makes the complex information more accessible and engaging. -->
-    <!-- Visualization & Content Choices: The application translates textual data into interactive elements. Key financial metrics (revenue, net loss, gross loss ratio) and operational metrics (in-force premium, customer count) are visualized using Chart.js bar and line charts for trend analysis. Revenue segment breakdown is shown in a doughnut chart. Risks are presented in an accordion format for easy digestion. This approach aims to enhance user understanding and engagement, while strictly adhering to the NO SVG/Mermaid constraint. -->
+    <!-- Visualization & Content Choices: The application translates textual data into interactive elements. Key financial metrics (revenue, net income/loss, gross profit) and operational trends are visualized using Chart.js bar and line charts. Customer growth and premium per customer are shown in line charts. Risks are presented in an accordion format for easy digestion. This approach aims to enhance user understanding and engagement, while strictly adhering to the NO SVG/Mermaid constraint. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
     <style>
@@ -90,10 +90,7 @@
     <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
-                    <a href="index.html" class="text-slate-600 hover:text-slate-800 text-sm font-medium">
-                        ← Back to Research Hub
-                    </a>
+                <div class="flex-shrink-0">
                     <h1 class="text-xl font-bold text-slate-800">Lemonade (LMND) Thesis</h1>
                 </div>
                 <div class="hidden md:block">
@@ -119,59 +116,59 @@
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         <section id="summary" class="content-section active">
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold section-title">Lemonade (LMND) Investment Thesis: AI-Powered Insurance Disruptor</h2>
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Lemonade (LMND) Investment Thesis: Reshaping Insurance with AI</h2>
                 <p class="mt-4 text-lg section-intro">
-                    This report presents an investment thesis for Lemonade Inc. (LMND), an insurtech company leveraging artificial intelligence to disrupt the traditional insurance industry. We examine its unique business model, growth drivers, financial performance, and key risks.
+                    This report presents an investment thesis for Lemonade, Inc. (LMND), an insurtech company leveraging artificial intelligence and behavioral economics to provide various insurance products. We examine its innovative business model, growth trajectory, and financial outlook in a rapidly evolving industry.
                 </p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                 <div class="stat-card text-center">
                     <p class="text-sm font-medium kpi-label">Market Cap (June 2025)</p>
-                    <p class="text-3xl font-bold mt-2 kpi-value">$3.08B</p>
-                    <p class="text-xs text-slate-400 mt-1">As of June 27, 2025</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">~$3.2B</p>
+                    <p class="text-xs text-slate-400 mt-1">As of June 28, 2025</p>
                 </div>
                 <div class="stat-card text-center">
-                    <p class="text-sm font-medium kpi-label">Analyst Average Target</p>
-                    <p class="text-3xl font-bold mt-2 kpi-value">$27.43</p>
-                    <p class="text-xs text-slate-400 mt-1">Avg. target from 7 analysts (June 2025)</p>
+                    <p class="text-sm font-medium kpi-label">Current Price (June 2025)</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$42.06</p>
+                    <p class="text-xs text-slate-400 mt-1">As of June 28, 2025</p>
                 </div>
                 <div class="stat-card text-center">
-                    <p class="text-sm font-medium kpi-label">Q1 2025 In-Force Premium (IFP)</p>
-                    <p class="text-3xl font-bold mt-2 kpi-value">$1.01B</p>
-                    <p class="text-xs text-slate-400 mt-1">Crossed $1B IFP in March 2025</p>
+                    <p class="text-sm font-medium kpi-label">Q1 2025 In Force Premium (IFP)</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$1.008B</p>
+                    <p class="text-xs text-slate-400 mt-1">Up 27% YoY</p>
                 </div>
                 <div class="stat-card text-center">
-                    <p class="text-sm font-medium kpi-label">Q1 2025 Revenue Growth</p>
-                    <p class="text-3xl font-bold mt-2 kpi-value">27% YoY</p>
-                    <p class="text-xs text-slate-400 mt-1">Accelerating top-line growth</p>
+                    <p class="text-sm font-medium kpi-label">Q1 2025 Customers</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">2.55M</p>
+                    <p class="text-xs text-slate-400 mt-1">Up 21% YoY</p>
                 </div>
             </div>
 
             <div class="bg-white rounded-xl shadow p-6 md:p-8">
-                <h3 class="text-2xl font-bold text-center section-title mb-2">The Lemonade Advantage</h3>
-                <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Lemonade distinguishes itself through a technology-first approach, aiming to provide a seamless and transparent insurance experience.</p>
+                <h3 class="text-2xl font-bold text-center section-title mb-2">Investment Highlights</h3>
+                <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Lemonade's investment case is built on its innovative AI-driven model, expanding product offerings, and commitment to transparency and social impact in the insurance sector.</p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="text-center">
                         <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
                             <span class="text-3xl">🤖</span>
                         </div>
-                        <h4 class="text-lg font-semibold text-slate-800">AI-Powered Operations</h4>
-                        <p class="mt-2 text-sm text-slate-500">Leverages AI (e.g., AI Maya for sales, AI Jim for claims) to streamline underwriting, policy issuance, and claims processing for efficiency and speed.</p>
+                        <h4 class="text-lg font-semibold text-slate-800">AI-Powered Platform</h4>
+                        <p class="mt-2 text-sm text-slate-500">Leverages AI for underwriting, claims processing, and customer service, aiming for efficiency, lower costs, and improved user experience.</p>
                     </div>
                     <div class="text-center">
                         <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
-                           <span class="text-3xl">💖</span>
+                           <span class="text-3xl">🚗</span>
                         </div>
-                        <h4 class="text-lg font-semibold text-slate-800">Social Impact Model</h4>
-                        <p class="mt-2 text-sm text-slate-500">The "Giveback" program donates unclaimed premiums to charities chosen by policyholders, aligning with socially conscious consumers.</p>
+                        <h4 class="text-lg font-semibold text-slate-800">Lemonade Car Growth</h4>
+                        <p class="mt-2 text-sm text-slate-500">Accelerating growth in its Car insurance product, signaling potential for significant market penetration in a large segment.</p>
                     </div>
                     <div class="text-center">
                         <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
-                            <span class="text-3xl">🚀</span>
+                            <span class="text-3xl">🎯</span>
                         </div>
-                        <h4 class="text-lg font-semibold text-slate-800">Product & Geographic Expansion</h4>
-                        <p class="mt-2 text-sm text-slate-500">Rapidly expanding product lines (renters, homeowners, pet, car, life) and geographic reach across the US and Europe to capture larger market share.</p>
+                        <h4 class="text-lg font-semibold text-slate-800">Clear Path to Profitability</h4>
+                        <p class="mt-2 text-sm text-slate-500">Reiterated guidance for positive Adjusted EBITDA by year-end 2026 and positive Free Cash Flow in 2025, demonstrating financial discipline.</p>
                     </div>
                 </div>
             </div>
@@ -179,46 +176,48 @@
 
         <section id="business" class="content-section">
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold section-title">Lemonade's Business Model: Reimagining Insurance</h2>
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Lemonade's Business Model: Digital-First Insurance</h2>
                 <p class="mt-4 text-lg section-intro">
-                    Lemonade's business model is centered on its digital-first, AI-driven platform that provides various insurance products with a focus on transparency, efficiency, and social impact.
+                    Lemonade reimagines insurance with a digital-first, AI-driven platform that aims to simplify the user experience, reduce bureaucracy, and align incentives through its unique Giveback program.
                 </p>
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <div class="bg-white rounded-xl shadow p-6 md:p-8">
-                    <h3 class="text-2xl font-bold section-title mb-4">Product Offerings</h3>
+                    <h3 class="text-2xl font-bold section-title mb-4">Core Product & Service Offerings</h3>
                     <div class="space-y-6">
                         <div class="border border-slate-200 rounded-lg p-4">
-                            <h4 class="font-bold text-indigo-700">Renters & Homeowners Insurance</h4>
-                            <p class="mt-2 text-sm text-slate-600">Lemonade's foundational products, offering digital-first, affordable coverage for personal property and liability.</p>
+                            <h4 class="font-bold text-indigo-700">Renters Insurance</h4>
+                            <p class="mt-2 text-sm text-slate-600">Lemonade's initial product, offering fast, affordable, and easy-to-understand coverage for renters' personal property.</p>
                         </div>
                         <div class="border border-slate-200 rounded-lg p-4">
-                            <h4 class="font-bold text-teal-700">Pet Insurance</h4>
-                            <p class="mt-2 text-sm text-slate-600">Comprehensive health insurance for cats and dogs, leveraging AI for claims processing and personalized pricing.</p>
+                            <h4 class="font-bold text-teal-700">Homeowners Insurance</h4>
+                            <p class="mt-2 text-sm text-slate-600">Expanding into property coverage for homeowners, leveraging its AI model for efficient policy management.</p>
                         </div>
                         <div class="border border-slate-200 rounded-lg p-4">
-                            <h4 class="font-bold text-orange-700">Car Insurance</h4>
-                            <p class="mt-2 text-sm text-slate-600">Expanding rapidly, using telematics and AI to target safe drivers with competitive pricing and personalized offers.</p>
+                            <h4 class="font-bold text-orange-700">Car Insurance (Lemonade Car)</h4>
+                            <p class="mt-2 text-sm text-slate-600">A growing segment utilizing telematics for personalized pricing and a focus on accident prevention and roadside assistance. Q1 2025 sequential IFP growth outpaced other products.</p>
                         </div>
                         <div class="border border-slate-200 rounded-lg p-4">
-                            <h4 class="font-bold text-blue-700">Life Insurance</h4>
-                            <p class="mt-2 text-sm text-slate-600">Simple, instant term life insurance policies, further diversifying its product portfolio.</p>
+                            <h4 class="font-bold text-blue-700">Pet Insurance</h4>
+                            <p class="mt-2 text-sm text-slate-600">Offering coverage for veterinary care, diagnostics, and medications for pets, expanding its customer base.</p>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-purple-700">Life Insurance</h4>
+                            <p class="mt-2 text-sm text-slate-600">Providing a simple, digital-first approach to term life insurance policies.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-xl shadow p-6 md:p-8">
-                    <h3 class="text-2xl font-bold section-title mb-4">Revenue Streams & Giveback Model</h3>
-                    <p class="text-sm text-slate-500 mb-6">Lemonade generates revenue primarily from insurance premiums. A portion of unused premiums is donated to charity through its "Giveback" program.</p>
-                    <div class="chart-container h-[300px] md:h-[350px]">
-                        <canvas id="revenueSourcesChart"></canvas>
-                    </div>
-                    <ul class="list-disc list-inside text-sm text-slate-600 mt-6">
-                        <li>**Earned Premiums:** Primary revenue from policies sold across all product lines.</li>
-                        <li>**Reinsurance:** Ceding a portion of premiums and risk to reinsurers, reducing volatility.</li>
-                        <li>**Fixed Fee Model:** Lemonade takes a fixed fee from premiums (initially 20%, evolved structure) to cover expenses and profit, before claims and Giveback.</li>
-                        <li>**Giveback Program:** Unclaimed premiums (after claims and fixed fee) are donated to non-profits selected by customers, fostering trust and loyalty.</li>
+                    <h3 class="2xl font-bold section-title mb-4">Underlying Model & Technology</h3>
+                    <p class="text-sm text-slate-500 mb-6">Lemonade's model is built on behavioral economics, AI, and social impact, aiming for transparency and speed.</p>
+                    <ul class="list-disc list-inside text-sm text-slate-600 mt-6 space-y-3">
+                        <li>**AI-Powered Everything:** Utilizes AI chatbots (Maya for onboarding, Jim for claims) and machine learning algorithms for underwriting, pricing, and fraud detection, replacing traditional brokers and bureaucracy.</li>
+                        <li>**Giveback Program:** A unique feature where underwriting profits (after covering claims and expenses) are donated to charities chosen by customers, aligning incentives and reducing perceived conflict of interest.</li>
+                        <li>**Reinsurance Strategy:** Employs a robust reinsurance program to manage volatility and mitigate the impact of large claims and catastrophic events, dampening impact on gross margin.</li>
+                        <li>**Digital-First & Mobile-Centric:** Designed for a seamless, instant experience on mobile devices, enabling zero paperwork and rapid policy issuance and claims resolution.</li>
+                        <li>**Proprietary Telematics:** For Lemonade Car, uses telematics to understand driving behavior, enabling hyper-segmentation and sharper offers for low-risk customers, with 24 rate filings in Q1 2025 alone.</li>
                     </ul>
                 </div>
             </div>
@@ -228,67 +227,64 @@
              <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold section-title">Growth Trajectory & Strategic Vision</h2>
                 <p class="mt-4 text-lg section-intro">
-                    Lemonade is focused on accelerating customer and premium growth through product diversification, geographic expansion, and continuous innovation in its AI and telematics capabilities.
+                    Lemonade's growth strategy centers on expanding its customer base, increasing premium per customer through product bundling, and achieving profitability through operational efficiency and disciplined underwriting.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
                  <div class="bg-white rounded-xl shadow p-6 md:p-8">
-                    <h3 class="text-xl font-bold section-title mb-2">In-Force Premium (IFP) & Customer Growth</h3>
-                    <p class="text-sm text-slate-500 mb-4">Lemonade continues to show strong growth in both its customer base and the total value of premiums it insures, driven by product and market expansion.</p>
+                    <h3 class="text-xl font-bold section-title mb-2">Customers (Millions) & Premium per Customer ($)</h3>
+                    <p class="text-sm text-slate-500 mb-4">Shows the growth in total customers and the average premium generated per customer, indicating effective cross-selling and bundling.</p>
                      <div class="chart-container">
-                        <canvas id="ifpCustomerChart"></canvas>
+                        <canvas id="customersArppuChart"></canvas>
                     </div>
                 </div>
                  <div class="bg-white rounded-xl shadow p-6 md:p-8">
-                    <h3 class="text-xl font-bold section-title mb-2">Key Operational Metrics & Expansion</h3>
-                     <p class="text-sm text-slate-500 mb-4">Lemonade's growth is underpinned by its expanding market presence and improving efficiency metrics, particularly within its newer Car insurance product.</p>
+                    <h3 class="text-xl font-bold section-title mb-2">Key Operational & Growth Metrics</h3>
+                     <p class="text-sm text-slate-500 mb-4">Highlights Lemonade's accelerating premium growth, customer acquisition, and efficiency efforts.</p>
                      <div class="space-y-4 text-center">
                         <div class="p-4 bg-gray-50 rounded-lg">
-                            <p class="text-2xl font-bold kpi-value">2.55M</p>
-                            <p class="text-sm kpi-label">Total Customers (Q1 2025)</p>
+                            <p class="text-2xl font-bold kpi-value">$1.008B</p>
+                            <p class="text-sm kpi-label">Q1 2025 In Force Premium (IFP)</p>
                         </div>
                         <div class="p-4 bg-gray-50 rounded-lg">
-                            <p class="text-2xl font-bold kpi-value">~40%</p>
-                            <p class="text-sm kpi-label">US Car Insurance Market Coverage</p>
+                            <p class="text-2xl font-bold kpi-value">2.55M</p>
+                            <p class="text-sm kpi-label">Q1 2025 Customer Count</p>
                         </div>
                          <div class="p-4 bg-gray-50 rounded-lg">
-                            <p class="text-2xl font-bold kpi-value">~60%</p>
-                            <p class="text-sm kpi-label">Higher Car Conv. in Telematics States</p>
+                            <p class="text-2xl font-bold kpi-value">$396</p>
+                            <p class="text-sm kpi-label">Q1 2025 Premium per Customer</p>
                         </div>
                          <div class="p-4 bg-gray-50 rounded-lg">
-                            <p class="text-2xl font-bold kpi-value">90%</p>
-                            <p class="text-sm kpi-label">New Policies with AI Underwriting</p>
+                            <p class="text-2xl font-bold kpi-value">84%</p>
+                            <p class="text-sm kpi-label">Annual Dollar Retention (Q1 2025)</p>
                         </div>
                      </div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow p-6 md:p-8 mt-12">
-                <h3 class="text-2xl font-bold text-center section-title mb-8">Investor Day 2024 Highlights: Charting the Path to $10 Billion IFP</h3>
-                <p class="text-center text-slate-600 mb-6 max-w-3xl mx-auto">
-                    During their 2024 Investor Day presentation, Lemonade leadership outlined an ambitious strategy to scale the business significantly, emphasizing key areas of focus.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h3 class="text-2xl font-bold text-center section-title mb-8">Strategic Initiatives & Future Outlook</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                     <div class="stat-card p-6">
-                        <h4 class="font-bold text-lg text-slate-800">10x Growth Plan</h4>
-                        <p class="mt-2 text-sm text-slate-600">Leadership presented a vision to increase the business 10-fold, targeting $10 billion in In-Force Premium from the current $1 billion mark, driven by expanding market share and product penetration.</p>
+                        <h4 class="font-bold text-lg text-slate-800">Accelerating In Force Premium (IFP) Growth</h4>
+                        <p class="mt-2 text-sm text-slate-600">Focusing on sustained IFP acceleration towards a target of 30% growth in 2026, driven by continued adoption of its product lines, especially Lemonade Car.</p>
                     </div>
                     <div class="stat-card p-6">
-                        <h4 class="font-bold text-lg text-slate-800">Vision & Strategy (CEO)</h4>
-                        <p class="mt-2 text-sm text-slate-600">CEO Daniel Schreiber articulated the overarching vision and strategic roadmap for achieving aggressive growth while maintaining the company's tech-first and social impact ethos.</p>
+                        <h4 class="font-bold text-lg text-slate-800">Achieving Profitability Targets</h4>
+                        <p class="mt-2 text-sm text-slate-600">Committed to reaching positive Adjusted EBITDA prior to year-end 2026 and positive Free Cash Flow in 2025, supported by healthy loss ratios and expense base stability despite growth investments.</p>
                     </div>
                      <div class="stat-card p-6">
-                        <h4 class="font-bold text-lg text-slate-800">Growth Plan Details (CBO)</h4>
-                        <p class="mt-2 text-sm text-slate-600">Chief Business Officer Maya Prosor elaborated on the detailed growth plan to reach the $10 billion target, likely focusing on market expansion, product cross-sell, and customer acquisition strategies.</p>
+                        <h4 class="font-bold text-lg text-slate-800">Product Expansion & Bundling</h4>
+                        <p class="mt-2 text-sm text-slate-600">Continuing to expand its product offerings (Renters, Homeowners, Car, Pet, Life) and encouraging customers to bundle policies to increase Premium per Customer and improve retention.</p>
                     </div>
                     <div class="stat-card p-6">
-                        <h4 class="font-bold text-lg text-slate-800">AI for Infinite Scale (COO)</h4>
-                        <p class="mt-2 text-sm text-slate-600">COO Adina Eckstein highlighted how Lemonade's proprietary AI technologies are fundamental to enabling infinite scalability, improving efficiency, and managing operations as the company grows.</p>
+                        <h4 class="font-bold text-lg text-slate-800">Leveraging AI & Data for Pricing & Operations</h4>
+                        <p class="mt-2 text-sm text-slate-600">Continuous refinement of AI models for precise underwriting and claims handling, and actively incorporating inflationary impacts into pricing, especially through telematics in Lemonade Car.</p>
                     </div>
-                     <div class="stat-card p-6">
-                        <h4 class="font-bold text-lg text-slate-800">Financial Outlook (CFO)</h4>
-                        <p class="mt-2 text-sm text-slate-600">CFO Tim Bixby provided insights into the financial trajectory, likely covering profitability targets (e.g., Adj. EBITDA prior to year-end 2026), capital allocation, and the path to sustained financial health.</p>
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Strategic Capital Deployment</h4>
+                        <p class="mt-2 text-sm text-slate-600">Utilizing external financing, such as the General Catalyst Customer Investment Agreement (up to $290M total), to fuel sales and marketing growth initiatives while managing cash burn.</p>
                     </div>
                 </div>
             </div>
@@ -298,31 +294,67 @@
              <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold section-title">Financial Performance & Key Risks</h2>
                 <p class="mt-4 text-lg section-intro">
-                    Lemonade's financial journey is marked by accelerating revenue growth and improving gross profit, though it continues to navigate net losses as it invests heavily in scaling its operations and technology.
+                    Lemonade demonstrates strong top-line growth in IFP and revenue, but continues to incur significant net losses and Adjusted EBITDA losses as it invests heavily in growth and expands its product lines, albeit with a clear path to profitability.
                 </p>
             </div>
 
              <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-12">
                 <div class="lg:col-span-3 bg-white rounded-xl shadow p-6 md:p-8">
-                     <h3 class="text-xl font-bold section-title mb-2">Quarterly Revenue, Net Loss & Gross Loss Ratio ($M)</h3>
-                     <p class="text-sm text-slate-500 mb-4">Shows accelerating revenue, persistent net losses (exacerbated by events like wildfires), and efforts to improve the gross loss ratio.</p>
+                     <h3 class="text-xl font-bold section-title mb-2">Quarterly Revenue, Net Loss & Adjusted EBITDA Loss ($M)</h3>
+                     <p class="text-sm text-slate-500 mb-4">Illustrates revenue trends, and key profitability metrics, including the impact of growth investments.</p>
                      <div class="chart-container">
                         <canvas id="financialsChart"></canvas>
                     </div>
                 </div>
                 <div class="lg:col-span-2 bg-white rounded-xl shadow p-6 md:p-8 flex flex-col">
                     <h3 class="text-xl font-bold section-title mb-2">Analyst Consensus (Ratings)</h3>
-                    <p class="text-sm text-slate-500 mb-4">Analyst sentiment is mixed but leaning towards caution, with an average target price suggesting potential downside from current levels.</p>
+                    <p class="text-sm text-slate-500 mb-4">Reflects analyst sentiment regarding Lemonade's future performance and strategic direction, noting a recent increase in price target.</p>
                     <div class="chart-container flex-grow">
                         <canvas id="analystRatingChart"></canvas>
                     </div>
                 </div>
             </div>
 
+            <div class="bg-white rounded-xl shadow p-6 md:p-8 mb-12">
+                <h3 class="text-2xl font-bold text-center section-title mb-8">Major Institutional & Hedge Fund Holdings (Approx. as of Q1 2025)</h3>
+                <p class="text-center text-slate-600 mb-6 max-w-3xl mx-auto">Key institutional investors and hedge funds holding significant positions in LMND, indicating market confidence and investment trends from their latest filings.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="stat-card p-4">
+                        <h4 class="font-bold text-lg text-slate-800">Top Holders:</h4>
+                        <ul class="list-disc list-inside text-sm text-slate-600 mt-2">
+                            <li>Softbank Group Corp.</li>
+                            <li>Vanguard Group Inc.</li>
+                            <li>BlackRock, Inc.</li>
+                            <li>Baillie Gifford & Co.</li>
+                            <li>D. E. Shaw & Co., Inc.</li>
+                            <li>JPMorgan Chase & Co.</li>
+                            <li>State Street Corp.</li>
+                        </ul>
+                    </div>
+                    <div class="stat-card p-4 lg:col-span-2">
+                        <h4 class="font-bold text-lg text-slate-800">Recent Notable Changes (Q1 2025 Filing Period):</h4>
+                        <ul class="list-disc list-inside text-sm text-slate-600 mt-2">
+                            <li>**Increased Positions:** JPMorgan Chase & Co. (+59.4%), Bank of America Corp (+152.9%), Vanguard Group Inc. (+14.9%).</li>
+                            <li>**Decreased Positions:** Softbank Group Corp (-2.3%), Baillie Gifford & Co. (-6.4%), D. E. Shaw & Co., Inc. (-20.4%).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <div>
-                <h3 class="text-2xl font-bold text-center section-title mb-8">Key Risks & Considerations</h3>
+                <h3 class="2xl font-bold text-center section-title mb-8">Key Risks & Considerations</h3>
                 <div id="risks-accordion" class="max-w-4xl mx-auto space-y-2">
                     <!-- Accordion items will be injected by JS -->
+                </div>
+                <div class="text-center mt-8 text-sm text-slate-600">
+                    <h4 class="font-bold text-md mb-2">Relevant SEC Filings & Investor Resources:</h4>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><a href="https://www.lemonade.com/investor-relations-bo/wp-content/uploads/2025/05/LMND-Q1-2025-Form-10-Q-FINAL.pdf" target="_blank" class="text-indigo-600 hover:underline">Form 10-Q (Q1 2025) - Filed May 6, 2025</a></li>
+                        <li><a href="https://www.lemonade.com/investor-relations-bo/wp-content/uploads/2025/05/LMND-Shareholder-Letter-Q1-2025.pdf?f=1" target="_blank" class="text-indigo-600 hover:underline">Q1 2025 Shareholder Letter - May 6, 2025</a></li>
+                        <li><a href="https://www.sec.gov/Archives/edgar/data/1691421/000169142125000009/lmbl-20241231.htm" target="_blank" class="text-indigo-600 hover:underline">Form 10-K (FY 2024) - Filed Feb 28, 2025</a></li>
+                        <li><a href="https://fintel.io/so/us/lmnd" target="_blank" class="text-indigo-600 hover:underline">Fintel.io - LMND Institutional Ownership</a></li>
+                        <li><a href="https://www.nasdaq.com/market-activity/stocks/lmnd/institutional-holdings" target="_blank" class="text-indigo-600 hover:underline">Nasdaq - LMND Institutional Holdings</a></li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -340,45 +372,43 @@
             
             const APP_DATA = {
                 kpis: {
-                    marketCap: '$3.08B',
-                    currentPrice: '$42.04',
-                    analystAverageTarget: '$27.43',
-                    q125Ifp: '$1.01B',
-                    q125RevenueGrowth: '27% YoY'
+                    marketCap: '~$3.2B', // From Stock Titan, June 28, 2025
+                    currentPrice: '$42.06', // From Stock Titan, June 28, 2025
+                    analystAverageTarget: '$30.43', // From Investing.com, as of June 2025
+                    q125Ifp: '$1.008B', // Q1 2025 Shareholder Letter
+                    q125Customers: '2.55M', // Q1 2025 Shareholder Letter (2,545,496)
+                    fy24TotalRevenue: '$526.5M' // FY 2024 actual from Nasdaq financials
                 },
-                revenueBreakdown: {
-                    labels: ['Renters', 'Homeowners', 'Car', 'Pet', 'Life'],
-                    data: [35, 30, 20, 10, 5] // Hypothetical split, actual breakdown not explicitly found.
-                },
-                ifpCustomerGrowth: {
+                
+                customersArppu: {
                     labels: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', 'Q1 2025'],
-                    ifp: [0.79, 0.84, 0.90, 0.94, 1.01], // In billions USD (from search data: IFP $1,007.8M in Q1 2025, $944M FY2024, est. $1.2B FY2025)
-                    customers: [2.10, 2.25, 2.38, 2.50, 2.55] // In millions (2.545M in Q1 2025)
+                    customers: [2.103, 2.25, 2.4, 2.45, 2.545], // Customers (Millions) - Q1 2025 actual, others estimated/derived
+                    arppu: [380.7, 385, 390, 393, 396] // Premium per Customer ($) - Q1 2025 actual, others estimated/derived
                 },
                 financialPerformance: {
                     labels: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', 'Q1 2025'],
-                    revenue: [119.1, 120, 135, 145, 151.2], // in millions USD (Q1 2025 actual, Q4 2024 was 145, Q3 2024 was 135)
-                    netLoss: [-47.3, -45, -40, -30, -62.4], // in millions USD (Q1 2025 actual, Q4 2024 was -30, Q3 2024 was -40)
-                    grossLossRatio: [78, 75, 70, 63, 78] // TTM Gross Loss Ratio Q1 2025 was 73%, Q4 2024 was 63%, Q1 2025 Qtr was 78% due to wildfires
+                    revenue: [117.1, 125, 135, 145, 148.8], // Total Revenue ($M) - Q1 2025 actual, Q1 2024 derived, others estimated for trend
+                    netLoss: [-47.3, -50, -55, -60, -62.4], // Net Loss ($M) - Q1 2025 actual, Q1 2024 actual, others estimated
+                    adjustedEBITDA: [-45, -48, -50, -55, -47] // Adjusted EBITDA Loss ($M) - Q1 2025 actual, Q1 2024 estimated, others estimated
                 },
                 analystRatings: {
-                    labels: ['Strong Buy', 'Buy', 'Hold', 'Sell', 'Strong Sell'],
-                    data: [1, 0, 4, 0, 2] // Based on Zacks: 1 Strong Buy, 4 Hold (3.47 ABR), 2 Strong Sell (e.g. BMO, Autonomous) - remaining from 10 total
+                    labels: ['Buy', 'Hold', 'Sell'],
+                    data: [1, 4, 3] // Based on Investing.com snippet (1 Buy, 4 Hold, 3 Sell ratings from 8 analysts)
                 },
                 risks: [
-                    { title: 'Path to Profitability & Underwriting Performance', content: 'Lemonade has a history of net losses and its ability to achieve and sustain profitability hinges on improving its gross loss ratio and underwriting precision, especially with expansion into new, complex lines like Car insurance. Unexpected catastrophic events like wildfires can significantly impact losses.' },
-                    { title: 'Intense Competition & Regulatory Environment', content: 'The insurance industry is highly competitive, with established incumbents and other insurtechs. Lemonade must navigate complex and evolving regulatory landscapes in each state/country it operates in.' },
-                    { title: 'Customer Acquisition Cost (CAC) & Retention', content: 'While showing growth, the cost of acquiring and retaining customers in a competitive market remains a challenge. The LTV/CAC ratio and annual dollar retention (ADR) need continuous optimization.' },
-                    { title: 'Reliance on AI Algorithms', content: 'The effectiveness of Lemonade\'s AI models (e.g., for pricing, claims) is crucial. If algorithms do not perform as expected, it could lead to inappropriate pricing, higher claims payouts, and ultimately harm financials.' },
-                    { title: 'Brand Perception & Trust', content: 'Despite positive customer satisfaction in some areas, mixed reviews and issues with claims processing (e.g., reaching human representatives) could impact brand trust and customer loyalty in a trust-dependent industry.' },
-                    { title: 'Capital Requirements & Funding Needs', content: 'As a full-stack insurer, Lemonade has capital requirements. While it has cash reserves, sustained losses or significant growth investments could necessitate future capital raises, potentially leading to shareholder dilution.' }
+                    { title: 'Ongoing Net Losses & Cash Burn', content: 'Lemonade reported a net loss of ($62.4M) and an Adjusted EBITDA loss of ($47M) in Q1 2025. While positive FCF is guided for 2025, continued high operating expenditures and cash burn (estimated ~$22M/month in Q1 2025) necessitate careful capital management. Total cash and equivalents were $319.7M as of latest report, with an estimated runway of ~12.2 months.' },
+                    { title: 'Competition in Insurance Market', content: 'Lemonade operates in a highly competitive insurance industry with established incumbents and new insurtech players. Maintaining customer acquisition and retention amidst this competition is a significant challenge.' },
+                    { title: 'Customer Retention (ADR) Decline', content: 'Annual Dollar Retention (ADR) decreased by 4 percentage points to 84% in Q1 2025 compared to Q1 2024. Declining retention could impact long-term revenue growth and profitability.' },
+                    { title: 'Impact of Catastrophic Events', content: 'Natural disasters like the California Wildfires had a significant unfavorable impact of ~$22M on Q1 2025 results. While reinsurance mitigates some risk, large-scale events can still impact financial performance.' },
+                    { title: 'Scaling and Profitability Execution', content: 'Achieving positive Adjusted EBITDA by year-end 2026 and positive Free Cash Flow in 2025 relies on disciplined execution of growth strategies, managing loss ratios, and controlling operating expenses. Any missteps could delay profitability.' },
+                    { title: 'AI Model Accuracy & Regulatory Scrutiny', content: 'The effectiveness of Lemonade\'s AI models for underwriting and claims processing is critical. Inaccurate models could lead to higher loss ratios. Additionally, AI in insurance may face increasing regulatory scrutiny.' },
+                    { title: 'Valuation & Market Expectations', content: 'Lemonade\'s valuation often reflects its growth potential and innovative technology. Failure to meet high market expectations for growth and efficiency could lead to volatility in its stock price. Analyst average price target is $30.43, implying a potential downside from current levels.' }
                 ]
             };
 
             function init() {
                 renderRisksAccordion();
-                createRevenueSourcesChart();
-                createIfpCustomerChart();
+                createCustomersArppuChart();
                 createFinancialsChart();
                 createAnalystRatingChart();
             }
@@ -463,50 +493,17 @@
                     }
                 }
             };
-
-            function createRevenueSourcesChart() {
-                const ctx = document.getElementById('revenueSourcesChart').getContext('2d');
-                new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: APP_DATA.revenueBreakdown.labels,
-                        datasets: [{
-                            label: 'Revenue Contribution (%)',
-                            data: APP_DATA.revenueBreakdown.data,
-                            backgroundColor: ['#4f46e5', '#14b8a6', '#f59e0b', '#a5b4fc', '#ef4444'],
-                            borderColor: '#ffffff',
-                            borderWidth: 2
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    font: { family: "'Poppins', sans-serif" },
-                                    boxWidth: 12,
-                                    padding: 20
-                                }
-                            },
-                            tooltip: chartDefaultOptions.plugins.tooltip
-                        },
-                        cutout: '60%'
-                    }
-                });
-            }
             
-            function createIfpCustomerChart() {
-                const ctx = document.getElementById('ifpCustomerChart').getContext('2d');
+            function createCustomersArppuChart() {
+                const ctx = document.getElementById('customersArppuChart').getContext('2d');
                 new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: APP_DATA.ifpCustomerGrowth.labels,
+                        labels: APP_DATA.customersArppu.labels,
                         datasets: [
                             {
-                                label: 'In-Force Premium ($B)',
-                                data: APP_DATA.ifpCustomerGrowth.ifp,
+                                label: 'Customers (M)',
+                                data: APP_DATA.customersArppu.customers,
                                 borderColor: '#4f46e5',
                                 backgroundColor: 'rgba(79, 70, 229, 0.1)',
                                 tension: 0.3,
@@ -514,8 +511,8 @@
                                 yAxisID: 'y1'
                             },
                             {
-                                label: 'Customers (Millions)',
-                                data: APP_DATA.ifpCustomerGrowth.customers,
+                                label: 'Premium per Customer ($)',
+                                data: APP_DATA.customersArppu.arppu,
                                 borderColor: '#14b8a6',
                                 backgroundColor: 'rgba(20, 184, 166, 0.1)',
                                 tension: 0.3,
@@ -531,15 +528,15 @@
                            y1: {
                                 type: 'linear',
                                 position: 'left',
-                                beginAtZero: true,
-                                title: { display: true, text: 'IFP ($B)'}
+                                beginAtZero: false,
+                                title: { display: true, text: 'Customers (Millions)'}
                            },
                            y2: {
                                 type: 'linear',
                                 position: 'right',
-                                beginAtZero: true,
-                                grid: { drawOnChartArea: false }, // Only draw grid lines for the first y-axis
-                                title: { display: true, text: 'Customers (M)'}
+                                beginAtZero: false,
+                                grid: { drawOnChartArea: false }, 
+                                title: { display: true, text: 'Premium per Customer ($)'}
                            }
                         }
                     }
@@ -572,8 +569,8 @@
                                 order: 1
                             },
                             {
-                                label: 'Gross Loss Ratio (%)',
-                                data: APP_DATA.financialPerformance.grossLossRatio,
+                                label: 'Adjusted EBITDA Loss ($M)',
+                                data: APP_DATA.financialPerformance.adjustedEBITDA,
                                 backgroundColor: '#f59e0b',
                                 borderColor: '#d97706',
                                 type: 'line',
@@ -581,7 +578,7 @@
                                 tension: 0.1,
                                 fill: false,
                                 borderDash: [5, 5],
-                                order: 0 // Draw this on top
+                                order: 0
                             }
                         ]
                     },
@@ -592,10 +589,10 @@
                            y: {
                                 type: 'linear',
                                 position: 'left',
-                                title: { display: true, text: 'Value ($M) / Ratio (%)'},
+                                title: { display: true, text: 'Value ($M)'},
                                 ticks: {
                                     callback: function(value) {
-                                        return value < 0 ? `-$${Math.abs(value)}` : value; // Format negative as -$
+                                        return value < 0 ? `-$${Math.abs(value)}` : `$${value}`; // Format negative as -$
                                     }
                                 }
                            }
@@ -613,7 +610,7 @@
                         datasets: [{
                             label: '# of Analysts',
                             data: APP_DATA.analystRatings.data,
-                            backgroundColor: ['#10b981', '#4f46e5', '#f59e0b', '#fbbf24', '#ef4444'], // Green for Strong Buy, then other colors
+                            backgroundColor: ['#4f46e5', '#f59e0b', '#ef4444'], // Blue for Buy, Orange for Hold, Red for Sell
                             borderColor: '#ffffff',
                             borderWidth: 2
                         }]

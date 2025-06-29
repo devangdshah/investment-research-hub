@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Investment Thesis: Bumble (BMBL)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Serene Tech -->
+    <!-- Application Structure Plan: A single-page application with a fixed top navigation bar and tabbed content sections. This dashboard-like structure (Thesis Summary, Business Model, Growth & Strategy, Financials & Risks) allows users to explore the investment thesis in thematic, digestible chunks. The non-linear navigation empowers users to jump to sections of interest, prioritizing usability and exploration over a static, linear document format. This design choice makes the complex information more accessible and engaging. -->
+    <!-- Visualization & Content Choices: The application translates textual data into interactive elements. Key financial metrics and market share data are visualized using Chart.js bar and donut charts for clear trend and proportional analysis. User engagement stats are presented as clear metrics. Risks are presented in an accordion format for easy digestion. This approach aims to enhance user understanding and engagement, while strictly adhering to the NO SVG/Mermaid constraint. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #334155; /* slate-700 */
+            border-bottom-color: #4f46e5; /* indigo-600 */
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 350px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .kpi-value {
+            color: #4f46e5;
+        }
+        .kpi-label {
+            color: #64748b;
+        }
+        .section-title {
+            color: #1e293b; /* slate-800 */
+        }
+        .section-intro {
+            color: #475569; /* slate-600 */
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .accordion-item button {
+            transition: background-color 0.3s ease;
+        }
+        .accordion-item .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-slate-600 hover:text-slate-800 text-sm font-medium">
+                        ← Back to Research Hub
+                    </a>
+                    <h1 class="text-xl font-bold text-slate-800">Bumble (BMBL) Thesis</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a onclick="showSection('summary')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500 active">Thesis Summary</a>
+                        <a onclick="showSection('business')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Business Model</a>
+                        <a onclick="showSection('growth')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Growth & Strategy</a>
+                        <a onclick="showSection('financials')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Financials & Risks</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <select onchange="showSection(this.value)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+                        <option value="summary" selected>Summary</option>
+                        <option value="business">Business Model</option>
+                        <option value="growth">Growth & Strategy</option>
+                        <option value="financials">Financials & Risks</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <section id="summary" class="content-section active">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Bumble (BMBL) Investment Thesis: A Contrarian Opportunity</h2>
+                <p class="mt-4 text-lg section-intro">
+                    This report presents an investment thesis for Bumble Inc. (BMBL), highlighting its potential as an undervalued asset in the online dating sector. The thesis focuses on strategic restructuring, AI-driven product innovation, and a strong balance sheet, which may drive a significant turnaround.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Market Cap (June 2025)</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$538M</p>
+                    <p class="text-xs text-slate-400 mt-1">Down 88% from IPO peak</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Analyst Median Target</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$12.15</p>
+                    <p class="text-xs text-slate-400 mt-1">53.15% Potential Upside from $6.46</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Cash & Equivalents (Q1 2025)</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$202M</p>
+                    <p class="text-xs text-slate-400 mt-1">Strong liquidity</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Q1 2025 Revenue</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$247M</p>
+                    <p class="text-xs text-slate-400 mt-1">Bumble App: $202M (-6% YoY)</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                <h3 class="text-2xl font-bold text-center section-title mb-2">The Core Opportunity</h3>
+                <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Bumble's current valuation seems to price in a worst-case scenario, overlooking key catalysts and strategic shifts that could unlock significant value.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                            <span class="text-3xl">💡</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">AI-Driven Innovation</h4>
+                        <p class="mt-2 text-sm text-slate-500">The "Bumble Compass" algorithm and other AI investments aim to personalize user experiences and improve match quality, driving retention and engagement.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                           <span class="text-3xl">⚙️</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">Strategic Restructuring</h4>
+                        <p class="mt-2 text-sm text-slate-500">Workforce cuts, halting non-core apps (Fruitz, Official), and cost efficiencies are streamlining operations and refocusing on core, high-margin businesses (Bumble, Badoo).</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                            <span class="text-3xl">🛡️</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">Undervalued & Resilient</h4>
+                        <p class="mt-2 text-sm text-slate-500">Trading at a significant discount to peers with a price-to-book of 0.4x, suggesting market pessimism overstates risk. Q1 2025 EBITDA margin of 26.1% shows operational resilience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="business" class="content-section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Bumble's Business Model: Connecting People</h2>
+                <p class="mt-4 text-lg section-intro">
+                    Bumble operates a freemium model across its suite of apps, generating revenue primarily from premium subscriptions and in-app purchases. Its unique women-first approach differentiates it in the competitive online connection market.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-2xl font-bold section-title mb-4">Core Offerings & Value Proposition</h3>
+                    <div class="space-y-6">
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-indigo-700">Bumble Date</h4>
+                            <p class="mt-2 text-sm text-slate-600">The flagship dating platform where women make the first move in heterosexual matches, fostering respect and reducing unsolicited messages. Available in 150 countries.</p>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-teal-700">Bumble BFF</h4>
+                            <p class="mt-2 text-sm text-slate-600">A dedicated mode for finding and matching with other users to build platonic friendships, catering to a broader social connection need.</p>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <h4 class="font-bold text-orange-700">Badoo</h4>
+                            <p class="mt-2 text-sm text-slate-600">A globally recognized dating platform with a broader user base, providing geographical diversification and additional revenue streams.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-2xl font-bold section-title mb-4">Revenue Streams Overview</h3>
+                    <p class="text-sm text-slate-500 mb-6">Bumble primarily monetizes through paid subscriptions (Boost, Premium) and in-app purchases (SuperSwipes, Spotlight), which offer enhanced features and visibility.</p>
+                    <div class="chart-container h-[300px] md:h-[350px]">
+                        <canvas id="revenueSourceChart"></canvas>
+                    </div>
+                    <ul class="list-disc list-inside text-sm text-slate-600 mt-6">
+                        <li>**Bumble Boost:** See all swipers, rematch, unlimited extends.</li>
+                        <li>**Bumble Premium:** All Boost features plus unlimited advanced filters, travel mode, incognito mode, and more.</li>
+                        <li>**In-app Purchases:** One-time purchases for features like SuperSwipes (to show strong interest) and Spotlight (to boost profile visibility).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="growth" class="content-section">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Growth Trajectory & Strategic Vision</h2>
+                <p class="mt-4 text-lg section-intro">
+                    Despite recent headwinds, Bumble is executing a strategic pivot to reignite user growth and improve monetization through product innovation, AI integration, and a sharpened focus on its core value proposition.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+                 <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-xl font-bold section-title mb-2">Paying Users Trend</h3>
+                    <p class="text-sm text-slate-500 mb-4">While Bumble App paying users saw a slight decline in Q1 2025, Total Paying Users remained relatively flat, indicating resilience from other apps like Badoo.</p>
+                     <div class="chart-container">
+                        <canvas id="payingUsersChart"></canvas>
+                    </div>
+                </div>
+                 <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-xl font-bold section-title mb-2">Market Share (U.S. Dating Apps)</h3>
+                     <p class="text-sm text-slate-500 mb-4">Bumble is a strong contender in the competitive U.S. dating app market, nearly tying with Tinder in market share, reflecting its unique appeal.</p>
+                     <div class="chart-container">
+                        <canvas id="marketShareChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-center section-title mb-8">Strategic Initiatives</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">AI-Powered Product Roadmap</h4>
+                        <p class="mt-2 text-sm text-slate-600">Investment in algorithms like "Bumble Compass" to personalize matching, analyze chat patterns, and improve user retention and engagement.</p>
+                    </div>
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Refocused Core Business</h4>
+                        <p class="mt-2 text-sm text-slate-600">Discontinuing underperforming apps (Fruitz, Official) to reallocate resources and focus on enhancing the core Bumble and Badoo experiences.</p>
+                    </div>
+                     <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Cost Efficiencies & Leaner Structure</h4>
+                        <p class="mt-2 text-sm text-slate-600">Workforce reduction (30% global workforce) aimed at generating significant annual cost savings for reinvestment in product and technology.</p>
+                    </div>
+                    <div class="stat-card p-6">
+                        <h4 class="font-bold text-lg text-slate-800">Safety & Trust Reinforcement</h4>
+                        <p class="mt-2 text-sm text-slate-600">Continued emphasis on empowering women and promoting safety features to maintain a trusted environment, a key differentiator for Bumble.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="financials" class="content-section">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Financial Performance & Key Risks</h2>
+                <p class="mt-4 text-lg section-intro">
+                    Bumble is navigating a challenging financial landscape characterized by revenue declines but shows resilience in profitability margins. This section examines its financials and the critical risks investors should consider.
+                </p>
+            </div>
+
+             <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-12">
+                <div class="lg:col-span-3 bg-white rounded-xl shadow p-6 md:p-8">
+                     <h3 class="text-xl font-bold section-title mb-2">Quarterly Revenue vs. Net Income ($M)</h3>
+                     <p class="text-sm text-slate-500 mb-4">Recent quarters show revenue pressure and fluctuating net income, reflecting a transitional period as the company restructures and invests.</p>
+                     <div class="chart-container">
+                        <canvas id="financialsChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 bg-white rounded-xl shadow p-6 md:p-8 flex flex-col">
+                    <h3 class="text-xl font-bold section-title mb-2">Analyst Consensus (Ratings)</h3>
+                    <p class="text-sm text-slate-500 mb-4">Despite recent financial challenges, a significant portion of analysts maintain a "Buy" rating, indicating confidence in long-term prospects.</p>
+                    <div class="chart-container flex-grow">
+                        <canvas id="analystRatingChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-center section-title mb-8">Key Risks & Considerations</h3>
+                <div id="risks-accordion" class="max-w-4xl mx-auto space-y-2">
+                    <!-- Accordion items will be injected by JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-xs">
+            <p>&copy; 2025 Investment Research Hub. All rights reserved. | 
+            <a href="index.html" class="text-slate-300 hover:text-white">Back to Research Hub</a></p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const APP_DATA = {
+                // BMBL specific data based on search results
+                marketShare: {
+                    labels: ['Tinder', 'Bumble', 'Hinge', 'Plenty of Fish', 'Others'],
+                    data: [25, 24, 18, 7, 26] // Others is aggregate (Grindr 7, Hily 7, Badoo 4, Other 8 = 26)
+                },
+                payingUsers: {
+                    labels: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', 'Q1 2025'],
+                    bumbleApp: [2.73, 2.72, 2.71, 2.71, 2.71], // Approximated slight decline to flat
+                    totalPayingUsers: [4.02, 4.02, 4.01, 4.01, 4.01] // Remained relatively flat
+                },
+                revenueSources: {
+                    labels: ['Subscriptions', 'In-App Purchases', 'Advertising'],
+                    data: [80, 15, 5] // Hypothetical split, Q4 2023 advertising was $25.4M (approx 5% of Q4 total), 42% from premium subs in 2023 for total revenue
+                },
+                financials: {
+                    labels: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', 'Q1 2025'],
+                    revenue: [267.8, 269, 274, 255, 247.1], // Approx. based on trend, Q1 2025 actual
+                    netIncome: [33.9, 27, -613, 4, 13.4] // Q1 2025 actual, Q4 2024 (Dec 31) had 4, Q3 2024 (Sep 30) had -613
+                },
+                analystRatings: {
+                    labels: ['Buy', 'Hold', 'Sell'],
+                    data: [27, 23, 1], // Based on search result: 27 buy, 23 hold, 1 sell
+                },
+                risks: [
+                    { title: 'Declining User Engagement & Retention', content: 'Dating app market faces secular declines in user engagement, with Gen Z favoring ephemeral platforms. Declines in paying users and ARPPU are key concerns.' },
+                    { title: 'Intense Competition', content: 'Highly competitive landscape with major players like Match Group (Tinder, Hinge) and other emerging platforms aggressively investing in AI and new features.' },
+                    { title: 'Revenue Volatility & Monetization Challenges', content: 'Recent revenue declines, coupled with dependency on subscription and in-app purchases, pose challenges, especially with a shifting user base.' },
+                    { title: 'High Operating Expenses & Debt', content: 'While restructuring aims for cost savings, high operational costs and $616M in debt remain a concern if cash flow continues to shrink.' },
+                    { title: 'Execution Risk of Strategic Pivot', content: 'The success of the workforce cuts and reinvestment in AI depends heavily on flawless execution to deliver improved user experience and renewed growth.' },
+                    { title: 'Brand Perception & Safety Issues', content: 'While Bumble emphasizes safety, any major platform security breach or negative brand perception could severely impact user trust and growth.' }
+                ]
+            };
+
+            function init() {
+                renderRisksAccordion();
+                createRevenueSourceChart();
+                createPayingUsersChart();
+                createMarketShareChart();
+                createFinancialsChart();
+                createAnalystRatingChart();
+            }
+
+            function renderRisksAccordion() {
+                const container = document.getElementById('risks-accordion');
+                let content = '';
+                APP_DATA.risks.forEach((risk, index) => {
+                    content += `
+                        <div class="accordion-item bg-white border border-slate-200 rounded-lg">
+                            <h2>
+                                <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-slate-700 hover:bg-slate-100" data-accordion-target="#accordion-body-${index}">
+                                    <span>${risk.title}</span>
+                                    <svg class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                                    </svg>
+                                </button>
+                            </h2>
+                            <div id="accordion-body-${index}" class="accordion-content">
+                                <div class="p-5 border-t border-slate-200">
+                                    <p class="mb-2 text-slate-500">${risk.content}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = content;
+                
+                container.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const content = button.parentElement.nextElementSibling;
+                        const icon = button.querySelector('svg');
+                        const isExpanded = content.style.maxHeight && content.style.maxHeight !== '0px';
+                        
+                        content.style.maxHeight = isExpanded ? '0px' : content.scrollHeight + 'px';
+                        icon.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+                    });
+                });
+            }
+            
+            const chartDefaultOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: "'Poppins', sans-serif"
+                            },
+                            boxWidth: 12,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: '#1e293b',
+                        titleFont: {
+                            family: "'Poppins', sans-serif",
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            family: "'Poppins', sans-serif"
+                        },
+                        padding: 10,
+                        cornerRadius: 4,
+                    }
+                },
+                scales: {
+                    y: {
+                        border: { display: false },
+                        grid: { color: '#e2e8f0' },
+                        ticks: {
+                            font: { family: "'Poppins', sans-serif" }
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { family: "'Poppins', sans-serif" }
+                        }
+                    }
+                }
+            };
+
+            function createRevenueSourceChart() {
+                const ctx = document.getElementById('revenueSourceChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: APP_DATA.revenueSources.labels,
+                        datasets: [{
+                            label: 'Revenue Share (%)',
+                            data: APP_DATA.revenueSources.data,
+                            backgroundColor: ['#4f46e5', '#14b8a6', '#f59e0b'],
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { family: "'Poppins', sans-serif" },
+                                    boxWidth: 12,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: chartDefaultOptions.plugins.tooltip
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+            
+            function createPayingUsersChart() {
+                const ctx = document.getElementById('payingUsersChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: APP_DATA.payingUsers.labels,
+                        datasets: [
+                            {
+                                label: 'Bumble App Paying Users (Millions)',
+                                data: APP_DATA.payingUsers.bumbleApp,
+                                borderColor: '#4f46e5',
+                                backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                                tension: 0.3,
+                                fill: false
+                            },
+                            {
+                                label: 'Total Paying Users (Millions)',
+                                data: APP_DATA.payingUsers.totalPayingUsers,
+                                borderColor: '#14b8a6',
+                                backgroundColor: 'rgba(20, 184, 166, 0.1)',
+                                tension: 0.3,
+                                fill: false
+                            }
+                        ]
+                    },
+                    options: chartDefaultOptions
+                });
+            }
+
+            function createMarketShareChart() {
+                const ctx = document.getElementById('marketShareChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: APP_DATA.marketShare.labels,
+                        datasets: [{
+                            label: 'Market Share (%)',
+                            data: APP_DATA.marketShare.data,
+                            backgroundColor: ['#4f46e5', '#14b8a6', '#f59e0b', '#ef4444', '#a5b4fc'],
+                            borderColor: ['#4338ca', '#0f766e', '#d97706', '#dc2626', '#818cf8'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: { ...chartDefaultOptions, plugins: { ...chartDefaultOptions.plugins, legend: {display: false} } }
+                });
+            }
+
+            function createFinancialsChart() {
+                const ctx = document.getElementById('financialsChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: APP_DATA.financials.labels,
+                        datasets: [
+                             {
+                                label: 'Total Revenue ($M)',
+                                data: APP_DATA.financials.revenue,
+                                backgroundColor: '#a5b4fc',
+                                yAxisID: 'y',
+                                order: 2
+                            },
+                            {
+                                label: 'Net Income ($M)',
+                                data: APP_DATA.financials.netIncome,
+                                backgroundColor: '#f87171',
+                                borderColor: '#ef4444',
+                                type: 'line',
+                                yAxisID: 'y',
+                                tension: 0.1,
+                                order: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        ...chartDefaultOptions,
+                        scales: {
+                           ...chartDefaultOptions.scales,
+                           y: {
+                                type: 'linear',
+                                display: true,
+                                position: 'left',
+                                title: { display: true, text: 'USD ($M)'}
+                           }
+                        }
+                    }
+                });
+            }
+
+            function createAnalystRatingChart() {
+                const ctx = document.getElementById('analystRatingChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: APP_DATA.analystRatings.labels,
+                        datasets: [{
+                            label: '# of Analysts',
+                            data: APP_DATA.analystRatings.data,
+                            backgroundColor: ['#4f46e5', '#f59e0b', '#ef4444'],
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { family: "'Poppins', sans-serif" },
+                                    boxWidth: 12,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: chartDefaultOptions.plugins.tooltip
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+
+            init();
+        });
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(sectionId)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

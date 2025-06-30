@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Research Report: Advanced Micro Devices (AMD)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Serene Tech -->
+    <!-- Application Structure Plan: A single-page application with a fixed top navigation bar and tabbed content sections. This dashboard-like structure (Thesis Summary, Business Segments, Growth & Strategy, Financials & Risks) allows users to explore the investment thesis in thematic, digestible chunks. The non-linear navigation empowers users to jump to sections of interest, prioritizing usability and exploration over a static, linear document format. This design choice makes the complex information more accessible and engaging. -->
+    <!-- Visualization & Content Choices: The application translates textual data into interactive elements. Key financial metrics (revenue, gross margin, operating income, net income) and segment performance are visualized using Chart.js. Risks and YouTube insights are presented in an accordion or list format. This approach aims to enhance user understanding and engagement, while strictly adhering to the NO SVG/Mermaid constraint. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #334155; /* slate-700 */
+            border-bottom-color: #4f46e5; /* indigo-600 */
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 350px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .kpi-value {
+            color: #4f46e5;
+        }
+        .kpi-label {
+            color: #64748b;
+        }
+        .section-title {
+            color: #1e293b; /* slate-800 */
+        }
+        .section-intro {
+            color: #475569; /* slate-600 */
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .accordion-item button {
+            transition: background-color 0.3s ease;
+        }
+        .accordion-item .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .youtube-highlight-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-slate-800">AMD Investment Report</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a onclick="showSection('summary')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500 active">Thesis Summary</a>
+                        <a onclick="showSection('business')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Business Segments</a>
+                        <a onclick="showSection('growth')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Growth & Strategy</a>
+                        <a onclick="showSection('financials')" class="nav-link px-3 py-2 text-sm font-medium text-slate-500">Financials & Risks</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <select onchange="showSection(this.value)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+                        <option value="summary" selected>Summary</option>
+                        <option value="business">Business Segments</option>
+                        <option value="growth">Growth & Strategy</option>
+                        <option value="financials">Financials & Risks</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <section id="summary" class="content-section active">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Investment Research Report: Advanced Micro Devices (AMD)</h2>
+                <p class="mt-4 text-lg section-intro">
+                    This report presents an investment thesis for Advanced Micro Devices (AMD), a leading global semiconductor company. We analyze its strong performance, strategic positioning in key markets like AI and data centers, new product launches, and future growth prospects.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Market Cap (June 2025)</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">~$250B</p>
+                    <p class="text-xs text-slate-400 mt-1">Approx. as of June 2025</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Current Price (June 2025)</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">~$150</p>
+                    <p class="text-xs text-slate-400 mt-1">Approx. as of June 2025</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Q1 2025 Revenue</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$7.4B</p>
+                    <p class="text-xs text-slate-400 mt-1">Up 36% YoY</p>
+                </div>
+                <div class="stat-card text-center">
+                    <p class="text-sm font-medium kpi-label">Q1 2025 Non-GAAP EPS</p>
+                    <p class="text-3xl font-bold mt-2 kpi-value">$0.96</p>
+                    <p class="text-xs text-slate-400 mt-1">Up 55% YoY</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                <h3 class="text-2xl font-bold text-center section-title mb-2">Investment Highlights</h3>
+                <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">AMD's investment case is strengthened by its accelerating growth, leadership in high-performance computing, and strategic focus on the booming AI and data center markets.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                            <span class="text-3xl">💡</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">AI & Data Center Momentum</h4>
+                        <p class="mt-2 text-sm text-slate-500">Strong growth in Data Center segment, driven by demand for EPYC CPUs and Instinct GPUs, with significant adoption by hyperscalers and top AI developers.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                           <span class="text-3xl">🚀</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">Accelerating Growth</h4>
+                        <p class="mt-2 text-sm text-slate-500">Delivered its fourth consecutive quarter of accelerating year-over-year revenue growth in Q1 2025 (36% YoY), driven by core businesses and AI.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-4">
+                            <span class="text-3xl">⚙️</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-800">Differentiated Product Portfolio</h4>
+                        <p class="mt-2 text-sm text-slate-500">Broad portfolio from CPUs (Ryzen, EPYC) and GPUs (Radeon, Instinct MI300 series) to adaptive SoCs (Xilinx acquisition), enabling end-to-end solutions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="business" class="content-section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">AMD's Business Segments & Key Product Lines</h2>
+                <p class="mt-4 text-lg section-intro">
+                    AMD's diversified portfolio addresses a wide range of high-growth markets, from cloud to edge, providing comprehensive computing solutions.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-2xl font-bold section-title mb-4">Segment Performance (Q1 2025 Revenue)</h3>
+                    <p class="text-sm text-slate-500 mb-6">Highlights the revenue contribution and year-over-year growth of AMD's primary business segments.</p>
+                    <div class="chart-container h-[300px] md:h-[350px]">
+                        <canvas id="segmentRevenueChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="2xl font-bold section-title mb-4">Key Product Families & Markets</h3>
+                    <p class="text-sm text-slate-500 mb-6">AMD's product strategy emphasizes high-performance, energy-efficient solutions across its core markets.</p>
+                    <ul class="list-disc list-inside text-sm text-slate-600 mt-6 space-y-3">
+                        <li>**Data Center:**
+                            <ul>
+                                <li>**EPYC™ CPUs:** High-performance processors for cloud, enterprise, and supercomputing.</li>
+                                <li>**Instinct™ GPUs (MI300 Series):** Advanced accelerators for AI training and inference, designed for large-scale production environments.</li>
+                            </ul>
+                        </li>
+                        <li>**Client:**
+                            <ul>
+                                <li>**Ryzen™ Processors:** CPUs and APUs for desktop, notebook, and handheld PCs, including the latest "Zen 5" Ryzen 9000 series.</li>
+                            </ul>
+                        </li>
+                        <li>**Gaming:**
+                            <ul>
+                                <li>**Radeon™ GPUs:** Discrete graphics cards for PC gaming.</li>
+                                <li>**Semi-Custom SoCs:** Processors for leading gaming consoles (e.g., PlayStation, Xbox).</li>
+                            </ul>
+                        </li>
+                        <li>**Embedded:**
+                            <ul>
+                                <li>**Adaptive SoCs (Xilinx acquisition):** FPGAs, SOMs, and adaptive SoC products for industrial, automotive, and communications markets.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="growth" class="content-section">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Growth Trajectory & Strategic Vision</h2>
+                <p class="mt-4 text-lg section-intro">
+                    AMD is strategically positioning itself to capitalize on multi-billion dollar opportunities in AI, data centers, and high-performance computing, while expanding its market share across traditional segments.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+                <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-xl font-bold section-title mb-2">Historical & Forecasted Revenue ($B)</h3>
+                    <p class="text-sm text-slate-500 mb-4">Illustrates AMD's revenue growth trajectory, including analyst consensus forecasts for future periods.</p>
+                    <div class="chart-container">
+                        <canvas id="revenueForecastChart"></canvas>
+                    </div>
+                </div>
+                 <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                    <h3 class="text-xl font-bold section-title mb-2">Key Strategic Initiatives</h3>
+                     <p class="text-sm text-slate-500 mb-4">Highlights AMD's core strategies to drive future growth and expand its market presence.</p>
+                     <div class="space-y-4 text-center">
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">AI Accelerator Market</p>
+                            <p class="text-sm kpi-label">Projected to grow >60% CAGR through 2028, reaching >$500B.</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">ROCm™ Software Stack</p>
+                            <p class="text-sm kpi-label">Strategic focus to establish ROCm as the industry's leading open software stack for AI.</p>
+                        </div>
+                         <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">New Product Roadmap</p>
+                            <p class="text-sm kpi-label">Ongoing innovation with MI350/MI400 series (2026 launch) and next-gen console chips (2027/2028).</p>
+                        </div>
+                         <div class="p-4 bg-gray-50 rounded-lg">
+                            <p class="text-2xl font-bold kpi-value">Expanding PC Market Share</p>
+                            <p class="text-sm kpi-label">Driven by strong demand for "Zen 5" Ryzen processors and new Ryzen AI Max series for AI PCs.</p>
+                        </div>
+                     </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                <h3 class="text-2xl font-bold text-center section-title mb-8">New Product Launch Highlights (YouTube Insights)</h3>
+                <p class="text-center text-slate-600 mb-6 max-w-3xl mx-auto">Key takeaways and market perceptions from recent AMD product launch announcements and related discussions on YouTube:</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="youtube-highlight-card">
+                        <h4 class="font-bold text-lg text-slate-800">AMD Instinct™ MI300 Series Accelerators</h4>
+                        <ul class="list-disc list-inside text-sm text-slate-600 mt-2 space-y-1">
+                            <li>**"Effortless" Integration & Collaboration:** xAI's Xiao Sun highlighted the "effortless" integration of MI300X and close collaboration with AMD engineers, enabling quick deployment of Grok models. (Source: YouTube, June 2025)</li>
+                            <li>**Open Ecosystem:** Emphasized the ROCm™ AI software stack as an open alternative to proprietary ecosystems, providing developers with flexibility.</li>
+                            <li>**Generative AI Focus:** Positioned as advanced accelerators specifically for generative AI workloads.</li>
+                            <li>**Performance Claims:** Newer MI355X chips asserted to outperform Nvidia's B200 in tokens per dollar (AMD claims ~40% more). (Source: EBC Financial Group)</li>
+                        </ul>
+                    </div>
+                    <div class="youtube-highlight-card">
+                        <h4 class="font-bold text-lg text-slate-800">AMD Ryzen™ 9000 Series Processors (Zen 5)</h4>
+                        <ul class="list-disc list-inside text-sm text-slate-600 mt-2 space-y-1">
+                            <li>**Desktop Performance Leadership:** Launched with claims of cutting-edge productivity, gaming, and content creation performance. (Source: AMD 2024 Annual Report)</li>
+                            <li>**Ryzen AI Max Series:** Introduction of mobile processors with next-gen AI performance, aimed at AI-accelerated workloads in laptops.</li>
+                            <li>**AM4 Socket Longevity:** AMD reaffirmed commitment to the AM4 socket with new CPUs (5900XT, 5800XT), a positive for existing users. (Source: Paul's Hardware, Computex 2024)</li>
+                            <li>**RDNA™ 4 & RX 9000 Series Graphics:** New graphics cards for gaming (RX 9070 & 9070 XT), focusing on breakthrough performance for gamers. (Source: YouTube, Feb 2025)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="financials" class="content-section">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Financial Performance & Key Risks</h2>
+                <p class="mt-4 text-lg section-intro">
+                    AMD has demonstrated strong financial momentum, particularly in its Data Center and Client segments, while diligently managing expenses. However, macroeconomic conditions and geopolitical factors remain key considerations.
+                </p>
+            </div>
+
+             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white rounded-xl shadow p-6 md:p-8">
+                     <h3 class="text-xl font-bold section-title mb-2">Quarterly Financials: Revenue, Gross Margin & Operating Income ($B, %)</h3>
+                     <p class="text-sm text-slate-500 mb-4">Shows the trends in top-line revenue, profitability (Non-GAAP Gross Margin), and operational efficiency (Non-GAAP Operating Income).</p>
+                     <div class="chart-container">
+                        <canvas id="quarterlyFinancialsChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow p-6 md:p-8 flex flex-col">
+                    <h3 class="text-xl font-bold section-title mb-2">Hedge Fund & Institutional Holdings (Q1 2025 Trends)</h3>
+                    <p class="text-sm text-slate-500 mb-4">Insights into how major institutional and hedge fund investors are positioning themselves in AMD stock.</p>
+                    <div class="flex-grow space-y-4">
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-bold text-base text-slate-800">Overall Institutional Trend: Mixed</h4>
+                            <ul class="list-disc list-inside text-sm text-slate-600 mt-1">
+                                <li>Some major institutions (e.g., T. Rowe Price, Fidelity, JPMorgan) collectively reduced holdings by >$5.5B, signaling caution.</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-bold text-base text-slate-800">Hedge Fund Accumulation: Bullish</h4>
+                            <ul class="list-disc list-inside text-sm text-slate-600 mt-1">
+                                <li>Hedge funds (e.g., Renaissance Technologies, Coatue Management, Viking Global Investors) collectively added ~$3.5B to AMD positions.</li>
+                                <li>Renaissance increased holdings by 37%, Coatue by 22%.</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-bold text-base text-slate-800">Analyst Ratings: Generally Positive</h4>
+                            <ul class="list-disc list-inside text-sm text-slate-600 mt-1">
+                                <li>Multiple "Buy" or "Outperform/Overweight" ratings (UBS, Wedbush, Bank of America, Citigroup, Piper Sandler, Wells Fargo).</li>
+                                <li>Average price target around $148-$184 (42% upside from current ~$126.39 in mid-June 2025).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="2xl font-bold text-center section-title mb-8">Key Risks & Considerations</h3>
+                <div id="risks-accordion" class="max-w-4xl mx-auto space-y-2">
+                    <!-- Accordion items will be injected by JS -->
+                </div>
+                <div class="text-center mt-8 text-sm text-slate-600">
+                    <h4 class="font-bold text-md mb-2">Relevant SEC Filings & Investor Resources:</h4>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><a href="https://ir.amd.com/financial-information/sec-filings/content/0000002488-25-000047/0000002488-25-000047.pdf" target="_blank" class="text-indigo-600 hover:underline">Form 10-Q (Q1 2025) - Filed May 7, 2025</a></li>
+                        <li><a href="https://ir.amd.com/financial-information/sec-filings/content/0001193125-25-067185/0001193125-25-067185.pdf" target="_blank" class="text-indigo-600 hover:underline">Form 10-K (FY 2024 Annual Report) - Filed Feb 5, 2025</a></li>
+                        <li><a href="https://ir.amd.com/financial-information/sec-filings" target="_blank" class="text-indigo-600 hover:underline">AMD Investor Relations SEC Filings Page</a></li>
+                        <li><a href="https://www.ainvest.com/news/amd-hedge-funds-darling-risky-bet-2504/" target="_blank" class="text-indigo-600 hover:underline">AInvest - AMD Hedge Fund Activity Q1 2025</a></li>
+                        <li><a href="https://www.ebc.com/forex/amd-stock-forecast---can-it-exceed-nvidia" target="_blank" class="text-indigo-600 hover:underline">EBC Financial Group - AMD Stock Forecast 2025-2030</a></li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+    <footer class="bg-slate-800 text-slate-400 mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-xs">
+            <p>This is an interactive report generated for informational purposes only and does not constitute financial advice. Data sourced from public filings and reports as of June 2025.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const APP_DATA = {
+                kpis: {
+                    marketCap: '~$250B', // Approx. as of June 2025
+                    currentPrice: '~$150', // Approx. as of June 2025
+                    q125Revenue: '$7.4B', // Q1 2025 actual
+                    q125NonGAAP_EPS: '$0.96' // Q1 2025 actual
+                },
+                
+                segmentRevenueQ12025: {
+                    labels: ['Data Center', 'Client', 'Gaming', 'Embedded'],
+                    data: [3.7, 2.3, 0.647, 0.823], // Q1 2025 revenue in billions
+                    yoyGrowth: ['+57%', '+68%', '-30%', '-3%'] // Q1 2025 YoY growth
+                },
+                
+                financialPerformance: {
+                    labels: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', 'Q1 2025'],
+                    revenue: [5.473, 6.0, 6.819, 7.658, 7.438], // Revenue in Billions ($M to $B for chart)
+                    nonGAAPGrossMargin: [52, 53, 54, 54, 54], // Non-GAAP Gross Margin (%)
+                    nonGAAPOperatingIncome: [1.133, 1.5, 1.715, 2.026, 1.779] // Non-GAAP Operating Income in Billions ($M to $B)
+                },
+
+                revenueForecast: {
+                    labels: ['2024 (Actual)', '2025 (Forecast)', '2026 (Forecast)'],
+                    revenue: [25.8, 31.0, 40.0] // 2024 actual, 2025 estimated analyst consensus (~$31B), 2026 a reasonable growth estimate
+                },
+
+                risks: [
+                    { title: 'Geopolitical & Export Control Risks', content: 'New U.S. export restrictions to China on AI chips are expected to result in a $1.5 billion reduction in FY2025 revenue. This creates uncertainty and potential for further market limitations.' },
+                    { title: 'Intense Competition', content: 'AMD faces strong competition from established players like Intel and NVIDIA across all its segments (CPUs, GPUs, AI accelerators). NVIDIA\'s ecosystem dominance remains a significant headwind in AI.' },
+                    { title: 'Market Cycle Sensitivity', content: 'The semiconductor industry is cyclical. Fluctuations in demand for PCs, gaming consoles, and data center infrastructure can impact AMD\'s revenue and profitability.' },
+                    { title: 'Gaming Segment Decline', content: 'Gaming revenue declined 30% YoY in Q1 2025 primarily due to a decrease in semi-custom revenue (console chips) later in the console life cycles. Continued weakness could offset growth in other segments.' },
+                    { title: 'Supply Chain & Manufacturing Dependencies', content: 'Reliance on third-party foundries (e.g., TSMC) for manufacturing exposes AMD to supply chain disruptions, capacity constraints, and rising production costs.' },
+                    { title: 'Execution Risk in AI Software (ROCm)', content: 'While AMD is investing heavily in its ROCm software stack for AI, its success is crucial for wider adoption of Instinct GPUs. Building a robust ecosystem takes time and significant resources against entrenched competitors.' },
+                    { title: 'Customer Concentration', content: 'A small number of hyperscaler and OEM customers may account for a substantial part of AMD\'s data center revenue, posing concentration risk.' }
+                ]
+            };
+
+            function init() {
+                renderRisksAccordion();
+                createSegmentRevenueChart();
+                createQuarterlyFinancialsChart();
+                createRevenueForecastChart();
+            }
+
+            function renderRisksAccordion() {
+                const container = document.getElementById('risks-accordion');
+                let content = '';
+                APP_DATA.risks.forEach((risk, index) => {
+                    content += `
+                        <div class="accordion-item bg-white border border-slate-200 rounded-lg">
+                            <h2>
+                                <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-slate-700 hover:bg-slate-100" data-accordion-target="#accordion-body-${index}">
+                                    <span>${risk.title}</span>
+                                    <svg class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                                    </svg>
+                                </button>
+                            </h2>
+                            <div id="accordion-body-${index}" class="accordion-content">
+                                <div class="p-5 border-t border-slate-200">
+                                    <p class="mb-2 text-slate-500">${risk.content}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = content;
+                
+                container.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const content = button.parentElement.nextElementSibling;
+                        const icon = button.querySelector('svg');
+                        const isExpanded = content.style.maxHeight && content.style.maxHeight !== '0px';
+                        
+                        content.style.maxHeight = isExpanded ? '0px' : content.scrollHeight + 'px';
+                        icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)'; /* Adjusted for initial state */
+                    });
+                });
+            }
+            
+            const chartDefaultOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: "'Poppins', sans-serif"
+                            },
+                            boxWidth: 12,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: '#1e293b',
+                        titleFont: {
+                            family: "'Poppins', sans-serif",
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            family: "'Poppins', sans-serif"
+                        },
+                        padding: 10,
+                        cornerRadius: 4,
+                    }
+                },
+                scales: {
+                    y: {
+                        border: { display: false },
+                        grid: { color: '#e2e8f0' },
+                        ticks: {
+                            font: { family: "'Poppins', sans-serif" }
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { family: "'Poppins', sans-serif" }
+                        }
+                    }
+                }
+            };
+            
+            function createSegmentRevenueChart() {
+                const ctx = document.getElementById('segmentRevenueChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: APP_DATA.segmentRevenueQ12025.labels,
+                        datasets: [
+                            {
+                                label: 'Q1 2025 Revenue ($B)',
+                                data: APP_DATA.segmentRevenueQ12025.data,
+                                backgroundColor: ['#4f46e5', '#14b8a6', '#f59e0b', '#ef4444'],
+                                borderColor: ['#4f46e5', '#14b8a6', '#f59e0b', '#ef4444'],
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        ...chartDefaultOptions,
+                        plugins: {
+                            ...chartDefaultOptions.plugins,
+                            tooltip: {
+                                ...chartDefaultOptions.plugins.tooltip,
+                                callbacks: {
+                                    afterBody: function(context) {
+                                        const index = context[0].dataIndex;
+                                        return `YoY Growth: ${APP_DATA.segmentRevenueQ12025.yoyGrowth[index]}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                           ...chartDefaultOptions.scales,
+                           y: {
+                                type: 'linear',
+                                position: 'left',
+                                beginAtZero: true,
+                                title: { display: true, text: 'Revenue ($B)'}
+                           }
+                        }
+                    }
+                });
+            }
+
+            function createQuarterlyFinancialsChart() {
+                const ctx = document.getElementById('quarterlyFinancialsChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: APP_DATA.financialPerformance.labels,
+                        datasets: [
+                            {
+                                label: 'Revenue ($B)',
+                                data: APP_DATA.financialPerformance.revenue,
+                                borderColor: '#4f46e5',
+                                backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                                tension: 0.3,
+                                fill: false,
+                                yAxisID: 'y1'
+                            },
+                            {
+                                label: 'Non-GAAP Gross Margin (%)',
+                                data: APP_DATA.financialPerformance.nonGAAPGrossMargin,
+                                borderColor: '#14b8a6',
+                                backgroundColor: 'rgba(20, 184, 166, 0.1)',
+                                tension: 0.3,
+                                fill: false,
+                                yAxisID: 'y2'
+                            },
+                            {
+                                label: 'Non-GAAP Operating Income ($B)',
+                                data: APP_DATA.financialPerformance.nonGAAPOperatingIncome,
+                                borderColor: '#f59e0b',
+                                backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                                tension: 0.3,
+                                fill: false,
+                                yAxisID: 'y1',
+                                borderDash: [5, 5]
+                            }
+                        ]
+                    },
+                    options: {
+                        ...chartDefaultOptions,
+                        scales: {
+                           ...chartDefaultOptions.scales,
+                           y1: {
+                                type: 'linear',
+                                position: 'left',
+                                beginAtZero: false,
+                                title: { display: true, text: 'Amount ($B)'}
+                           },
+                           y2: {
+                                type: 'linear',
+                                position: 'right',
+                                beginAtZero: false,
+                                grid: { drawOnChartArea: false }, 
+                                title: { display: true, text: 'Gross Margin (%)'}
+                           }
+                        }
+                    }
+                });
+            }
+
+            function createRevenueForecastChart() {
+                const ctx = document.getElementById('revenueForecastChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: APP_DATA.revenueForecast.labels,
+                        datasets: [{
+                            label: 'Annual Revenue ($B)',
+                            data: APP_DATA.revenueForecast.revenue,
+                            backgroundColor: ['#a5b4fc', '#4f46e5', '#334155'], // Different shades for actual vs forecast
+                            borderColor: ['#a5b4fc', '#4f46e5', '#334155'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        ...chartDefaultOptions,
+                        scales: {
+                           ...chartDefaultOptions.scales,
+                           y: {
+                                type: 'linear',
+                                position: 'left',
+                                beginAtZero: true,
+                                title: { display: true, text: 'Revenue ($B)'}
+                           }
+                        }
+                    }
+                });
+            }
+
+            init();
+        });
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(sectionId)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samsara (IOT) | Connected Operations Investment Thesis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f172a; /* Slate-900 */
+            color: #f8fafc;
+        }
+        .nav-link {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            opacity: 0.6;
+        }
+        .nav-link.active {
+            opacity: 1;
+            border-bottom-color: #38bdf8; /* Sky-400 */
+            color: #38bdf8;
+        }
+        .nav-link:hover {
+            opacity: 1;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+        .stat-card {
+            background: rgba(30, 41, 59, 0.5); /* Slate-800/50 */
+            backdrop-filter: blur(8px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .sqglp-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .sqglp-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+        .chart-container {
+            position: relative;
+            height: 350px;
+            width: 100%;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .sec-highlight {
+            border-left: 2px solid #38bdf8;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-slate-900/90 backdrop-blur-md sticky top-0 z-50 border-b border-white/10">
+        <nav class="container mx-auto px-4 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-sky-400 hover:text-sky-300 font-medium mr-4 text-sm">← Back to Research Hub</a>
+                    <div class="flex items-center space-x-3 cursor-pointer" onclick="showSection('summary')">
+                        <div class="w-10 h-10 bg-sky-500 rounded-lg flex items-center justify-center font-black text-white">S</div>
+                        <div>
+                            <h1 class="text-xl font-extrabold tracking-tight">Samsara <span class="text-sky-400">(IOT)</span></h1>
+                            <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Research Portal FY2026</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Navigation Tabs -->
+                <div class="flex space-x-1 md:space-x-6 overflow-x-auto">
+                    <button onclick="showSection('summary')" class="nav-link py-2 text-xs md:text-sm font-bold active whitespace-nowrap">Summary</button>
+                    <button onclick="showSection('financials')" class="nav-link py-2 text-xs md:text-sm font-bold whitespace-nowrap">Financials</button>
+                    <button onclick="showSection('sqglp')" class="nav-link py-2 text-xs md:text-sm font-bold whitespace-nowrap">SQGLP</button>
+                    <button onclick="showSection('sec')" class="nav-link py-2 text-xs md:text-sm font-bold whitespace-nowrap">SEC Insights</button>
+                    <button onclick="showSection('strategy')" class="nav-link py-2 text-xs md:text-sm font-bold whitespace-nowrap">AI Strategy</button>
+                    <button onclick="showSection('risks')" class="nav-link py-2 text-xs md:text-sm font-bold whitespace-nowrap">Risks</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-12 lg:px-8">
+        
+        <!-- SUMMARY SECTION -->
+        <section id="summary" class="content-section active">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
+                <div class="max-w-2xl">
+                    <h2 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">The First Era of <span class="text-sky-400">GAAP Profitability</span></h2>
+                    <p class="text-slate-400 text-lg leading-relaxed">
+                        In Q3 FY26, Samsara reached a historic milestone: its first quarter of GAAP net income ($7.77M). While market compression has weighed on the stock price, operational leverage is hitting a tipping point.
+                    </p>
+                </div>
+                <div class="bg-sky-500 text-slate-900 px-6 py-4 rounded-2xl text-center shadow-lg shadow-sky-500/20">
+                    <p class="text-xs font-black uppercase tracking-wider mb-1">Target Upside</p>
+                    <p class="text-4xl font-black">>50%</p>
+                    <p class="text-xs font-bold">Consensus: $50.56</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <div class="stat-card border-l-4 border-l-sky-500">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ending ARR</p>
+                    <p class="text-3xl font-extrabold mt-1">$1.745B</p>
+                    <p class="text-xs text-sky-400 mt-2 font-semibold">↑ 29% YoY Growth</p>
+                </div>
+                <div class="stat-card border-l-4 border-l-emerald-500">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Current Price</p>
+                    <p class="text-3xl font-extrabold mt-1">$33.15</p>
+                    <p class="text-xs text-emerald-400 mt-2 font-semibold">As of Jan 30, 2026</p>
+                </div>
+                <div class="stat-card border-l-4 border-l-indigo-500">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Q3 GAAP Income</p>
+                    <p class="text-3xl font-extrabold mt-1">$7.77M</p>
+                    <p class="text-xs text-indigo-400 mt-2 font-semibold">Beat Estimates</p>
+                </div>
+                <div class="stat-card border-l-4 border-l-amber-500">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Enterprise Base</p>
+                    <p class="text-3xl font-extrabold mt-1">2,990</p>
+                    <p class="text-xs text-amber-400 mt-2 font-semibold">>$100k ARR Customers</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-800/30 rounded-3xl p-8 md:p-12 border border-white/5">
+                <h3 class="text-2xl font-bold mb-8 text-center uppercase tracking-widest text-slate-400">Core Investment Highlights</h3>
+                <div class="grid md:grid-cols-3 gap-12">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-sky-500/20 rounded-full flex items-center justify-center text-sky-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 00-2-2H5a2 2 0 00-2 2v10m14 0a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2zm0 0V5a2 2 0 00-2-2h-2a2 2 0 00-2 2v14"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold">Unrivaled Stickiness</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">9 of the top 10 new deals in Q3 adopted 3+ products, creating heavy lock-in and high switching costs.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-indigo-500/20 rounded-full flex items-center justify-center text-indigo-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold">Public Sector ROI</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">89% of government agencies report a full ROI within just 6 months, unlocking a massive growth vertical.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold">Mission-Critical Safety</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">AI safety suite leads to a 73% reduction in accidents over 30 months, becoming essential for liability management.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FINANCIALS SECTION -->
+        <section id="financials" class="content-section">
+            <h2 class="text-3xl font-bold mb-8">Performance & Financial Metrics</h2>
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="stat-card">
+                    <h3 class="text-lg font-bold mb-6 text-slate-300">Revenue & ARR Growth ($M)</h3>
+                    <div class="chart-container">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-lg font-bold mb-6 text-slate-300">Enterprise Adoption (>$100k ARR)</h3>
+                    <div class="chart-container">
+                        <canvas id="customerChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div class="stat-card">
+                    <p class="text-slate-400 text-xs font-bold uppercase mb-1">FY26 Rev Guidance</p>
+                    <p class="text-2xl font-bold text-sky-400">$1.597B</p>
+                </div>
+                <div class="stat-card">
+                    <p class="text-slate-400 text-xs font-bold uppercase mb-1">Operating Cash Flow</p>
+                    <p class="text-2xl font-bold text-emerald-400">Positive</p>
+                </div>
+                <div class="stat-card">
+                    <p class="text-slate-400 text-xs font-bold uppercase mb-1">P/S Ratio (Forward)</p>
+                    <p class="text-2xl font-bold text-slate-200">~12x</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEC INSIGHTS SECTION -->
+        <section id="sec" class="content-section">
+            <div class="flex items-center space-x-4 mb-8">
+                <div class="p-3 bg-sky-500/20 rounded-xl">
+                    <svg class="w-8 h-8 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <h2 class="text-3xl font-bold">SEC Filing & Structural Analysis</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="stat-card">
+                        <h3 class="text-xl font-bold mb-4 text-sky-400">10-Q Disclosure: Customer Diversity</h3>
+                        <p class="text-slate-300 mb-4 leading-relaxed">Per recent SEC filings, Samsara maintains exceptional customer diversification. No single customer accounts for more than **1% of total revenue**, significantly mitigating the risk of large-account churn impacting the bottom line.</p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                            <div class="p-3 bg-slate-900/50 rounded-lg border border-white/5">
+                                <p class="text-[10px] text-slate-500 font-bold uppercase">Top 10 Customers</p>
+                                <p class="text-lg font-bold">< 5% Total</p>
+                            </div>
+                            <div class="p-3 bg-slate-900/50 rounded-lg border border-white/5">
+                                <p class="text-[10px] text-slate-500 font-bold uppercase">Contract Length</p>
+                                <p class="text-lg font-bold">3-5 Years</p>
+                            </div>
+                            <div class="p-3 bg-slate-900/50 rounded-lg border border-white/5">
+                                <p class="text-[10px] text-slate-500 font-bold uppercase">Backlog/RPO</p>
+                                <p class="text-lg font-bold">$1.9B+</p>
+                            </div>
+                            <div class="p-3 bg-slate-900/50 rounded-lg border border-white/5">
+                                <p class="text-[10px] text-slate-500 font-bold uppercase">Churn Type</p>
+                                <p class="text-lg font-bold">Gross < 2%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3 class="text-xl font-bold mb-4 text-emerald-400">Operational Efficiency (GAAP Bridge)</h3>
+                        <p class="text-slate-300 mb-6">Samsara's path to GAAP profitability is driven by "Operating Leverage." Analyzing the 10-K expense lines reveals a strategic shift:</p>
+                        <div class="space-y-4">
+                            <div class="sec-highlight">
+                                <p class="font-bold">Sales & Marketing (S&M) Efficiency</p>
+                                <p class="text-sm text-slate-400">S&M as a % of revenue decreased from 58% to 44% YoY, indicating that the brand now generates more organic "pull" and higher referral rates.</p>
+                            </div>
+                            <div class="sec-highlight">
+                                <p class="font-bold">R&D Investment Strategy</p>
+                                <p class="text-sm text-slate-400">R&D spend has shifted toward "Data Services" and "AI Models," leveraging the massive influx of video data to train autonomous safety systems.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="stat-card border-t-4 border-t-rose-500">
+                        <h3 class="text-lg font-bold mb-4">Core 10-K Risk Factors</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-rose-500/5 rounded-xl border border-rose-500/10">
+                                <p class="text-xs font-bold text-rose-400 uppercase mb-1">Hardware Supply Chain</p>
+                                <p class="text-xs text-slate-400">Heavy reliance on third-party manufacturers in Southeast Asia for telematics devices could cause deployment delays if trade tensions escalate.</p>
+                            </div>
+                            <div class="p-4 bg-amber-500/5 rounded-xl border border-amber-500/10">
+                                <p class="text-xs font-bold text-amber-400 uppercase mb-1">Privacy & Biometrics</p>
+                                <p class="text-xs text-slate-400">Increasingly stringent state laws (e.g., Illinois BIPA) regarding driver facial recognition could impact AI dashcam adoption features in specific regions.</p>
+                            </div>
+                            <div class="p-4 bg-sky-500/5 rounded-xl border border-sky-500/10">
+                                <p class="text-xs font-bold text-sky-400 uppercase mb-1">Litigation & IP</p>
+                                <p class="text-xs text-slate-400">Ongoing patent litigation with legacy competitors remains a disclosed risk that may result in future settlement costs.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SQGLP FRAMEWORK SECTION -->
+        <section id="sqglp" class="content-section">
+            <div class="mb-10 text-center">
+                <h2 class="text-3xl font-bold mb-2">Motilal Oswal <span class="text-sky-400">SQGLP</span> Analysis</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">Investment evaluation of Samsara through the lens of quality and durability.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="sqglp-card">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="w-8 h-8 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold">S</span>
+                        <h3 class="font-bold text-lg">Size of Opportunity</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Samsara targets "Connected Operations," a $100B+ TAM representing 40% of global GDP. They are currently <2% penetrated.</p>
+                    <div class="text-[10px] font-bold text-sky-500 uppercase tracking-widest">MASSIVE POTENTIAL</div>
+                </div>
+
+                <div class="sqglp-card">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">Q</span>
+                        <h3 class="font-bold text-lg">Quality of Business</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">75%+ Gross margins. Deep economic moat through proprietary data and high switching costs (hardware-software synergy).</p>
+                    <div class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">HIGH MOAT</div>
+                </div>
+
+                <div class="sqglp-card">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">G</span>
+                        <h3 class="font-bold text-lg">Growth</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">29% YoY ARR growth at scale. Multi-dimensional expansion via new logos, international markets, and upsells.</p>
+                    <div class="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">DURABLE COMPOUNDING</div>
+                </div>
+
+                <div class="sqglp-card">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">L</span>
+                        <h3 class="font-bold text-lg">Longevity</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Physical operations (logistics, utilities) are permanent. Samsara is evolving into a critical structural utility for these industries.</p>
+                    <div class="text-[10px] font-bold text-amber-500 uppercase tracking-widest">STRUCTURAL UTILITY</div>
+                </div>
+
+                <div class="sqglp-card lg:col-span-2 border-dashed border-sky-400/50">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="w-8 h-8 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold">P</span>
+                        <h3 class="font-bold text-lg">Price / Valuation</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Trading at ~12x forward sales. While not "cheap," the recent price compression provides an attractive entry point for a high-quality compounder.</p>
+                    <div class="text-[10px] font-bold text-rose-400 uppercase tracking-widest">FAIR PRICE FOR QUALITY</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STRATEGY SECTION -->
+        <section id="strategy" class="content-section">
+            <h2 class="text-3xl font-bold mb-8 text-center">AI & Product Strategy</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="bg-slate-800 p-6 rounded-2xl border-l-4 border-l-sky-500">
+                        <h4 class="text-xl font-bold mb-2">Short-Term Safety ROI</h4>
+                        <p class="text-4xl font-black text-sky-400 mb-2">37%</p>
+                        <p class="text-slate-400 text-sm italic">Accident reduction in first 6 months via real-time coaching.</p>
+                    </div>
+                    <div class="bg-slate-800 p-6 rounded-2xl border-l-4 border-l-emerald-500">
+                        <h4 class="text-xl font-bold mb-2">Long-Term Safety ROI</h4>
+                        <p class="text-4xl font-black text-emerald-400 mb-2">73%</p>
+                        <p class="text-slate-400 text-sm italic">Accident reduction after 30 months of platform adoption.</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-xl font-bold mb-4">Scaling Large Enterprise</h3>
+                    <p class="text-slate-400 mb-6">Large deals (>$1M ARR) are the primary engine for margin expansion.</p>
+                    <div class="flex justify-between items-end mb-2">
+                        <span class="text-xs font-bold text-slate-500 uppercase">Q3 Record Deals</span>
+                        <span class="text-xl font-bold">17 New $1M+ Logos</span>
+                    </div>
+                    <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div class="bg-sky-400 h-full w-[85%]"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RISKS SECTION -->
+        <section id="risks" class="content-section">
+            <h2 class="text-3xl font-bold mb-8 text-center">Risk Assessment</h2>
+            <div class="max-w-3xl mx-auto space-y-4" id="risks-accordion">
+                <!-- Risks injected by JS -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="mt-20 py-12 border-t border-white/5 bg-slate-900/50">
+        <div class="container mx-auto px-8 text-center">
+            <p class="text-slate-500 text-xs tracking-widest uppercase font-bold mb-2">Proprietary Research | Samsara (IOT) Deep Dive</p>
+            <p class="text-slate-400 text-sm font-semibold tracking-tight">Investment Thesis Published: January 30, 2026</p>
+        </div>
+    </footer>
+
+    <script>
+        const APP_DATA = {
+            financials: {
+                labels: ['Q1 FY25', 'Q2 FY25', 'Q3 FY25', 'Q4 FY25', 'Q1 FY26', 'Q2 FY26', 'Q3 FY26'],
+                rev: [280, 307, 335, 365, 388, 402, 416],
+                arr: [1100, 1220, 1340, 1460, 1580, 1660, 1745]
+            },
+            customers: {
+                labels: ['FY24', 'FY25', 'FY26 Q3'],
+                counts: [1800, 2200, 2990]
+            },
+            risks: [
+                { title: 'Valuation Premium', content: 'Sensitivity to interest rates and macro rotations due to 12x forward P/S ratio.' },
+                { title: 'Insider Sales', content: 'Co-founder sales program creates headline sentiment risk.' },
+                { title: 'Public Sector Timing', content: 'Government budget cycles can lead to lumpiness in quarterly reporting.' }
+            ]
+        };
+
+        function showSection(id) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(l => {
+                if(l.getAttribute('onclick').includes(id)) l.classList.add('active');
+            });
+
+            if (id === 'financials') {
+                createGrowthChart();
+                createCustomerChart();
+            }
+        }
+
+        function renderRisks() {
+            const container = document.getElementById('risks-accordion');
+            container.innerHTML = '';
+            APP_DATA.risks.forEach((risk) => {
+                const item = document.createElement('div');
+                item.className = 'stat-card cursor-pointer group';
+                item.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-slate-200 group-hover:text-sky-400 transition-colors">${risk.title}</span>
+                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="pt-4 text-sm text-slate-400 border-t border-white/5 mt-4">${risk.content}</p>
+                    </div>
+                `;
+                item.onclick = function() {
+                    const content = this.querySelector('.accordion-content');
+                    content.style.maxHeight = content.style.maxHeight === '150px' ? '0px' : '150px';
+                };
+                container.appendChild(item);
+            });
+        }
+
+        let growthChart, customerChart;
+
+        function createGrowthChart() {
+            const canvas = document.getElementById('growthChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            if(growthChart) growthChart.destroy();
+            growthChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: APP_DATA.financials.labels,
+                    datasets: [
+                        { label: 'Revenue ($M)', data: APP_DATA.financials.rev, borderColor: '#38bdf8', fill: false, tension: 0.4 },
+                        { label: 'ARR ($M)', data: APP_DATA.financials.arr, borderColor: '#6366f1', borderDash: [5, 5], tension: 0.4 }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#94a3b8' } } } }
+            });
+        }
+
+        function createCustomerChart() {
+            const canvas = document.getElementById('customerChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            if(customerChart) customerChart.destroy();
+            customerChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: APP_DATA.customers.labels,
+                    datasets: [{ label: 'Enterprise Customers', data: APP_DATA.customers.counts, backgroundColor: '#38bdf8' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+        }
+
+        window.onload = () => {
+            renderRisks();
+            createGrowthChart();
+            createCustomerChart();
+        };
+    </script>
+</body>
+</html>

@@ -1,481 +1,838 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samsara (IOT) | Connected Operations Investment Thesis</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #0f172a; /* Slate-900 */
-            color: #f8fafc;
-        }
-        .nav-link {
-            transition: all 0.2s ease;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            opacity: 0.6;
-        }
-        .nav-link.active {
-            opacity: 1;
-            border-bottom-color: #38bdf8; /* Sky-400 */
-            color: #38bdf8;
-        }
-        .nav-link:hover {
-            opacity: 1;
-        }
-        .content-section {
-            display: none;
-        }
-        .content-section.active {
-            display: block;
-            animation: fadeIn 0.4s ease-out;
-        }
-        .stat-card {
-            background: rgba(30, 41, 59, 0.5); /* Slate-800/50 */
-            backdrop-filter: blur(8px);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .sqglp-card {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));
-            border-radius: 1.25rem;
-            padding: 1.5rem;
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            transition: transform 0.3s ease;
-        }
-        .sqglp-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(56, 189, 248, 0.5);
-        }
-        .chart-container {
-            position: relative;
-            height: 350px;
-            width: 100%;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        .sec-highlight {
-            border-left: 2px solid #38bdf8;
-            padding-left: 1rem;
-            margin-bottom: 1.5rem;
-        }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Samsara (IOT) — Enhanced Investment Thesis</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f3f8;
+  color: #1a1a2e;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.page {
+  max-width: 1020px;
+  margin: 28px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.10);
+  overflow: hidden;
+}
+
+/* ── HEADER ── */
+.header {
+  background: linear-gradient(135deg, #07192e 0%, #0e3460 55%, #1558a0 100%);
+  color: #fff;
+  padding: 34px 40px 26px;
+}
+.header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px; }
+.company-block h1 { font-size: 27px; font-weight: 800; letter-spacing: 0.4px; }
+.company-block .sub { font-size: 12.5px; color: #90b8e8; margin-top: 3px; }
+.badge-block { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.buy-badge { background: #27ae60; color: #fff; font-size: 14px; font-weight: 800; padding: 7px 20px; border-radius: 22px; letter-spacing: 0.5px; }
+.conviction-row { font-size: 11px; color: #90b8e8; display: flex; align-items: center; gap: 5px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: #27ae60; }
+.header-meta { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 20px; }
+.meta { }
+.meta .lbl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.9px; color: #6a9fd4; }
+.meta .val { font-size: 15px; font-weight: 800; color: #fff; }
+.meta .val.g { color: #6ee79a; }
+.meta .val.y { color: #f7d070; }
+.meta .val.r { color: #ff8a8a; }
+
+/* ── THESIS BOX ── */
+.thesis-box {
+  background: #eaf3ff;
+  border-left: 5px solid #1558a0;
+  margin: 24px 38px;
+  padding: 16px 22px;
+  border-radius: 4px;
+}
+.thesis-box .tl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.9px; color: #1558a0; font-weight: 800; margin-bottom: 5px; }
+.thesis-box p { font-size: 14px; font-style: italic; color: #1a2e4a; line-height: 1.55; }
+
+/* ── SECTION ── */
+.content { padding: 0 38px 40px; }
+.section { margin-bottom: 30px; }
+.sec-title {
+  font-size: 11.5px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1px; color: #1558a0;
+  border-bottom: 2px solid #dde8f5;
+  padding-bottom: 5px; margin-bottom: 15px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-icon {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: #1558a0; color: #fff;
+  font-size: 12px; display: inline-flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+/* ── TABLES ── */
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+thead th {
+  background: #07192e; color: #fff; padding: 9px 11px;
+  text-align: left; font-size: 10.5px;
+  text-transform: uppercase; letter-spacing: 0.6px;
+}
+tbody tr:nth-child(even) { background: #f5f8fd; }
+tbody tr:hover { background: #e8f0fa; }
+tbody td { padding: 9px 11px; border-bottom: 1px solid #e5ecf5; vertical-align: middle; }
+
+/* ── BADGES ── */
+.badge {
+  display: inline-block; padding: 2px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 700;
+}
+.b-high { background: #d5f5e3; color: #1d6e40; }
+.b-good { background: #cce5ff; color: #0a4a8a; }
+.b-fair { background: #fef9e7; color: #7c5c00; border: 1px solid #f0c040; }
+.b-watch { background: #fdecea; color: #a93226; }
+.b-na { background: #ececec; color: #555; }
+.trend-up { color: #27ae60; font-weight: 700; }
+.trend-flat { color: #f39c12; font-weight: 700; }
+.trend-dn { color: #e74c3c; font-weight: 700; }
+
+/* ── SQGLP RADAR ── */
+.sqglp-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.sqglp-card {
+  background: #f5f8fd; border: 1px solid #d0e0f5; border-radius: 10px;
+  padding: 14px 12px; text-align: center;
+}
+.sqglp-letter { font-size: 26px; font-weight: 900; color: #1558a0; }
+.sqglp-name { font-size: 10px; text-transform: uppercase; letter-spacing: 0.7px; color: #6a8aaa; font-weight: 600; margin-bottom: 10px; }
+.sqglp-score { font-size: 20px; font-weight: 900; margin-bottom: 4px; }
+.sqglp-score.s9 { color: #27ae60; }
+.sqglp-score.s8 { color: #2e86de; }
+.sqglp-score.s7 { color: #f39c12; }
+.sqglp-score.s5 { color: #e67e22; }
+.sqglp-bar { height: 6px; border-radius: 3px; background: #dde8f5; margin: 6px 0; overflow: hidden; }
+.sqglp-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #1558a0, #27ae60); }
+.sqglp-verdict { font-size: 11px; color: #4a5a6a; }
+
+/* ── SCORE CIRCLE ── */
+.sqglp-total {
+  text-align: center; background: linear-gradient(135deg, #07192e, #1558a0);
+  border-radius: 10px; padding: 18px 14px; color: #fff;
+}
+.sqglp-total .big { font-size: 38px; font-weight: 900; color: #6ee79a; }
+.sqglp-total .of { font-size: 13px; color: #90b8e8; }
+.sqglp-total .grade { font-size: 12px; color: #a8c8f0; margin-top: 4px; }
+
+/* ── 100 BAGGERS ── */
+.bagger-twin { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.twin-card {
+  background: linear-gradient(135deg, #0a2540, #1558a0);
+  color: #fff; border-radius: 10px; padding: 18px 18px;
+}
+.twin-card .tc-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: #90b8e8; margin-bottom: 4px; }
+.twin-card .tc-main { font-size: 22px; font-weight: 800; color: #6ee79a; }
+.twin-card .tc-sub { font-size: 12px; color: #a8c8f0; margin-top: 4px; }
+.bagger-criteria { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.bc-card {
+  background: #f5f8fd; border: 1px solid #d0e0f5; border-radius: 8px;
+  padding: 12px 13px; border-left: 4px solid #1558a0;
+}
+.bc-card.pass { border-left-color: #27ae60; }
+.bc-card.partial { border-left-color: #f39c12; }
+.bc-card .bc-title { font-weight: 700; font-size: 12px; color: #1a2e4a; margin-bottom: 4px; }
+.bc-card .bc-body { font-size: 11.5px; color: #4a5a6a; }
+.bc-status { display: inline-block; font-size: 10px; font-weight: 700; margin-top: 5px; padding: 1px 8px; border-radius: 10px; }
+.bc-s-pass { background: #d5f5e3; color: #1d6e40; }
+.bc-s-partial { background: #fef3cd; color: #7c5c00; }
+
+/* ── 4 NEW 100X ── */
+.criteria-100x { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.c100-card {
+  border-radius: 10px; padding: 16px 16px;
+  background: linear-gradient(135deg, #f5f8fd, #eaf3ff);
+  border: 1px solid #c5dcf5;
+}
+.c100-num { font-size: 28px; font-weight: 900; color: #ccd8f0; float: right; line-height: 1; }
+.c100-title { font-size: 13px; font-weight: 800; color: #0a2540; margin-bottom: 5px; }
+.c100-body { font-size: 12px; color: #3a4a5a; line-height: 1.5; }
+.c100-verdict { margin-top: 8px; font-size: 11px; font-weight: 700; }
+.c100-verdict.pass { color: #27ae60; }
+.c100-verdict.strong { color: #1558a0; }
+
+/* ── AI DISRUPTION ── */
+.ai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ai-card {
+  background: #f8f0ff; border: 1px solid #d8c5f5; border-radius: 8px;
+  padding: 14px 15px; border-left: 4px solid #7b2fff;
+}
+.ai-card .ai-title { font-weight: 700; font-size: 12.5px; color: #3a0a7a; margin-bottom: 4px; }
+.ai-card .ai-body { font-size: 12px; color: #4a3a6a; line-height: 1.5; }
+.ai-timeline {
+  background: #faf5ff; border: 1px solid #d8c5f5; border-radius: 8px;
+  padding: 14px 18px; margin-top: 14px;
+}
+.ai-tl-row { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+.ai-tl-dot { width: 10px; height: 10px; border-radius: 50%; background: #7b2fff; flex-shrink: 0; margin-top: 4px; }
+.ai-tl-content .ai-tl-date { font-size: 10px; font-weight: 700; color: #7b2fff; text-transform: uppercase; }
+.ai-tl-content .ai-tl-text { font-size: 12px; color: #3a3a5a; }
+
+/* ── OWNER-OPERATOR ── */
+.oo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.oo-person {
+  background: #f5f8fd; border: 1px solid #d0e0f5; border-radius: 10px; padding: 16px;
+  border-top: 4px solid #1558a0;
+}
+.oo-name { font-size: 15px; font-weight: 800; color: #07192e; }
+.oo-role { font-size: 11px; color: #6a8aaa; margin-bottom: 10px; }
+.oo-stat { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 12px; }
+.oo-stat .os-label { color: #6a8aaa; }
+.oo-stat .os-value { font-weight: 700; color: #1a2e4a; }
+.oo-bio { font-size: 11.5px; color: #4a5a6a; margin-top: 10px; border-top: 1px solid #e0eaf5; padding-top: 8px; }
+.oo-flag {
+  background: #fff8e1; border: 1px solid #ffe082; border-radius: 6px;
+  padding: 10px 14px; margin-top: 12px; font-size: 11.5px; color: #5a4500;
+}
+
+/* ── GROWTH VECTORS ── */
+.growth-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.gv-card {
+  background: #f0fbf5; border: 1px solid #b8e8ce; border-radius: 8px;
+  padding: 13px 14px; border-left: 4px solid #27ae60;
+}
+.gv-card .gv-title { font-weight: 700; font-size: 12px; color: #1d6e40; margin-bottom: 3px; }
+.gv-card .gv-metric { font-size: 18px; font-weight: 800; color: #0a4a2a; }
+.gv-card .gv-body { font-size: 11.5px; color: #3a5a4a; margin-top: 4px; }
+
+/* ── VALUATION ── */
+.val-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+.val-card {
+  background: #f5f8fd; border: 1px solid #d0e0f5; border-radius: 8px;
+  padding: 13px 13px; text-align: center;
+}
+.val-card .vc-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.7px; color: #6a8aaa; font-weight: 600; margin-bottom: 4px; }
+.val-card .vc-val { font-size: 20px; font-weight: 800; color: #1558a0; }
+.val-card .vc-note { font-size: 10.5px; color: #7a8a9a; margin-top: 3px; }
+.val-matrix table { font-size: 12px; }
+.val-matrix thead th { background: #07192e; }
+
+/* ── SCENARIO TARGETS ── */
+.targets { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.tgt-card { border-radius: 10px; padding: 16px; text-align: center; }
+.tgt-card.bull { background: linear-gradient(135deg, #0a3020, #1d6e40); color: #fff; }
+.tgt-card.base { background: linear-gradient(135deg, #0a2540, #1558a0); color: #fff; }
+.tgt-card.stop { background: linear-gradient(135deg, #2a0a0a, #a93226); color: #fff; }
+.tgt-card .tl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.8px; opacity: 0.7; }
+.tgt-card .tv { font-size: 28px; font-weight: 900; margin: 4px 0; }
+.tgt-card .tn { font-size: 11px; opacity: 0.8; }
+
+/* ── SCORECARD ── */
+
+/* ── CATALYST ── */
+.cat-row { display: flex; gap: 0; margin-bottom: 10px; }
+.cat-date { width: 96px; flex-shrink: 0; font-size: 11px; font-weight: 700; color: #1558a0; padding-top: 3px; }
+.cat-body { flex: 1; background: #f5f8fd; border: 1px solid #d0e0f5; border-radius: 6px; padding: 10px 14px; }
+.cat-body .ct { font-weight: 700; font-size: 12.5px; color: #07192e; }
+.cat-body .cd { font-size: 12px; color: #4a5a6a; margin-top: 2px; }
+.cat-imp {
+  display: inline-block; margin-top: 5px; font-size: 10px; padding: 1px 8px;
+  border-radius: 10px; font-weight: 700;
+}
+.ci-h { background: #d5f5e3; color: #1d6e40; }
+.ci-m { background: #fef3cd; color: #7c5c00; }
+
+/* ── PILLARS COMPACT ── */
+.pillars-risks { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.pr-card { border-radius: 8px; padding: 12px 14px; font-size: 12px; border: 1px solid #d0e0f5; background: #f5f8fd; }
+.pr-card.bull { border-left: 4px solid #27ae60; }
+.pr-card.bear { border-left: 4px solid #e74c3c; }
+.pr-card .prt { font-weight: 700; font-size: 12.5px; margin-bottom: 3px; }
+.pr-card.bull .prt { color: #1d6e40; }
+.pr-card.bear .prt { color: #a93226; }
+.pr-card p { color: #4a5a6a; }
+
+/* ── FOOTER ── */
+.footer {
+  background: #07192e; color: #5a7a9a; font-size: 10px;
+  padding: 13px 38px;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;
+}
+.footer a { color: #6a9fd4; }
+
+@media(max-width:700px){
+  .sqglp-grid,.bagger-twin,.bagger-criteria,.criteria-100x,.ai-grid,.oo-grid,.growth-grid,.val-grid,.targets,.pillars-risks{grid-template-columns:1fr;}
+  .content{padding:0 16px 28px;}
+  .header{padding:22px 16px;}
+  .thesis-box{margin:16px;}
+}
+</style>
 </head>
-<body class="antialiased">
+<body>
+<div class="page">
 
-    <header class="bg-slate-900/90 backdrop-blur-md sticky top-0 z-50 border-b border-white/10">
-        <nav class="container mx-auto px-4 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex items-center space-x-4">
-                    <a href="index.html" class="text-sky-400 hover:text-sky-300 font-medium mr-4 text-sm">← Back to Research Hub</a>
-                    <div class="flex items-center space-x-3 cursor-pointer" onclick="showSection('summary')">
-                        <div class="w-10 h-10 bg-sky-500 rounded-lg flex items-center justify-center font-black text-white">S</div>
-                        <div>
-                            <h1 class="text-xl font-extrabold tracking-tight">Samsara <span class="text-sky-400">(IOT)</span></h1>
-                            <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Research Portal FY2026</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Navigation Tabs -->
-                <div class="flex space-x-1 md:space-x-6 overflow-x-auto">
-                    <button onclick="showSection('summary')" class="nav-link py-2 text-xs md:text-sm font-bold active whitespace-nowrap">Summary</button>
-                    <button onclick="showSection('financials')" class="nav-link py-2 text-xs md:text-sm font-bold whitespace-nowrap">Financials</button>
-                    <button onclick="showSection('sqglp')" class="nav-link py-2 text-xs md:text-sm font-bold whitespace-nowrap">SQGLP</button>
-                    <button onclick="showSection('sec')" class="nav-link py-2 text-xs md:text-sm font-bold whitespace-nowrap">SEC Insights</button>
-                    <button onclick="showSection('strategy')" class="nav-link py-2 text-xs md:text-sm font-bold whitespace-nowrap">AI Strategy</button>
-                    <button onclick="showSection('risks')" class="nav-link py-2 text-xs md:text-sm font-bold whitespace-nowrap">Risks</button>
-                </div>
-            </div>
-        </nav>
-    </header>
+<!-- ── HEADER ── -->
+<div class="header">
+  <div class="header-top">
+    <div class="company-block">
+      <h1>Samsara Inc. &nbsp;<span style="font-size:17px;font-weight:400;color:#90b8e8">NYSE: IOT</span></h1>
+      <div class="sub">Connected Operations Cloud &nbsp;·&nbsp; Physical AI &nbsp;·&nbsp; Industrial IoT &nbsp;·&nbsp; Founder-Led</div>
+    </div>
+    <div class="badge-block">
+      <div class="buy-badge">LONG &nbsp;·&nbsp; HIGH CONVICTION</div>
+      <div class="conviction-row"><span class="dot"></span> Owner-Operator &nbsp;·&nbsp; SQGLP: 41/50 &nbsp;·&nbsp; Rule of 40: 43%</div>
+    </div>
+  </div>
+  <div class="header-meta">
+    <div class="meta"><div class="lbl">Last Price</div><div class="val">~$35</div></div>
+    <div class="meta"><div class="lbl">Mkt Cap</div><div class="val">~$21B</div></div>
+    <div class="meta"><div class="lbl">FY26 ARR</div><div class="val g">$1.89B (+30%)</div></div>
+    <div class="meta"><div class="lbl">FY26 Revenue</div><div class="val">$1.62B (+30%)</div></div>
+    <div class="meta"><div class="lbl">GAAP EPS</div><div class="val y">+$0.04 (Q4)</div></div>
+    <div class="meta"><div class="lbl">Base Price Target</div><div class="val g">$43–$49</div></div>
+    <div class="meta"><div class="lbl">Bull Target</div><div class="val g">$55–$60</div></div>
+    <div class="meta"><div class="lbl">Stop Loss</div><div class="val r">$25–$27</div></div>
+    <div class="meta"><div class="lbl">Thesis Date</div><div class="val">Mar 14, 2026</div></div>
+  </div>
+</div>
 
-    <main class="container mx-auto px-4 py-12 lg:px-8">
-        
-        <!-- SUMMARY SECTION -->
-        <section id="summary" class="content-section active">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
-                <div class="max-w-2xl">
-                    <h2 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">The First Era of <span class="text-sky-400">GAAP Profitability</span></h2>
-                    <p class="text-slate-400 text-lg leading-relaxed">
-                        In Q3 FY26, Samsara reached a historic milestone: its first quarter of GAAP net income ($7.77M). While market compression has weighed on the stock price, operational leverage is hitting a tipping point.
-                    </p>
-                </div>
-                <div class="bg-sky-500 text-slate-900 px-6 py-4 rounded-2xl text-center shadow-lg shadow-sky-500/20">
-                    <p class="text-xs font-black uppercase tracking-wider mb-1">Target Upside</p>
-                    <p class="text-4xl font-black">>50%</p>
-                    <p class="text-xs font-bold">Consensus: $50.56</p>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                <div class="stat-card border-l-4 border-l-sky-500">
-                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ending ARR</p>
-                    <p class="text-3xl font-extrabold mt-1">$1.745B</p>
-                    <p class="text-xs text-sky-400 mt-2 font-semibold">↑ 29% YoY Growth</p>
-                </div>
-                <div class="stat-card border-l-4 border-l-emerald-500">
-                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Current Price</p>
-                    <p class="text-3xl font-extrabold mt-1">$33.15</p>
-                    <p class="text-xs text-emerald-400 mt-2 font-semibold">As of Jan 30, 2026</p>
-                </div>
-                <div class="stat-card border-l-4 border-l-indigo-500">
-                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Q3 GAAP Income</p>
-                    <p class="text-3xl font-extrabold mt-1">$7.77M</p>
-                    <p class="text-xs text-indigo-400 mt-2 font-semibold">Beat Estimates</p>
-                </div>
-                <div class="stat-card border-l-4 border-l-amber-500">
-                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Enterprise Base</p>
-                    <p class="text-3xl font-extrabold mt-1">2,990</p>
-                    <p class="text-xs text-amber-400 mt-2 font-semibold">>$100k ARR Customers</p>
-                </div>
-            </div>
+<!-- ── THESIS STATEMENT ── -->
+<div class="thesis-box">
+  <div class="tl">Core Thesis</div>
+  <p>Long IOT — Samsara is the category-defining Physical AI platform for the global physical economy, compounding ARR at 28–30% while crossing GAAP profitability well ahead of plan. A founder-led, owner-operator team with deep technical DNA is building a durable data moat over a $557B+ TAM that is barely 0.4% penetrated. The twin engines of revenue growth and operating leverage make IOT a credible multi-bagger candidate over a 5–10 year horizon.</p>
+</div>
 
-            <div class="bg-slate-800/30 rounded-3xl p-8 md:p-12 border border-white/5">
-                <h3 class="text-2xl font-bold mb-8 text-center uppercase tracking-widest text-slate-400">Core Investment Highlights</h3>
-                <div class="grid md:grid-cols-3 gap-12">
-                    <div class="space-y-4">
-                        <div class="w-12 h-12 bg-sky-500/20 rounded-full flex items-center justify-center text-sky-400">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 00-2-2H5a2 2 0 00-2 2v10m14 0a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2h2zm0 0V5a2 2 0 00-2-2h-2a2 2 0 00-2 2v14"></path></svg>
-                        </div>
-                        <h4 class="text-xl font-bold">Unrivaled Stickiness</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed">9 of the top 10 new deals in Q3 adopted 3+ products, creating heavy lock-in and high switching costs.</p>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="w-12 h-12 bg-indigo-500/20 rounded-full flex items-center justify-center text-indigo-400">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        </div>
-                        <h4 class="text-xl font-bold">Public Sector ROI</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed">89% of government agencies report a full ROI within just 6 months, unlocking a massive growth vertical.</p>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-400">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                        </div>
-                        <h4 class="text-xl font-bold">Mission-Critical Safety</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed">AI safety suite leads to a 73% reduction in accidents over 30 months, becoming essential for liability management.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+<div class="content">
 
-        <!-- FINANCIALS SECTION -->
-        <section id="financials" class="content-section">
-            <h2 class="text-3xl font-bold mb-8">Performance & Financial Metrics</h2>
-            <div class="grid lg:grid-cols-2 gap-12">
-                <div class="stat-card">
-                    <h3 class="text-lg font-bold mb-6 text-slate-300">Revenue & ARR Growth ($M)</h3>
-                    <div class="chart-container">
-                        <canvas id="growthChart"></canvas>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <h3 class="text-lg font-bold mb-6 text-slate-300">Enterprise Adoption (>$100k ARR)</h3>
-                    <div class="chart-container">
-                        <canvas id="customerChart"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                <div class="stat-card">
-                    <p class="text-slate-400 text-xs font-bold uppercase mb-1">FY26 Rev Guidance</p>
-                    <p class="text-2xl font-bold text-sky-400">$1.597B</p>
-                </div>
-                <div class="stat-card">
-                    <p class="text-slate-400 text-xs font-bold uppercase mb-1">Operating Cash Flow</p>
-                    <p class="text-2xl font-bold text-emerald-400">Positive</p>
-                </div>
-                <div class="stat-card">
-                    <p class="text-slate-400 text-xs font-bold uppercase mb-1">P/S Ratio (Forward)</p>
-                    <p class="text-2xl font-bold text-slate-200">~12x</p>
-                </div>
-            </div>
-        </section>
+<!-- ════════════════════════════════ -->
+<!-- 1. SQGLP FRAMEWORK              -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">S</span> SQGLP Scorecard (Motilal Oswal Framework)</div>
+  <div class="sqglp-grid">
 
-        <!-- SEC INSIGHTS SECTION -->
-        <section id="sec" class="content-section">
-            <div class="flex items-center space-x-4 mb-8">
-                <div class="p-3 bg-sky-500/20 rounded-xl">
-                    <svg class="w-8 h-8 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                </div>
-                <h2 class="text-3xl font-bold">SEC Filing & Structural Analysis</h2>
-            </div>
+    <div class="sqglp-card">
+      <div class="sqglp-letter">S</div>
+      <div class="sqglp-name">Sales Growth</div>
+      <div class="sqglp-score s9">9/10</div>
+      <div class="sqglp-bar"><div class="sqglp-fill" style="width:90%"></div></div>
+      <div class="sqglp-verdict">Revenue +30% YoY (FY26). ARR $1.89B (+30%). Net new ARR re-accelerating (+33% in Q4). Multi-year compounding well above 25%.</div>
+    </div>
 
-            <div class="grid lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2 space-y-6">
-                    <div class="stat-card">
-                        <h3 class="text-xl font-bold mb-4 text-sky-400">10-Q Disclosure: Customer Diversity</h3>
-                        <p class="text-slate-300 mb-4 leading-relaxed">Per recent SEC filings, Samsara maintains exceptional customer diversification. No single customer accounts for more than **1% of total revenue**, significantly mitigating the risk of large-account churn impacting the bottom line.</p>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-                            <div class="p-3 bg-slate-900/50 rounded-lg border border-white/5">
-                                <p class="text-[10px] text-slate-500 font-bold uppercase">Top 10 Customers</p>
-                                <p class="text-lg font-bold">< 5% Total</p>
-                            </div>
-                            <div class="p-3 bg-slate-900/50 rounded-lg border border-white/5">
-                                <p class="text-[10px] text-slate-500 font-bold uppercase">Contract Length</p>
-                                <p class="text-lg font-bold">3-5 Years</p>
-                            </div>
-                            <div class="p-3 bg-slate-900/50 rounded-lg border border-white/5">
-                                <p class="text-[10px] text-slate-500 font-bold uppercase">Backlog/RPO</p>
-                                <p class="text-lg font-bold">$1.9B+</p>
-                            </div>
-                            <div class="p-3 bg-slate-900/50 rounded-lg border border-white/5">
-                                <p class="text-[10px] text-slate-500 font-bold uppercase">Churn Type</p>
-                                <p class="text-lg font-bold">Gross < 2%</p>
-                            </div>
-                        </div>
-                    </div>
+    <div class="sqglp-card">
+      <div class="sqglp-letter">Q</div>
+      <div class="sqglp-name">Quality</div>
+      <div class="sqglp-score s8">8/10</div>
+      <div class="sqglp-bar"><div class="sqglp-fill" style="width:80%"></div></div>
+      <div class="sqglp-verdict">Rule of 40: 43.4% (vs. industry median 28.3%). Software gross margins ~73–75%. NRR >115%. #1 on G2 with 99 satisfaction score. GAAP profitable in Q3 & Q4 FY26.</div>
+    </div>
 
-                    <div class="stat-card">
-                        <h3 class="text-xl font-bold mb-4 text-emerald-400">Operational Efficiency (GAAP Bridge)</h3>
-                        <p class="text-slate-300 mb-6">Samsara's path to GAAP profitability is driven by "Operating Leverage." Analyzing the 10-K expense lines reveals a strategic shift:</p>
-                        <div class="space-y-4">
-                            <div class="sec-highlight">
-                                <p class="font-bold">Sales & Marketing (S&M) Efficiency</p>
-                                <p class="text-sm text-slate-400">S&M as a % of revenue decreased from 58% to 44% YoY, indicating that the brand now generates more organic "pull" and higher referral rates.</p>
-                            </div>
-                            <div class="sec-highlight">
-                                <p class="font-bold">R&D Investment Strategy</p>
-                                <p class="text-sm text-slate-400">R&D spend has shifted toward "Data Services" and "AI Models," leveraging the massive influx of video data to train autonomous safety systems.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="sqglp-card">
+      <div class="sqglp-letter">G</div>
+      <div class="sqglp-name">Growth (Earnings)</div>
+      <div class="sqglp-score s8">8/10</div>
+      <div class="sqglp-bar"><div class="sqglp-fill" style="width:80%"></div></div>
+      <div class="sqglp-verdict">FY27 adj. EPS guide ~$0.67 beat consensus by 15%. EPS growing 40%+ as operating leverage kicks in. FCF $111M+ in FY25, expanding in FY26.</div>
+    </div>
 
-                <div class="space-y-6">
-                    <div class="stat-card border-t-4 border-t-rose-500">
-                        <h3 class="text-lg font-bold mb-4">Core 10-K Risk Factors</h3>
-                        <div class="space-y-4">
-                            <div class="p-4 bg-rose-500/5 rounded-xl border border-rose-500/10">
-                                <p class="text-xs font-bold text-rose-400 uppercase mb-1">Hardware Supply Chain</p>
-                                <p class="text-xs text-slate-400">Heavy reliance on third-party manufacturers in Southeast Asia for telematics devices could cause deployment delays if trade tensions escalate.</p>
-                            </div>
-                            <div class="p-4 bg-amber-500/5 rounded-xl border border-amber-500/10">
-                                <p class="text-xs font-bold text-amber-400 uppercase mb-1">Privacy & Biometrics</p>
-                                <p class="text-xs text-slate-400">Increasingly stringent state laws (e.g., Illinois BIPA) regarding driver facial recognition could impact AI dashcam adoption features in specific regions.</p>
-                            </div>
-                            <div class="p-4 bg-sky-500/5 rounded-xl border border-sky-500/10">
-                                <p class="text-xs font-bold text-sky-400 uppercase mb-1">Litigation & IP</p>
-                                <p class="text-xs text-slate-400">Ongoing patent litigation with legacy competitors remains a disclosed risk that may result in future settlement costs.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <div class="sqglp-card">
+      <div class="sqglp-letter">L</div>
+      <div class="sqglp-name">Longevity</div>
+      <div class="sqglp-score s9">9/10</div>
+      <div class="sqglp-bar"><div class="sqglp-fill" style="width:90%"></div></div>
+      <div class="sqglp-verdict">&lt;0.4% TAM penetrated ($557B+ industrial IoT). 3–5 yr hardware switching costs. AI data moat compounds with each new vehicle. Multi-product attach deepens stickiness.</div>
+    </div>
 
-        <!-- SQGLP FRAMEWORK SECTION -->
-        <section id="sqglp" class="content-section">
-            <div class="mb-10 text-center">
-                <h2 class="text-3xl font-bold mb-2">Motilal Oswal <span class="text-sky-400">SQGLP</span> Analysis</h2>
-                <p class="text-slate-400 max-w-2xl mx-auto">Investment evaluation of Samsara through the lens of quality and durability.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="sqglp-card">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <span class="w-8 h-8 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold">S</span>
-                        <h3 class="font-bold text-lg">Size of Opportunity</h3>
-                    </div>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Samsara targets "Connected Operations," a $100B+ TAM representing 40% of global GDP. They are currently <2% penetrated.</p>
-                    <div class="text-[10px] font-bold text-sky-500 uppercase tracking-widest">MASSIVE POTENTIAL</div>
-                </div>
+    <div class="sqglp-card">
+      <div class="sqglp-letter">P</div>
+      <div class="sqglp-name">Price (Valuation)</div>
+      <div class="sqglp-score s7">7/10</div>
+      <div class="sqglp-bar"><div class="sqglp-fill" style="width:55%"></div></div>
+      <div class="sqglp-verdict">10–12x EV/NTM Revenue. Elevated but defensible given 30% ARR growth and Rule of 40 above 40. PEG ~0.36x. Not cheap — pays up for quality. Dip-buy opportunity vs. growth peers.</div>
+    </div>
 
-                <div class="sqglp-card">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <span class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">Q</span>
-                        <h3 class="font-bold text-lg">Quality of Business</h3>
-                    </div>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">75%+ Gross margins. Deep economic moat through proprietary data and high switching costs (hardware-software synergy).</p>
-                    <div class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">HIGH MOAT</div>
-                </div>
+  </div>
+  <div style="margin-top:14px;background:#eaf3ff;border:1px solid #c5dcf5;border-radius:8px;padding:13px 18px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;">
+    <div style="text-align:center;">
+      <div style="font-size:36px;font-weight:900;color:#27ae60;">41<span style="font-size:16px;color:#6a9fd4;">/50</span></div>
+      <div style="font-size:11px;color:#1558a0;font-weight:700;text-transform:uppercase;letter-spacing:0.7px;">SQGLP Score</div>
+    </div>
+    <div style="flex:1;font-size:12.5px;color:#1a2e4a;">
+      <strong>Verdict: Strong Compounder.</strong> Samsara scores exceptionally on Sales Growth and Longevity, very well on Quality and Earnings Growth, and fairly on Valuation. The slight valuation discount vs. a perfect score is the cost of buying a category leader with a clear 5–10 year runway. At the right entry price (pullback to 8–9x EV/Rev), this becomes a near-perfect SQGLP name.
+    </div>
+  </div>
+</div>
 
-                <div class="sqglp-card">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <span class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">G</span>
-                        <h3 class="font-bold text-lg">Growth</h3>
-                    </div>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">29% YoY ARR growth at scale. Multi-dimensional expansion via new logos, international markets, and upsells.</p>
-                    <div class="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">DURABLE COMPOUNDING</div>
-                </div>
+<!-- ════════════════════════════════ -->
+<!-- 2. 100 BAGGERS FRAMEWORK        -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">💯</span> 100 Baggers Framework (Christopher Mayer)</div>
 
-                <div class="sqglp-card">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <span class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">L</span>
-                        <h3 class="font-bold text-lg">Longevity</h3>
-                    </div>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Physical operations (logistics, utilities) are permanent. Samsara is evolving into a critical structural utility for these industries.</p>
-                    <div class="text-[10px] font-bold text-amber-500 uppercase tracking-widest">STRUCTURAL UTILITY</div>
-                </div>
+  <div class="bagger-twin">
+    <div class="twin-card">
+      <div class="tc-label">Engine 1 — Revenue Growth</div>
+      <div class="tc-main">~25–30% CAGR</div>
+      <div class="tc-sub">ARR +30% YoY (FY26). Net new ARR re-accelerating. Analyst consensus ~20–25% forward growth. At 25% CAGR, revenue reaches $15B by 2035.</div>
+    </div>
+    <div class="twin-card">
+      <div class="tc-label">Engine 2 — Margin Expansion (EPS Power)</div>
+      <div class="tc-main">~40–50% EPS CAGR</div>
+      <div class="tc-sub">Operating leverage from 73%+ gross margins. FY27 adj. EPS ~$0.67 — growing well ahead of revenue. SBC declining toward low-teens. At scale, 20–25% FCF margins achievable.</div>
+    </div>
+  </div>
 
-                <div class="sqglp-card lg:col-span-2 border-dashed border-sky-400/50">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <span class="w-8 h-8 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold">P</span>
-                        <h3 class="font-bold text-lg">Price / Valuation</h3>
-                    </div>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Trading at ~12x forward sales. While not "cheap," the recent price compression provides an attractive entry point for a high-quality compounder.</p>
-                    <div class="text-[10px] font-bold text-rose-400 uppercase tracking-widest">FAIR PRICE FOR QUALITY</div>
-                </div>
-            </div>
-        </section>
+  <div class="bagger-criteria">
 
-        <!-- STRATEGY SECTION -->
-        <section id="strategy" class="content-section">
-            <h2 class="text-3xl font-bold mb-8 text-center">AI & Product Strategy</h2>
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
-                    <div class="bg-slate-800 p-6 rounded-2xl border-l-4 border-l-sky-500">
-                        <h4 class="text-xl font-bold mb-2">Short-Term Safety ROI</h4>
-                        <p class="text-4xl font-black text-sky-400 mb-2">37%</p>
-                        <p class="text-slate-400 text-sm italic">Accident reduction in first 6 months via real-time coaching.</p>
-                    </div>
-                    <div class="bg-slate-800 p-6 rounded-2xl border-l-4 border-l-emerald-500">
-                        <h4 class="text-xl font-bold mb-2">Long-Term Safety ROI</h4>
-                        <p class="text-4xl font-black text-emerald-400 mb-2">73%</p>
-                        <p class="text-slate-400 text-sm italic">Accident reduction after 30 months of platform adoption.</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <h3 class="text-xl font-bold mb-4">Scaling Large Enterprise</h3>
-                    <p class="text-slate-400 mb-6">Large deals (>$1M ARR) are the primary engine for margin expansion.</p>
-                    <div class="flex justify-between items-end mb-2">
-                        <span class="text-xs font-bold text-slate-500 uppercase">Q3 Record Deals</span>
-                        <span class="text-xl font-bold">17 New $1M+ Logos</span>
-                    </div>
-                    <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
-                        <div class="bg-sky-400 h-full w-[85%]"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <div class="bc-card pass">
+      <div class="bc-title">✦ High ROIC Business at Scale</div>
+      <div class="bc-body">ROIC improving rapidly (from -4% toward breakeven). Software-delivered model at 73%+ gross margins will generate 20%+ ROIC at scale — a classic 100-bagger characteristic.</div>
+      <span class="bc-status bc-s-partial">Improving Rapidly</span>
+    </div>
 
-        <!-- RISKS SECTION -->
-        <section id="risks" class="content-section">
-            <h2 class="text-3xl font-bold mb-8 text-center">Risk Assessment</h2>
-            <div class="max-w-3xl mx-auto space-y-4" id="risks-accordion">
-                <!-- Risks injected by JS -->
-            </div>
-        </section>
-    </main>
+    <div class="bc-card pass">
+      <div class="bc-title">✦ Reinvest at High Rates</div>
+      <div class="bc-body">Every dollar of net new ARR is reinvested into R&D (AI Agents, sensors) and sales. LTV/CAC ratio above 8x signals highly attractive reinvestment economics — capital is well-deployed.</div>
+      <span class="bc-status bc-s-pass">Confirmed ✓</span>
+    </div>
 
-    <footer class="mt-20 py-12 border-t border-white/5 bg-slate-900/50">
-        <div class="container mx-auto px-8 text-center">
-            <p class="text-slate-500 text-xs tracking-widest uppercase font-bold mb-2">Proprietary Research | Samsara (IOT) Deep Dive</p>
-            <p class="text-slate-400 text-sm font-semibold tracking-tight">Investment Thesis Published: January 30, 2026</p>
-        </div>
-    </footer>
+    <div class="bc-card pass">
+      <div class="bc-title">✦ Long Runway (&lt;1% TAM)</div>
+      <div class="bc-body">$557B+ industrial IoT TAM. &lt;0.4% penetrated. Adjacent markets (construction, healthcare logistics, utilities, public sector) are barely touched. Decade+ of greenfield ahead.</div>
+      <span class="bc-status bc-s-pass">Confirmed ✓</span>
+    </div>
 
-    <script>
-        const APP_DATA = {
-            financials: {
-                labels: ['Q1 FY25', 'Q2 FY25', 'Q3 FY25', 'Q4 FY25', 'Q1 FY26', 'Q2 FY26', 'Q3 FY26'],
-                rev: [280, 307, 335, 365, 388, 402, 416],
-                arr: [1100, 1220, 1340, 1460, 1580, 1660, 1745]
-            },
-            customers: {
-                labels: ['FY24', 'FY25', 'FY26 Q3'],
-                counts: [1800, 2200, 2990]
-            },
-            risks: [
-                { title: 'Valuation Premium', content: 'Sensitivity to interest rates and macro rotations due to 12x forward P/S ratio.' },
-                { title: 'Insider Sales', content: 'Co-founder sales program creates headline sentiment risk.' },
-                { title: 'Public Sector Timing', content: 'Government budget cycles can lead to lumpiness in quarterly reporting.' }
-            ]
-        };
+    <div class="bc-card pass">
+      <div class="bc-title">✦ Owner-Operator at the Helm</div>
+      <div class="bc-body">CEO Sanjit Biswas: 10%+ owner, co-founder, PhD MIT, previously built Meraki (acquired by Cisco for $1.2B). Alignment between management and shareholders is a classic 100-bagger trait.</div>
+      <span class="bc-status bc-s-pass">Confirmed ✓</span>
+    </div>
 
-        function showSection(id) {
-            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            
-            const links = document.querySelectorAll('.nav-link');
-            links.forEach(l => {
-                if(l.getAttribute('onclick').includes(id)) l.classList.add('active');
-            });
+    <div class="bc-card pass">
+      <div class="bc-title">✦ Small Enough to Move</div>
+      <div class="bc-body">At ~$21B market cap, IOT has ample room to grow into a $100B+ company. Achieving $15B revenue at a 7x EV/Rev multiple = ~$100B+ market cap → ~5x from current. Multi-bagger, not 100x, but exceptional.</div>
+      <span class="bc-status bc-s-partial">5–10x Potential (7–10 Yrs)</span>
+    </div>
 
-            if (id === 'financials') {
-                createGrowthChart();
-                createCustomerChart();
-            }
-        }
+    <div class="bc-card pass">
+      <div class="bc-title">✦ Durable Competitive Advantage</div>
+      <div class="bc-body">Hardware embedded in fleets creates 3–5 year switching costs. Proprietary AI training data (millions of vehicle-hours). #1 G2 NPS for 5 consecutive quarters. Platform network effects compound.</div>
+      <span class="bc-status bc-s-pass">Confirmed ✓</span>
+    </div>
 
-        function renderRisks() {
-            const container = document.getElementById('risks-accordion');
-            container.innerHTML = '';
-            APP_DATA.risks.forEach((risk) => {
-                const item = document.createElement('div');
-                item.className = 'stat-card cursor-pointer group';
-                item.innerHTML = `
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-slate-200 group-hover:text-sky-400 transition-colors">${risk.title}</span>
-                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                    </div>
-                    <div class="accordion-content">
-                        <p class="pt-4 text-sm text-slate-400 border-t border-white/5 mt-4">${risk.content}</p>
-                    </div>
-                `;
-                item.onclick = function() {
-                    const content = this.querySelector('.accordion-content');
-                    content.style.maxHeight = content.style.maxHeight === '150px' ? '0px' : '150px';
-                };
-                container.appendChild(item);
-            });
-        }
+  </div>
 
-        let growthChart, customerChart;
+  <div style="margin-top:14px;background:#07192e;color:#a8c8f0;border-radius:8px;padding:14px 18px;font-size:12px;">
+    <strong style="color:#6ee79a;">100 Baggers Verdict:</strong>&nbsp; IOT is not a literal 100-bagger from today's $21B market cap in any reasonable time frame. However, it has <em>five of six</em> classic 100-bagger characteristics — the twin engines of 25–30% revenue CAGR and 40–50% EPS CAGR, combined with a &lt;1% penetrated TAM and a founder-operator, make this a credible <strong style="color:#f7d070;">5–10x compounder</strong> over 7–10 years. For context: $35 → $175–$350 over a decade is a category-defining outcome.
+  </div>
+</div>
 
-        function createGrowthChart() {
-            const canvas = document.getElementById('growthChart');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            if(growthChart) growthChart.destroy();
-            growthChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: APP_DATA.financials.labels,
-                    datasets: [
-                        { label: 'Revenue ($M)', data: APP_DATA.financials.rev, borderColor: '#38bdf8', fill: false, tension: 0.4 },
-                        { label: 'ARR ($M)', data: APP_DATA.financials.arr, borderColor: '#6366f1', borderDash: [5, 5], tension: 0.4 }
-                    ]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#94a3b8' } } } }
-            });
-        }
+<!-- ════════════════════════════════ -->
+<!-- 3. 4 NEW 100x CRITERIA          -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">4x</span> 4 New 100x Criteria — Modern Era Framework</div>
+  <div class="criteria-100x">
 
-        function createCustomerChart() {
-            const canvas = document.getElementById('customerChart');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            if(customerChart) customerChart.destroy();
-            customerChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: APP_DATA.customers.labels,
-                    datasets: [{ label: 'Enterprise Customers', data: APP_DATA.customers.counts, backgroundColor: '#38bdf8' }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-            });
-        }
+    <div class="c100-card">
+      <div class="c100-num">01</div>
+      <div class="c100-title">Platform Network Effects + Physical Data Moat</div>
+      <div class="c100-body">Every new vehicle or site on Samsara's platform generates proprietary real-world training data — driver behavior, road conditions, equipment patterns. This data makes Samsara's AI smarter for <em>all</em> customers, creating a self-reinforcing loop that pure-software competitors without hardware cannot replicate. The data moat widens with every new subscriber added.</div>
+      <div class="c100-verdict pass">✓ STRONG — Data flywheel confirmed, unique to IOT's hardware-software bundle</div>
+    </div>
 
-        window.onload = () => {
-            renderRisks();
-            createGrowthChart();
-            createCustomerChart();
-        };
-    </script>
+    <div class="c100-card">
+      <div class="c100-num">02</div>
+      <div class="c100-title">AI-Augmented Operating Leverage</div>
+      <div class="c100-body">Samsara's AI Agents (Summer 2026 GA) automate tasks that previously required human analysts — safety coaching, compliance workflows, predictive maintenance alerts. This means each new dollar of ARR requires less human support cost, structurally expanding FCF margins. Software gross margins of 73%+ provide a massive operating leverage platform as the revenue base scales.</div>
+      <div class="c100-verdict pass">✓ EMERGING — AI Agents are the next structural margin driver; watch for Q1 FY27 attach rates</div>
+    </div>
+
+    <div class="c100-card">
+      <div class="c100-num">03</div>
+      <div class="c100-title">Hardware-Software Bundle Moat (3–5 Year Lock-in)</div>
+      <div class="c100-body">Unlike pure SaaS, Samsara physically embeds cameras, sensors, and GPS trackers into customer vehicles and facilities. Ripping out hardware mid-contract is operationally disruptive and expensive. This creates 3–5 year switching costs that are structurally higher than any pure-software competitor. Motive, Geotab, and Verizon Connect all score far below Samsara on customer satisfaction — suggesting churn risk is low.</div>
+      <div class="c100-verdict strong">✓ STRUCTURAL — Hardware moat is durable and underappreciated by the market</div>
+    </div>
+
+    <div class="c100-card">
+      <div class="c100-num">04</div>
+      <div class="c100-title">Category Creation → Horizontal Expansion</div>
+      <div class="c100-body">Samsara invented the "Connected Operations Cloud" category — not competing for share in an existing market but defining a new one. Starting from fleet telematics, it is methodically expanding to site safety, video intelligence, supply chain workflows, and equipment monitoring. Each adjacent market layered on top of the existing installed base is high-margin, low-CAC incremental ARR. The playbook mirrors Salesforce's CRM → cloud suite expansion.</div>
+      <div class="c100-verdict pass">✓ EARLY INNINGS — Emerging products now 20% of NNACV; category creation just beginning</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 4. AI DISRUPTION ANALYSIS       -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">🤖</span> AI Disruption Analysis</div>
+  <div class="ai-grid">
+
+    <div class="ai-card">
+      <div class="ai-title">Samsara AS the AI Beneficiary</div>
+      <div class="ai-body">IOT generates terabytes of proprietary physical-world data daily — dashcam footage, GPS telemetry, equipment sensor readings. This data is the training foundation for Physical AI. As foundation model capabilities improve, Samsara can embed increasingly sophisticated intelligence into its platform at near-zero marginal cost, expanding ARPU without proportional cost growth.</div>
+    </div>
+
+    <div class="ai-card">
+      <div class="ai-title">AI Agents — The ARPU Expansion Catalyst</div>
+      <div class="ai-body">AI Agents (GA: Summer 2026) automate fleet manager tasks: proactive safety coaching, real-time route optimization, predictive maintenance flagging, and regulatory compliance. Early beta feedback shows meaningful reduction in accident rates and operational costs. If Agents carry a premium price tier, this could add $5–10K+ per customer annually in upsell ARR across the existing 3,000+ enterprise accounts.</div>
+    </div>
+
+    <div class="ai-card">
+      <div class="ai-title">Competitive Moat vs. AI Startups</div>
+      <div class="ai-body">AI startups attempting to enter fleet intelligence face a cold-start problem: no proprietary driving data. Samsara has years of real-world data from millions of vehicle-hours across diverse geographies and fleet types. This data advantage is cumulative and not replicable without first installing hardware at scale — a multi-year, capital-intensive barrier.</div>
+    </div>
+
+    <div class="ai-card">
+      <div class="ai-title">AI Risk: Commoditization Threat</div>
+      <div class="ai-body">Foundation models (GPT-5, Gemini Ultra, Claude) lowering the barrier to building AI-on-top-of-telematics applications is a real risk. OEMs like Ford and Daimler embedding native AI telemetry could reduce Samsara's hardware necessity over a 5–7 year horizon. The hardware moat is strong today but must be defended through continuous AI product innovation.</div>
+    </div>
+
+  </div>
+
+  <div class="ai-timeline">
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:#7b2fff;font-weight:700;margin-bottom:10px;">Physical AI Roadmap</div>
+    <div class="ai-tl-row">
+      <div class="ai-tl-dot"></div>
+      <div class="ai-tl-content">
+        <div class="ai-tl-date">FY24–FY25 (Completed)</div>
+        <div class="ai-tl-text">AI-powered dashcams with real-time distracted driving detection. Computer vision safety alerts. Automated DVIR (Driver Vehicle Inspection Reports). AI-assisted dispatch.</div>
+      </div>
+    </div>
+    <div class="ai-tl-row">
+      <div class="ai-tl-dot" style="background:#1558a0;"></div>
+      <div class="ai-tl-content">
+        <div class="ai-tl-date" style="color:#1558a0;">Q3–Q4 FY26 (Current)</div>
+        <div class="ai-tl-text">Generative AI coaching tools in beta. Natural language fleet reporting queries. AI predictive maintenance alerts. First GAAP profitable quarters driven partly by AI efficiency gains.</div>
+      </div>
+    </div>
+    <div class="ai-tl-row">
+      <div class="ai-tl-dot" style="background:#27ae60;"></div>
+      <div class="ai-tl-content">
+        <div class="ai-tl-date" style="color:#27ae60;">Summer 2026 — KEY CATALYST</div>
+        <div class="ai-tl-text">AI Agents GA: Autonomous safety coaching, compliance workflows, route optimization. Potential premium ARR tier. Watch for first enterprise pilot announcements and NNACV contribution in Q1 FY27 call (June 2026).</div>
+      </div>
+    </div>
+    <div class="ai-tl-row" style="margin-bottom:0;">
+      <div class="ai-tl-dot" style="background:#ccc;"></div>
+      <div class="ai-tl-content">
+        <div class="ai-tl-date" style="color:#999;">FY28+ (Horizon)</div>
+        <div class="ai-tl-text">Autonomous physical operations — AI managing entire fleet operations end-to-end. Integration with autonomous vehicle platforms. Physical AI marketplace (third-party apps on Samsara data).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 5. OWNER-OPERATOR ANALYSIS      -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">👤</span> Owner-Operator Analysis</div>
+  <div class="oo-grid">
+
+    <div class="oo-person">
+      <div class="oo-name">Sanjit Biswas</div>
+      <div class="oo-role">CEO &amp; Co-Founder</div>
+      <div class="oo-stat"><span class="os-label">Ownership</span><span class="os-value">~10–19% (10%+ Owner per SEC)</span></div>
+      <div class="oo-stat"><span class="os-label">Stake Value (Mar 2026)</span><span class="os-value">~$175M+</span></div>
+      <div class="oo-stat"><span class="os-label">Trading Plan</span><span class="os-value">10b5-1 (pre-arranged diversification)</span></div>
+      <div class="oo-stat"><span class="os-label">Education</span><span class="os-value">PhD Candidate, MIT EECS</span></div>
+      <div class="oo-bio">Serial entrepreneur with deep technical roots. Co-founded <strong>Meraki</strong> (enterprise WiFi/networking), which Cisco acquired for <strong>$1.2B in 2012</strong>. Led Samsara from founding to IPO (Dec 2021 at $23/share) to $21B+ market cap. Focused on long-term category creation over short-term optics.</div>
+    </div>
+
+    <div class="oo-person">
+      <div class="oo-name">John Bicket</div>
+      <div class="oo-role">CTO &amp; Co-Founder</div>
+      <div class="oo-stat"><span class="os-label">Background</span><span class="os-value">MIT EECS (with Biswas)</span></div>
+      <div class="oo-stat"><span class="os-label">Trading Plan</span><span class="os-value">10b5-1 (up to 5M shares in 2026)</span></div>
+      <div class="oo-stat"><span class="os-label">Prior Company</span><span class="os-value">Meraki CTO (Cisco $1.2B exit)</span></div>
+      <div class="oo-stat"><span class="os-label">Expertise</span><span class="os-value">Embedded systems, IoT, networking</span></div>
+      <div class="oo-bio">World-class hardware-software engineer with rare expertise bridging physical devices and cloud platforms — exactly the technical profile needed to build the Connected Operations Cloud. Co-architect of Meraki's hardware-software stack, which became Cisco's fastest-growing business unit post-acquisition.</div>
+    </div>
+
+  </div>
+
+  <div class="oo-flag">
+    <strong>⚠ Insider Sale Monitor:</strong> Both founders adopted 10b5-1 pre-arranged plans in Sep 2025 to sell up to ~5M shares each through Dec 2026 as part of long-term diversification. This is standard and legal for founders with highly concentrated wealth. It does NOT signal negative outlook — the plans were pre-arranged months before the strong Q4 FY26 beat. Monitor total insider ownership; as long as Biswas retains 7%+, founder alignment remains intact.
+  </div>
+
+  <div style="margin-top:14px;background:#f0fbf5;border:1px solid #b8e8ce;border-radius:8px;padding:13px 18px;font-size:12.5px;color:#1a3a2a;">
+    <strong>Capital Allocation Track Record:</strong> &nbsp;Samsara has demonstrated disciplined capital allocation — scaling R&amp;D investment while simultaneously improving FCF margins. SBC declining from 27% → 22% of revenue signals growing awareness of dilution. No dilutive acquisitions; organic product expansion preferred. Management targets low-teen SBC by FY28, which would make GAAP profitability durable and meaningful.
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 6. GROWTH VECTORS               -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">📈</span> Growth Framework — Multiple Vectors</div>
+  <div class="growth-grid">
+
+    <div class="gv-card">
+      <div class="gv-title">New Logo Growth</div>
+      <div class="gv-metric">204 new $100K+ customers in Q4</div>
+      <div class="gv-body">Record quarter. Enterprise up-market momentum continuing. Total $100K+ ARR customers: 3,194 (+27% YoY). Pipeline remains robust driven by AI product differentiation.</div>
+    </div>
+
+    <div class="gv-card">
+      <div class="gv-title">Net Revenue Retention (NRR)</div>
+      <div class="gv-metric">&gt;115% NRR</div>
+      <div class="gv-body">Existing customers expand spending annually. Multi-product attach (video, equipment, workflows) drives upsell. NRR above 115% means the installed base alone generates 15%+ revenue growth even with zero new logos.</div>
+    </div>
+
+    <div class="gv-card">
+      <div class="gv-title">Multi-Product Attach</div>
+      <div class="gv-metric">~20% of NNACV</div>
+      <div class="gv-body">Emerging products (site safety, equipment monitoring, AI agents) now 20% of net new ARR. Three years ago this was near zero. Target: 35%+ by FY28 as AI Agents roll out to the full enterprise base.</div>
+    </div>
+
+    <div class="gv-card">
+      <div class="gv-title">Enterprise Up-Market</div>
+      <div class="gv-metric">$1M+ ARR at Record High</div>
+      <div class="gv-body">$1M+ ARR customers growing fastest. These accounts have superior NRR (&gt;120%), lower churn, and pull through multi-product adoption. A sign of mature enterprise sales motion.</div>
+    </div>
+
+    <div class="gv-card">
+      <div class="gv-title">AI Agent Upsell (Horizon)</div>
+      <div class="gv-metric">GA: Summer 2026</div>
+      <div class="gv-body">AI Agents priced as a premium add-on could add $5–10K+ annually to existing enterprise accounts. Even at 20% attach across the 3,000+ enterprise base, that implies $30M–$60M+ in incremental ARR in year one.</div>
+    </div>
+
+    <div class="gv-card">
+      <div class="gv-title">International Expansion</div>
+      <div class="gv-metric">Early Stage — &lt;15% of ARR</div>
+      <div class="gv-body">Currently North America-centric. UK, EMEA, and APAC are nascent. International represents a genuine long-term optionality layer — the global fleet management market is as large as the US market. Execution here is the watchlist item.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 7. VALUATION FRAMEWORK          -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">$</span> Valuation Framework</div>
+
+  <div class="val-grid">
+    <div class="val-card">
+      <div class="vc-lbl">EV / NTM Revenue</div>
+      <div class="vc-val">~10x</div>
+      <div class="vc-note">NTM Rev ~$2.0B est. EV ~$20B. Elevated but peer-justified for 28%+ ARR growth.</div>
+    </div>
+    <div class="val-card">
+      <div class="vc-lbl">Rule of 40</div>
+      <div class="vc-val">43.4%</div>
+      <div class="vc-note">Rev growth 28% + FCF margin ~8–10%. Above industry median of 28.3%. High quality.</div>
+    </div>
+    <div class="val-card">
+      <div class="vc-lbl">EV / Rev ÷ Growth (PEG-style)</div>
+      <div class="vc-val">~0.36x</div>
+      <div class="vc-note">10x EV/Rev ÷ 28% growth = 0.36x. Below 0.5x is generally considered attractive for high-growth SaaS.</div>
+    </div>
+    <div class="val-card">
+      <div class="vc-lbl">Consensus Price Target</div>
+      <div class="vc-val">$43–$49</div>
+      <div class="vc-note">75% of analysts are Buy or Strong Buy. Wells Fargo PT $46. Median: $43. High: $60.</div>
+    </div>
+  </div>
+
+  <div class="val-matrix" style="margin-bottom:14px;">
+    <table>
+      <thead>
+        <tr>
+          <th>Scenario</th>
+          <th>FY28E Revenue</th>
+          <th>FCF Margin</th>
+          <th>FCF ($B)</th>
+          <th>FCF Multiple</th>
+          <th>Implied Market Cap</th>
+          <th>Price / Share</th>
+          <th>Upside</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:#27ae60;">Bull</strong></td>
+          <td>$2.8B (28% CAGR)</td>
+          <td>18%</td>
+          <td>$500M</td>
+          <td>55x</td>
+          <td>$27.5B</td>
+          <td><strong>$55–$60</strong></td>
+          <td class="trend-up">+57–71%</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#1558a0;">Base</strong></td>
+          <td>$2.4B (22% CAGR)</td>
+          <td>14%</td>
+          <td>$336M</td>
+          <td>50x</td>
+          <td>$20.5B</td>
+          <td><strong>$43–$48</strong></td>
+          <td class="trend-up">+23–37%</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#e74c3c;">Bear</strong></td>
+          <td>$2.0B (15% CAGR)</td>
+          <td>9%</td>
+          <td>$180M</td>
+          <td>35x</td>
+          <td>$10.0B</td>
+          <td><strong>$25–$28</strong></td>
+          <td class="trend-dn">-20–28%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="targets">
+    <div class="tgt-card bull">
+      <div class="tl">Bull Case (12–18 mo)</div>
+      <div class="tv">$55–60</div>
+      <div class="tn">AI Agents drive ARR re-acceleration above 30%. GAAP EPS durably positive. Multiple expands to 14–15x NTM Rev on profitability re-rating.</div>
+    </div>
+    <div class="tgt-card base">
+      <div class="tl">Base Case (12–18 mo)</div>
+      <div class="tv">$43–49</div>
+      <div class="tn">ARR growth holds 22–25%. AI Agents early traction. Margins expand gradually. +25–40% upside. Consensus target range.</div>
+    </div>
+    <div class="tgt-card stop">
+      <div class="tl">Stop Loss / Thesis Break</div>
+      <div class="tv">$25–27</div>
+      <div class="tn">ARR growth decelerates below 20% for 2+ quarters. NRR compresses below 110%. GAAP profitability reverses. Macro freight downturn.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:14px;background:#f0fbf5;border:1px solid #b8e8ce;border-radius:8px;padding:12px 16px;font-size:12px;color:#1a3a2a;">
+    <strong>10-Year 100-Bagger Math:</strong> &nbsp;At 25% revenue CAGR from $1.62B, Samsara reaches ~$15B revenue by FY2035. At 20% net margins and 30x P/E, implied market cap = <strong>$90B</strong>. At ~600M diluted shares, stock price = ~<strong>$150</strong> (4.3x from today). At 28% CAGR: revenue ~$20B, market cap ~$120B, stock ~<strong>$200</strong> (5.7x). For a true 100-bagger from today's $35, the stock must reach $3,500 — requiring market cap above $2 trillion. Not realistic. <em>IOT is a 5–10x compounder, not a 100-bagger from this price.</em>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 8. THESIS PILLARS + RISKS       -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">⚖</span> Core Pillars &amp; Risks</div>
+  <div class="pillars-risks">
+    <div class="pr-card bull"><div class="prt">▲ Massive Underpenetrated TAM</div><p>$557B+ industrial IoT; &lt;0.4% penetrated. Fleet + equipment + safety + workflow markets add up to a decade+ of greenfield growth.</p></div>
+    <div class="pr-card bear"><div class="prt">▼ Premium Multiple Compression Risk</div><p>10–12x EV/Rev demands execution perfection. Any guide-down or macro shock could compress the multiple sharply from current levels.</p></div>
+    <div class="pr-card bull"><div class="prt">▲ GAAP Profitability Ahead of Plan</div><p>Q3 &amp; Q4 FY26 GAAP profitable. FY27 adj. EPS guide of ~$0.67 beat consensus by 15%. FCF expanding. SBC declining. Profitability de-risks the multiple.</p></div>
+    <div class="pr-card bear"><div class="prt">▼ Growth Deceleration Trajectory</div><p>ARR growth decelerating from 37% (FY25) → 30% (FY26). FY27 implies further moderation toward 20–25%. Deceleration pace is the key variable to monitor.</p></div>
+    <div class="pr-card bull"><div class="prt">▲ Physical AI Differentiation &amp; Data Moat</div><p>Millions of vehicle-hours of proprietary data. AI Agents (Summer 2026) could re-accelerate ARPU. #1 G2 satisfaction for 5 consecutive quarters vs. all competitors.</p></div>
+    <div class="pr-card bear"><div class="prt">▼ Competitive Pressure (Motive, OEMs)</div><p>Motive aggressive in SMB. OEM-embedded native telematics (Ford, Daimler) could commoditize hardware need over 5–7 years. Geotab #1 in ABI Research overall ranking.</p></div>
+    <div class="pr-card bull"><div class="prt">▲ Enterprise Up-Market Momentum</div><p>Record 204 new $100K+ customers in Q4. $1M+ ARR customers at record. Enterprise mix improves NRR durability and reduces churn risk vs. SMB-heavy peers.</p></div>
+    <div class="pr-card bear"><div class="prt">▼ Macro / Freight Cycle Sensitivity</div><p>Fleet spending correlates with freight volumes. ATA Truck Tonnage Index and ISM Manufacturing PMI are leading indicators. Recession would freeze new logo adds and pressure NRR.</p></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 9. SCORECARD                    -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">✅</span> Thesis Scorecard — Current Status</div>
+  <table>
+    <thead>
+      <tr><th>Pillar</th><th>Original Expectation</th><th>Current Status (Mar 2026)</th><th>Status</th><th>Trend</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>ARR Growth</strong></td><td>≥25% YoY sustained</td><td>$1.89B ARR, +30% YoY; net new ARR re-accelerating (+33% Q4)</td><td><span class="badge b-good">Ahead</span></td><td><span class="trend-up">↑ Strong</span></td></tr>
+      <tr><td><strong>GAAP Profitability</strong></td><td>Breakeven by FY27</td><td>GAAP EPS +$0.04 Q4 FY26 — 2nd consecutive profitable quarter</td><td><span class="badge b-good">Ahead</span></td><td><span class="trend-up">↑ Accelerating</span></td></tr>
+      <tr><td><strong>Enterprise Up-Market</strong></td><td>$100K+ customers +20% YoY</td><td>3,194 customers (+27% YoY); record 204 adds in Q4</td><td><span class="badge b-good">Ahead</span></td><td><span class="trend-up">↑ Strong</span></td></tr>
+      <tr><td><strong>Multi-Product Adoption</strong></td><td>Emerging products 15%+ of NNACV</td><td>~20% of NNACV; AI Agents GA Summer 2026</td><td><span class="badge b-high">On Track</span></td><td><span class="trend-up">↑ Improving</span></td></tr>
+      <tr><td><strong>Physical AI Roadmap</strong></td><td>AI product traction by FY27</td><td>Beta AI coaching launched; Agents GA confirmed Summer 2026</td><td><span class="badge b-high">On Track</span></td><td><span class="trend-up">↑ On Schedule</span></td></tr>
+      <tr><td><strong>SBC Reduction</strong></td><td>Decline to low-teens % of rev</td><td>~22% (down from 27% FY23); still above low-teens target</td><td><span class="badge b-fair">Watch</span></td><td><span class="trend-flat">→ Slow Progress</span></td></tr>
+      <tr><td><strong>International Expansion</strong></td><td>Intl ARR growing faster than domestic</td><td>Still primarily North America; international early stage (&lt;15% ARR)</td><td><span class="badge b-fair">Watch</span></td><td><span class="trend-flat">→ Early Stage</span></td></tr>
+      <tr><td><strong>Owner-Operator Alignment</strong></td><td>Founders retain meaningful equity</td><td>Biswas 10%+ owner; 10b5-1 plans are pre-arranged diversification</td><td><span class="badge b-high">Intact</span></td><td><span class="trend-flat">→ Monitor Sells</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 10. CATALYST CALENDAR           -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">📅</span> Catalyst Calendar</div>
+
+  <div class="cat-row">
+    <div class="cat-date">Mar 5, 2026<br/><span style="color:#27ae60;font-size:9.5px;font-weight:700;">✓ COMPLETED</span></div>
+    <div class="cat-body">
+      <div class="ct">Q4 FY2026 Earnings — Strong Beat Across All Metrics</div>
+      <div class="cd">Rev $444M (+28%) beat $422M est. ARR $1.89B. GAAP EPS +$0.04. Net new ARR +33% YoY (re-acceleration). FY27 adj. EPS guide ~$0.67 beat 15%. Stock +9%.</div>
+      <span class="cat-imp ci-h">High Impact — All Thesis Pillars Intact</span>
+    </div>
+  </div>
+
+  <div class="cat-row">
+    <div class="cat-date">Summer 2026<br/><span style="color:#1558a0;font-size:9.5px;font-weight:700;">KEY CATALYST</span></div>
+    <div class="cat-body">
+      <div class="ct">AI Agents General Availability — ARPU Expansion Catalyst</div>
+      <div class="cd">Full GA of autonomous safety coaching, compliance workflows, and predictive maintenance. Watch for premium pricing tier and initial attach rate disclosures. Could re-rate the stock if enterprise adoption is ahead of expectations.</div>
+      <span class="cat-imp ci-h">High Impact — Could Trigger Multiple Expansion</span>
+    </div>
+  </div>
+
+  <div class="cat-row">
+    <div class="cat-date">Jun 2026<br/><span style="color:#1558a0;font-size:9.5px;font-weight:700;">UPCOMING</span></div>
+    <div class="cat-body">
+      <div class="ct">Q1 FY2027 Earnings — First Read on AI Agents Traction</div>
+      <div class="cd">Key metrics: Does ARR growth hold above 22%? NRR stability? Early AI Agent attach rate? Gross margin expansion? This is the thesis validation quarter post-FY26 guide.</div>
+      <span class="cat-imp ci-h">High Impact — Go/No-Go for Conviction Add</span>
+    </div>
+  </div>
+
+  <div class="cat-row">
+    <div class="cat-date">Ongoing 2026<br/><span style="color:#888;font-size:9.5px;font-weight:700;">MONITOR</span></div>
+    <div class="cat-body">
+      <div class="ct">Freight / Industrial Macro Conditions</div>
+      <div class="cd">ATA Truck Tonnage Index, ISM Manufacturing PMI, and FreightWaves spot rate indices are leading indicators of Samsara's demand environment. A freight recession is the biggest near-term risk to new logo growth.</div>
+      <span class="cat-imp ci-m">Medium Impact — Key Risk Monitor</span>
+    </div>
+  </div>
+
+  <div class="cat-row">
+    <div class="cat-date">FY27–FY28<br/><span style="color:#888;font-size:9.5px;font-weight:700;">HORIZON</span></div>
+    <div class="cat-body">
+      <div class="ct">International Expansion Inflection &amp; OEM Partnership Announcements</div>
+      <div class="cd">Any major OEM partnership (embedded Samsara telemetry in new vehicles) would be a significant TAM expansion catalyst. International ARR crossing 20% of total ARR would signal the next phase of the growth story.</div>
+      <span class="cat-imp ci-m">Medium Impact — Long-Term Upside Driver</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- THESIS INVALIDATION             -->
+<!-- ════════════════════════════════ -->
+<div class="section" style="margin-bottom:0;">
+  <div class="sec-title"><span class="sec-icon">🚨</span> Thesis Invalidation Conditions</div>
+  <div style="background:#fdecea;border:1px solid #f5b8b5;border-radius:8px;padding:14px 18px;font-size:12.5px;color:#4a0a0a;">
+    Exit or materially reduce position if <strong>any two</strong> of the following occur simultaneously:
+    <ol style="margin-top:8px;padding-left:18px;line-height:2;">
+      <li>ARR growth decelerates below <strong>20% YoY</strong> for two consecutive quarters</li>
+      <li>NRR falls below <strong>110%</strong> (signals customer churn or spending compression)</li>
+      <li>AI Agents fail to achieve <strong>5%+ NNACV contribution</strong> by end of FY27</li>
+      <li>GAAP profitability reverses for two consecutive quarters (not seasonal)</li>
+      <li>Founders' combined ownership drops below <strong>10%</strong> total (loss of alignment signal)</li>
+      <li>A major OEM announces a competing, deeply-embedded native telematics platform that wins 2+ enterprise deal wins from Samsara</li>
+    </ol>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>Samsara (IOT) Enhanced Investment Thesis &nbsp;·&nbsp; SQGLP + 100 Baggers + AI + Owner-Operator + Growth + Valuation + 4 New 100x Criteria &nbsp;·&nbsp; March 14, 2026 &nbsp;·&nbsp; For informational purposes only. Not investment advice.</div>
+  <div>
+    Sources: &nbsp;
+    <a href="https://finance.yahoo.com/news/why-samsara-iot-9-0-021333967.html" target="_blank">Q4 FY26 Beat</a> &nbsp;·&nbsp;
+    <a href="https://public.com/stocks/iot/forecast-price-target" target="_blank">Analyst Targets</a> &nbsp;·&nbsp;
+    <a href="https://valuesense.io/ticker/iot/fcf-margin-r40" target="_blank">Rule of 40</a> &nbsp;·&nbsp;
+    <a href="https://finance.yahoo.com/news/ceo-10-owner-sanjit-biswas-150232801.html" target="_blank">Insider Ownership</a> &nbsp;·&nbsp;
+    <a href="https://www.samsara.com/company/news/press-releases/Samsara-Ranks-No-1-in-Fleet-Management-on-G2-for-2025" target="_blank">G2 Rankings</a>
+  </div>
+</div>
+
+</div><!-- /page -->
 </body>
 </html>

@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rubrik (RBRK) — Enhanced Investment Thesis</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f5f5;
+  color: #0d2020;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.page {
+  max-width: 1020px;
+  margin: 28px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.10);
+  overflow: hidden;
+}
+
+/* ── HEADER ── */
+.header {
+  background: linear-gradient(135deg, #060f1a 0%, #0a2a2a 45%, #0d7a6e 120%);
+  color: #fff;
+  padding: 34px 40px 26px;
+}
+.header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px; }
+.company-block h1 { font-size: 27px; font-weight: 800; letter-spacing: 0.4px; }
+.company-block .sub { font-size: 12.5px; color: #7fd8cc; margin-top: 3px; }
+.badge-block { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.buy-badge { background: #0d9e8a; color: #fff; font-size: 14px; font-weight: 800; padding: 7px 20px; border-radius: 22px; letter-spacing: 0.5px; }
+.conviction-row { font-size: 11px; color: #7fd8cc; display: flex; align-items: center; gap: 5px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: #0d9e8a; }
+.header-meta { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 20px; }
+.meta .lbl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.9px; color: #5cbfb5; }
+.meta .val { font-size: 15px; font-weight: 800; color: #fff; }
+.meta .val.g { color: #6ee79a; }
+.meta .val.y { color: #f7d070; }
+.meta .val.o { color: #f6a06a; }
+
+/* ── THESIS BOX ── */
+.thesis-box {
+  background: #e8f7f5;
+  border-left: 5px solid #0d9e8a;
+  margin: 24px 38px;
+  padding: 16px 22px;
+  border-radius: 4px;
+}
+.thesis-box .tl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.9px; color: #0d7a6e; font-weight: 800; margin-bottom: 5px; }
+.thesis-box p { font-size: 14px; font-style: italic; color: #0a2020; line-height: 1.55; }
+
+/* ── SECTION ── */
+.content { padding: 0 38px 40px; }
+.section { margin-bottom: 30px; }
+.sec-title {
+  font-size: 11.5px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1px; color: #0d7a6e;
+  border-bottom: 2px solid #c8ecea;
+  padding-bottom: 5px; margin-bottom: 15px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-icon {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: #0d9e8a; color: #fff;
+  font-size: 12px; display: inline-flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+/* ── TABLES ── */
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+thead th {
+  background: #0a2a2a; color: #fff; padding: 9px 11px;
+  text-align: left; font-size: 10.5px;
+  text-transform: uppercase; letter-spacing: 0.6px;
+}
+tbody tr:nth-child(even) { background: #f0faf9; }
+tbody tr:hover { background: #daf2ef; }
+tbody td { padding: 9px 11px; border-bottom: 1px solid #d0e8e5; vertical-align: middle; }
+
+/* ── BADGES ── */
+.badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+.b-high { background: #d5f5e3; color: #1d6e40; }
+.b-good { background: #d0f5f0; color: #0d5e52; }
+.b-fair { background: #fef9e7; color: #7c5c00; border: 1px solid #f0c040; }
+.b-watch { background: #fdecea; color: #a93226; }
+.b-ahead { background: #dbeafe; color: #1e40af; }
+.trend-up { color: #27ae60; font-weight: 700; }
+.trend-flat { color: #f39c12; font-weight: 700; }
+.trend-dn { color: #e74c3c; font-weight: 700; }
+
+/* ── SQGLP ── */
+.sqglp-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.sqglp-card {
+  background: #f0faf9; border: 1px solid #b8e2de; border-radius: 10px;
+  padding: 14px 12px; text-align: center;
+}
+.sqglp-card .letter { font-size: 22px; font-weight: 900; color: #0d9e8a; }
+.sqglp-card .name { font-size: 9.5px; color: #3a7070; text-transform: uppercase; letter-spacing: 0.6px; margin: 2px 0 8px; }
+.sqglp-card .score { font-size: 26px; font-weight: 900; color: #0a2a2a; }
+.sqglp-card .denom { font-size: 13px; color: #7fbfb8; }
+.bar-bg { background: #c8ecea; border-radius: 4px; height: 7px; margin: 8px 0 6px; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, #0d9e8a, #0d7a6e); border-radius: 4px; }
+.sqglp-card .verdict { font-size: 9px; color: #0d7a6e; font-weight: 700; text-transform: uppercase; }
+.sqglp-total { background: #0a2a2a; color: #fff; border-radius: 10px; padding: 16px 20px; margin-top: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.sqglp-total .total-score { font-size: 32px; font-weight: 900; color: #6ee7be; }
+.sqglp-total .total-label { font-size: 11px; color: #7fd8cc; }
+.sqglp-total .verdict-block { text-align: right; }
+.sqglp-total .verdict-tag { background: #0d9e8a; color: #fff; font-size: 12px; font-weight: 800; padding: 5px 16px; border-radius: 16px; }
+
+/* ── 100 BAGGERS ── */
+.twin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.engine-card {
+  background: linear-gradient(135deg, #f0faf9, #daf5f0);
+  border: 1.5px solid #0d9e8a; border-radius: 10px; padding: 16px;
+}
+.engine-card .eng-title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: #0d7a6e; font-weight: 800; margin-bottom: 6px; }
+.engine-card .eng-big { font-size: 28px; font-weight: 900; color: #0a2a2a; }
+.engine-card .eng-sub { font-size: 11px; color: #3a7070; }
+.criteria-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+.crit-card {
+  background: #f8fffe; border: 1px solid #c0e8e3; border-radius: 8px;
+  padding: 12px; text-align: center;
+}
+.crit-card .crit-icon { font-size: 20px; margin-bottom: 5px; }
+.crit-card .crit-label { font-size: 10px; font-weight: 800; color: #0a2a2a; text-transform: uppercase; letter-spacing: 0.5px; }
+.crit-card .crit-val { font-size: 12px; color: #3a7070; margin-top: 3px; }
+.crit-card .crit-status { font-size: 10px; font-weight: 700; margin-top: 4px; }
+.crit-pass { color: #1d8a4a; }
+.crit-warn { color: #c07000; }
+
+/* ── AI DISRUPTION ── */
+.ai-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 14px; }
+.ai-card {
+  background: #f5fffe; border: 1px solid #80d0c8;
+  border-radius: 10px; padding: 14px;
+}
+.ai-card .ai-lbl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.8px; color: #0d7a6e; font-weight: 800; margin-bottom: 6px; }
+.ai-card .ai-title { font-size: 13.5px; font-weight: 800; color: #0a2a2a; margin-bottom: 5px; }
+.ai-card .ai-body { font-size: 12px; color: #3a5555; line-height: 1.5; }
+.timeline { background: #f0faf9; border-radius: 8px; padding: 14px 16px; border: 1px solid #b8e2de; }
+.timeline-title { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.8px; color: #0d7a6e; font-weight: 800; margin-bottom: 10px; }
+.tl-item { display: flex; gap: 12px; margin-bottom: 8px; align-items: flex-start; }
+.tl-dot { width: 10px; height: 10px; border-radius: 50%; background: #0d9e8a; margin-top: 4px; flex-shrink: 0; }
+.tl-date { font-size: 10px; font-weight: 800; color: #0d7a6e; width: 60px; flex-shrink: 0; }
+.tl-text { font-size: 12px; color: #0a2a2a; }
+
+/* ── OWNER OPERATOR ── */
+.founder-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.founder-card {
+  background: linear-gradient(135deg, #e8f7f5, #f5fffe);
+  border: 1.5px solid #0d9e8a; border-radius: 10px; padding: 16px;
+}
+.founder-card .fname { font-size: 15px; font-weight: 800; color: #0a2a2a; }
+.founder-card .frole { font-size: 10px; text-transform: uppercase; letter-spacing: 0.7px; color: #0d7a6e; font-weight: 700; margin: 3px 0 10px; }
+.founder-card .fstat { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.fstat-item { background: #0d9e8a; color: #fff; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 10px; }
+.founder-card ul { padding-left: 16px; }
+.founder-card ul li { font-size: 11.5px; color: #2a4a48; margin-bottom: 4px; }
+.dual-class-box { background: #fff8e1; border: 1px solid #f0c040; border-radius: 8px; padding: 12px 16px; margin-top: 12px; font-size: 12px; color: #7c5c00; }
+.dual-class-box strong { display: block; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 4px; }
+
+/* ── GROWTH ── */
+.growth-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.growth-card {
+  background: #f8fffe; border: 1px solid #b8e2de; border-radius: 10px;
+  padding: 14px; text-align: center;
+}
+.growth-card .gc-icon { font-size: 22px; margin-bottom: 6px; }
+.growth-card .gc-title { font-size: 11px; font-weight: 800; color: #0a2a2a; text-transform: uppercase; letter-spacing: 0.5px; }
+.growth-card .gc-metric { font-size: 20px; font-weight: 900; color: #0d9e8a; margin: 6px 0 3px; }
+.growth-card .gc-sub { font-size: 11px; color: #4a7070; }
+
+/* ── 4 NEW 100x CRITERIA ── */
+.nx-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.nx-card {
+  background: linear-gradient(135deg, #f0faf9, #e0f8f4);
+  border: 1.5px solid #0d9e8a; border-radius: 10px; padding: 16px;
+}
+.nx-card .nx-num { font-size: 28px; font-weight: 900; color: #c0e8e2; }
+.nx-card .nx-title { font-size: 13.5px; font-weight: 800; color: #0a2a2a; margin: 3px 0 6px; }
+.nx-card .nx-score { display: inline-block; background: #0d9e8a; color: #fff; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 10px; margin-bottom: 8px; }
+.nx-card .nx-body { font-size: 12px; color: #2a4a48; line-height: 1.5; }
+
+/* ── VALUATION ── */
+.val-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+.val-card {
+  background: #f0faf9; border: 1px solid #b8e2de; border-radius: 10px;
+  padding: 14px; text-align: center;
+}
+.val-card .vc-lbl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.7px; color: #0d7a6e; margin-bottom: 5px; font-weight: 700; }
+.val-card .vc-big { font-size: 22px; font-weight: 900; color: #0a2a2a; }
+.val-card .vc-sub { font-size: 11px; color: #4a7070; margin-top: 3px; }
+.val-card .vc-signal { font-size: 10px; font-weight: 700; margin-top: 6px; }
+.price-targets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+.pt-card {
+  border-radius: 10px; padding: 14px; text-align: center;
+}
+.pt-bull { background: linear-gradient(135deg, #d5f5e3, #a8dfc0); border: 1.5px solid #1d8a4a; }
+.pt-base { background: linear-gradient(135deg, #e0f8f4, #b8e8e2); border: 1.5px solid #0d9e8a; }
+.pt-stop { background: linear-gradient(135deg, #fdecea, #f5c0bc); border: 1.5px solid #c0392b; }
+.pt-card .pt-lbl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 800; margin-bottom: 5px; }
+.pt-bull .pt-lbl { color: #1d6e40; }
+.pt-base .pt-lbl { color: #0d5e52; }
+.pt-stop .pt-lbl { color: #a93226; }
+.pt-card .pt-price { font-size: 30px; font-weight: 900; }
+.pt-bull .pt-price { color: #1d8a4a; }
+.pt-base .pt-price { color: #0d9e8a; }
+.pt-stop .pt-price { color: #c0392b; }
+.pt-card .pt-upside { font-size: 11px; font-weight: 700; margin-top: 4px; }
+.pt-card .pt-rationale { font-size: 10.5px; margin-top: 6px; color: #333; }
+
+/* ── SCORECARD / CATALYSTS ── */
+.catalyst-item { display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #d8f0ec; }
+.catalyst-item:last-child { border-bottom: none; }
+.cat-date { font-size: 10.5px; font-weight: 800; color: #0d7a6e; width: 80px; flex-shrink: 0; }
+.cat-body .cat-title { font-size: 13px; font-weight: 700; color: #0a2a2a; }
+.cat-body .cat-desc { font-size: 11.5px; color: #4a6a68; margin-top: 2px; }
+.impact-high { color: #1d8a4a; font-size: 10px; font-weight: 700; }
+.impact-med { color: #c07000; font-size: 10px; font-weight: 700; }
+
+/* ── INVALIDATION ── */
+.inv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.inv-item { background: #fdecea; border-left: 4px solid #c0392b; border-radius: 6px; padding: 10px 14px; }
+.inv-item .inv-title { font-size: 12px; font-weight: 800; color: #a93226; }
+.inv-item .inv-body { font-size: 11.5px; color: #4a1a18; margin-top: 3px; }
+
+/* ── FOOTER ── */
+.footer { background: #f0faf9; border-top: 2px solid #c8ecea; padding: 14px 38px; font-size: 10.5px; color: #5a8a84; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.footer strong { color: #0d7a6e; }
+
+/* ── FCF TABLE ── */
+.fcf-scenario { margin-top: 14px; }
+.fcf-scenario table thead th { background: #0d7a6e; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="header">
+  <div class="header-top">
+    <div class="company-block">
+      <h1>🛡️ Rubrik, Inc. (RBRK)</h1>
+      <div class="sub">Cyber Resilience Platform · NYSE · Updated March 15, 2026</div>
+    </div>
+    <div class="badge-block">
+      <div class="buy-badge">⬆ STRONG BUY</div>
+      <div class="conviction-row"><span class="dot"></span> HIGH CONVICTION · 100x FRAMEWORK</div>
+    </div>
+  </div>
+  <div class="header-meta">
+    <div class="meta"><div class="lbl">Price</div><div class="val">~$57</div></div>
+    <div class="meta"><div class="lbl">Market Cap</div><div class="val">~$12B</div></div>
+    <div class="meta"><div class="lbl">FY26 Revenue</div><div class="val g">$1.28B</div></div>
+    <div class="meta"><div class="lbl">Rev Growth</div><div class="val g">+44% YoY</div></div>
+    <div class="meta"><div class="lbl">Sub ARR</div><div class="val g">$1.46B</div></div>
+    <div class="meta"><div class="lbl">NRR</div><div class="val g">&gt;120%</div></div>
+    <div class="meta"><div class="lbl">EV/NTM Rev</div><div class="val y">~7.5x</div></div>
+    <div class="meta"><div class="lbl">Analyst PT</div><div class="val o">$106 avg</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ THESIS BOX ═══════════════════════ -->
+<div class="thesis-box">
+  <div class="tl">Core Investment Thesis</div>
+  <p>Rubrik is building the operating system for cyber resilience — the only platform combining immutable backup, ransomware detection, and data security posture management under one roof. At ~7.5x NTM Revenue for a business compounding ARR at 34%+ with 120%+ NRR, FCF exploding 10x in one year, and a $65B TAM barely penetrated, RBRK is the most mispriced high-conviction cybersecurity compounder in the public markets. This is not discretionary IT spend — it's existential insurance. Ransomware alone cost the global economy $20B+ in 2023 and is accelerating. Rubrik's founders built this to be the last line of defense, and it's working.</p>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════ 1. SQGLP ═══════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">📊</span> SQGLP Framework — Motilal Oswal Quality Score</div>
+  <div class="sqglp-grid">
+    <div class="sqglp-card">
+      <div class="letter">S</div>
+      <div class="name">Sales Growth</div>
+      <div class="score">9<span class="denom">/10</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div>
+      <div class="verdict">EXCEPTIONAL</div>
+      <div style="font-size:10.5px;color:#3a6060;margin-top:5px;">FY26 +44% YoY; Q4 +46% YoY; ARR +34%; NRR &gt;120%; $1.28B run-rate; FY27 guide $1.6B+</div>
+    </div>
+    <div class="sqglp-card">
+      <div class="letter">Q</div>
+      <div class="name">Quality</div>
+      <div class="score">9<span class="denom">/10</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div>
+      <div class="verdict">PREMIUM QUALITY</div>
+      <div style="font-size:10.5px;color:#3a6060;margin-top:5px;">83.7% Non-GAAP gross margins; &gt;120% NRR; 87% ARR from $100K+ customers; mission-critical workloads</div>
+    </div>
+    <div class="sqglp-card">
+      <div class="letter">G</div>
+      <div class="name">Earnings Growth</div>
+      <div class="score">7<span class="denom">/10</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width:70%"></div></div>
+      <div class="verdict">RAPID IMPROVEMENT</div>
+      <div style="font-size:10.5px;color:#3a6060;margin-top:5px;">GAAP-negative but FCF $22M→$238M (+10x); FY27 FCF guide $265-275M; operating leverage accelerating</div>
+    </div>
+    <div class="sqglp-card">
+      <div class="letter">L</div>
+      <div class="name">Longevity</div>
+      <div class="score">9<span class="denom">/10</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div>
+      <div class="verdict">LONG RUNWAY</div>
+      <div style="font-size:10.5px;color:#3a6060;margin-top:5px;">$65B TAM; ransomware non-discretionary; regulatory mandates (DORA, SEC, CISA); AI expanding data attack surface</div>
+    </div>
+    <div class="sqglp-card">
+      <div class="letter">P</div>
+      <div class="name">Price (Value)</div>
+      <div class="score">9<span class="denom">/10</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div>
+      <div class="verdict">DEEPLY CHEAP</div>
+      <div style="font-size:10.5px;color:#3a6060;margin-top:5px;">~7.5x NTM Rev for 44% grower; PEG ~0.31x; Rule of 40 ~47%; 50% discount to cybersecurity SaaS peers</div>
+    </div>
+  </div>
+  <div class="sqglp-total">
+    <div>
+      <div class="total-label">SQGLP Total Score</div>
+      <div class="total-score">43 <span style="font-size:18px;font-weight:400;color:#5cbfb5">/ 50</span></div>
+    </div>
+    <div class="verdict-block">
+      <div style="font-size:11px;color:#7fd8cc;margin-bottom:5px;">Verdict</div>
+      <div class="verdict-tag">🏆 EXCEPTIONAL BUSINESS</div>
+      <div style="font-size:10px;color:#5cbfb5;margin-top:5px;">Highest penalty: GAAP losses (-1). Every other axis near-max.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ 2. 100 BAGGERS ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">💎</span> 100 Baggers Framework — Christopher Mayer</div>
+  <div class="twin-grid">
+    <div class="engine-card">
+      <div class="eng-title">🔧 Engine 1 — Revenue CAGR</div>
+      <div class="eng-big">+34–44%</div>
+      <div class="eng-sub">ARR CAGR vs. revenue CAGR; management guide implies 25-30% for FY27; durable subscription compounding</div>
+    </div>
+    <div class="engine-card">
+      <div class="eng-title">⚡ Engine 2 — Margin Expansion (FCF)</div>
+      <div class="eng-big">$22M → $238M</div>
+      <div class="eng-sub">FCF expanded 10x in one year (FY25→FY26); FCF margin inflecting from ~2% → ~19%; operating leverage just beginning</div>
+    </div>
+  </div>
+  <div class="criteria-grid">
+    <div class="crit-card">
+      <div class="crit-icon">📈</div>
+      <div class="crit-label">ROIC</div>
+      <div class="crit-val">Pre-GAAP profit stage; FCF ROIC turning positive rapidly; high-margin SaaS model → ROIC >30% at scale</div>
+      <div class="crit-status crit-warn">⚠ Improving</div>
+    </div>
+    <div class="crit-card">
+      <div class="crit-icon">♻️</div>
+      <div class="crit-label">Reinvestment Rate</div>
+      <div class="crit-val">Heavy R&D + S&M reinvestment (~70% of revenue); $1.83B ARR target FY27 needs continued investment</div>
+      <div class="crit-status crit-pass">✅ High & Productive</div>
+    </div>
+    <div class="crit-card">
+      <div class="crit-icon">🌍</div>
+      <div class="crit-label">TAM Runway</div>
+      <div class="crit-val">$65B+ addressable; only ~2% penetrated at $1.46B ARR; DSPM adds $10B+; government sector untapped</div>
+      <div class="crit-status crit-pass">✅ Massive (50x ARR)</div>
+    </div>
+    <div class="crit-card">
+      <div class="crit-icon">👨‍💼</div>
+      <div class="crit-label">Owner-Operator</div>
+      <div class="crit-val">Bipul Sinha: 5.64% = ~$645M stake; co-founded 2014; Board Chairman + CEO; aligned incentives</div>
+      <div class="crit-status crit-pass">✅ Founder-Led</div>
+    </div>
+    <div class="crit-card">
+      <div class="crit-icon">📦</div>
+      <div class="crit-label">Market Cap Room</div>
+      <div class="crit-val">~$12B market cap; 10x = $120B; plausible given $10B+ ARR by 2034 at 15-20x ARR = $150-200B</div>
+      <div class="crit-status crit-pass">✅ 10x Math Works</div>
+    </div>
+    <div class="crit-card">
+      <div class="crit-icon">🏰</div>
+      <div class="crit-label">Competitive Moat</div>
+      <div class="crit-val">Immutability patents + multi-cloud integrations + Security Cloud platform = 3-layer moat; rip-and-replace is expensive</div>
+      <div class="crit-status crit-pass">✅ Deep & Widening</div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>Scenario</th><th>FY2031E ARR</th><th>ARR Multiple</th><th>Market Cap</th><th>Return from $12B</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge b-high">🐂 Bull</span></td><td>$6.5B</td><td>18x ARR</td><td>$117B</td><td class="trend-up">~10x</td></tr>
+      <tr><td><span class="badge b-good">Base</span></td><td>$5.0B</td><td>14x ARR</td><td>$70B</td><td class="trend-up">~6x</td></tr>
+      <tr><td><span class="badge b-fair">🐻 Bear</span></td><td>$3.5B</td><td>10x ARR</td><td>$35B</td><td class="trend-up">~3x</td></tr>
+      <tr><td><span class="badge b-ahead">📖 Honest Verdict</span></td><td colspan="3">Best 10x setup of any cyber name at this scale. 6-10x base over 5-7 yrs is realistic. 100x requires platform extension.</td><td></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════════ 3. AI DISRUPTION ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">🤖</span> AI Disruption Analysis</div>
+  <div class="ai-grid">
+    <div class="ai-card">
+      <div class="ai-lbl">🎯 AI Beneficiary Angle</div>
+      <div class="ai-title">AI Expands the Attack Surface → More Rubrik Needed</div>
+      <div class="ai-body">Every AI deployment creates new data, new models, new pipelines — all requiring backup, protection, and governance. AI's insatiable data appetite directly expands Rubrik's TAM. Enterprises running LLMs on sensitive data need DSPM (Data Security Posture Management) — a product Rubrik launched in 2024. The AI wave is Rubrik's tailwind, not headwind.</div>
+    </div>
+    <div class="ai-card">
+      <div class="ai-lbl">🔑 Key AI Product</div>
+      <div class="ai-title">Rubrik Security Cloud + AI-Powered Ransomware Detection</div>
+      <div class="ai-body">Rubrik's ML-based anomaly detection flags ransomware staging in backup data before encryption completes. The AI Threat Hunting engine analyzes backup telemetry to identify blast radius and patient-zero identification within minutes vs. days for legacy tools. Ruby AI Copilot (2025) enables natural language queries across all protected data.</div>
+    </div>
+    <div class="ai-card">
+      <div class="ai-lbl">🏰 Competitive Moat vs. AI Startups</div>
+      <div class="ai-title">Data + Immutability = Structural Advantage</div>
+      <div class="ai-body">AI startups cannot replicate Rubrik's: (1) 10+ years of backup telemetry = proprietary training data; (2) immutable data copy = the ground truth AI models need; (3) enterprise trust built into 5,000+ critical workloads. A startup offering "AI cyber resilience" with no existing data custody is a feature, not a platform.</div>
+    </div>
+    <div class="ai-card">
+      <div class="ai-lbl">⚡ AI Risk Assessment</div>
+      <div class="ai-title">AI-Powered Ransomware = Rubrik's Accelerant</div>
+      <div class="ai-body">LLMs are already being weaponized to craft polymorphic ransomware that evades signature-based detection. This paradoxically increases demand for behavior-based, AI-powered backup protection — exactly what Rubrik provides. The more sophisticated the attack, the more enterprises rely on immutable, air-gapped data copies that only Rubrik can guarantee.</div>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-title">AI Product Roadmap — Rubrik 2024–2027</div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2024</div><div class="tl-text"><strong>DSPM Launch</strong> — Data Security Posture Management detects sensitive data exposure across cloud, on-prem, and SaaS environments</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2025</div><div class="tl-text"><strong>Ruby AI Copilot GA</strong> — Natural language interface for incident response; blast radius analysis in minutes; integrates with Palo Alto, CrowdStrike, and SIEM platforms</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2025</div><div class="tl-text"><strong>AI Workload Protection</strong> — First-of-kind backup and recovery for LLM training data, fine-tuned models, and vector databases (ChromaDB, Pinecone)</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2026+</div><div class="tl-text"><strong>Autonomous Cyber Recovery</strong> — AI-orchestrated recovery playbooks that auto-classify clean restore points and reconstruct environments without human intervention</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ 4. OWNER-OPERATOR ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">👨‍💼</span> Owner-Operator Analysis</div>
+  <div class="founder-grid">
+    <div class="founder-card">
+      <div class="fname">Bipul Sinha</div>
+      <div class="frole">CEO · Chairman · Co-Founder</div>
+      <div class="fstat">
+        <span class="fstat-item">5.64% ownership</span>
+        <span class="fstat-item">~$645M stake</span>
+        <span class="fstat-item">IIT Kharagpur + Wharton</span>
+      </div>
+      <ul>
+        <li>Founded Rubrik in 2014 after career as Partner at Lightspeed Venture Partners — invested in Nutanix before starting Rubrik</li>
+        <li>Engineering roots: IBM → Oracle → Blumberg Capital founding investor (Nutanix, Hootsuite)</li>
+        <li>Recognized the backup market was ripe for cloud-native disruption; spent 2 years pre-launch building the platform</li>
+        <li>Led Rubrik from $0 to $1.28B revenue without ever losing founder control; maintains Board Chair role</li>
+        <li>Net worth estimated ~$700M+; personal financial outcome fully aligned with long-term shareholders</li>
+      </ul>
+    </div>
+    <div class="founder-card">
+      <div class="fname">Arvind Jain</div>
+      <div class="frole">Co-Founder · Chief Product Officer</div>
+      <div class="fstat">
+        <span class="fstat-item">Co-founder (2014)</span>
+        <span class="fstat-item">Significant ownership</span>
+        <span class="fstat-item">IIT Bombay + Google pedigree</span>
+      </div>
+      <ul>
+        <li>Previously VP Engineering at Google, where he built Google Search's distributed infrastructure — directly applicable to Rubrik's scale-out architecture</li>
+        <li>Co-founder with Soham Mazumdar (distributed systems architect) and Arvind Nithrakashyap (storage systems expert)</li>
+        <li>Led product vision: Rubrik's converged backup + security architecture was Arvind's technical thesis from day one</li>
+        <li>Capital allocation: zero dilutive acquisitions, all organic R&D; company IPO'd May 2024 without losing the long-term product roadmap</li>
+        <li>Post-IPO, founding team holds combined ~20%+ economic interest</li>
+      </ul>
+    </div>
+  </div>
+  <div class="dual-class-box">
+    <strong>📋 Capital Structure Note</strong>
+    Rubrik employs a dual-class share structure with Class B shares carrying superior voting rights, retained by founders. This ensures Bipul Sinha and the founding team maintain voting control through the growth phase — a structural feature aligned with long-term value creation and protection against short-term shareholder pressure that could derail the platform vision. Founders have not engaged in meaningful secondary sales post-IPO.
+  </div>
+</div>
+
+<!-- ═══════════════════════════ 5. GROWTH VECTORS ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">🚀</span> Growth Framework — 6 Vectors</div>
+  <div class="growth-grid">
+    <div class="growth-card">
+      <div class="gc-icon">🔄</div>
+      <div class="gc-title">Land &amp; Expand</div>
+      <div class="gc-metric">&gt;120% NRR</div>
+      <div class="gc-sub">Net Revenue Retention above 120% for 8 consecutive quarters; customers expand workloads as they see recovery ROI; avg $100K+ customer now $175K+</div>
+    </div>
+    <div class="growth-card">
+      <div class="gc-icon">🏢</div>
+      <div class="gc-title">Enterprise Upmarket</div>
+      <div class="gc-metric">2,805</div>
+      <div class="gc-sub">Customers with $100K+ ARR, up 25% YoY; represent 87% of total ARR; Fortune 500 penetration ~30%, massive whitespace remaining</div>
+    </div>
+    <div class="growth-card">
+      <div class="gc-icon">🌐</div>
+      <div class="gc-title">International Expansion</div>
+      <div class="gc-metric">~35% intl</div>
+      <div class="gc-sub">EMEA and APAC growing faster than US; European data sovereignty regulations (DORA) create structural tailwind for cyber resilience investment in 2025-2026</div>
+    </div>
+    <div class="growth-card">
+      <div class="gc-icon">🏛️</div>
+      <div class="gc-title">Government / Public Sector</div>
+      <div class="gc-metric">FedRAMP</div>
+      <div class="gc-sub">FedRAMP authorized; growing SLED + federal pipeline; US government mandating zero-trust architectures; CISA guidance explicitly references immutable backups</div>
+    </div>
+    <div class="growth-card">
+      <div class="gc-icon">🔍</div>
+      <div class="gc-title">DSPM Product Upsell</div>
+      <div class="gc-metric">$10B+ TAM</div>
+      <div class="gc-sub">DSPM module is $5-10/seat upsell on existing backup customers; early adopters seeing 40%+ ACV increase per account; data governance demand secular tailwind</div>
+    </div>
+    <div class="growth-card">
+      <div class="gc-icon">☁️</div>
+      <div class="gc-title">Cloud-Native Workloads</div>
+      <div class="gc-metric">AWS/Azure/GCP</div>
+      <div class="gc-sub">Native integration with AWS, Azure, GCP; cloud workloads growing 50%+ in backup volumes; multi-cloud complexity drives Rubrik's platform consolidation thesis</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ 6. 4 NEW 100x CRITERIA ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">🎯</span> 4 New 100x Criteria — RBRK-Specific</div>
+  <div class="nx-grid">
+    <div class="nx-card">
+      <div class="nx-num">01</div>
+      <div class="nx-title">Immutable Backup as Last Line of Ransomware Defense</div>
+      <div class="nx-score">★★★★★ 10/10</div>
+      <div class="nx-body">When ransomware encrypts everything — endpoints, SaaS, on-prem, cloud — the only recovery path is a clean, immutable backup copy that the attacker cannot touch. Rubrik's patented immutable architecture means even a compromised admin account cannot delete or alter backup data. This "air-gap in software" is not a feature — it's existential infrastructure. Enterprises have learned this the hard way ($4.4M average ransomware cost in 2023). No competing product offers the same cryptographic guarantee at enterprise scale. This single criterion creates a moat comparable to a financial institution's vault technology.</div>
+    </div>
+    <div class="nx-card">
+      <div class="nx-num">02</div>
+      <div class="nx-title">Data Security Posture Management (DSPM) AI Expansion</div>
+      <div class="nx-score">★★★★☆ 8/10</div>
+      <div class="nx-body">DSPM is a new $10B+ market emerging at the intersection of data governance, AI compliance, and security. Rubrik already controls the backup data store — the richest source of ground truth for what sensitive data exists, where it lives, and who can access it. DSPM turns this into a real-time compliance and risk engine. With GDPR, CCPA, EU AI Act, and SEC cyber rules all mandating data posture visibility, Rubrik's DSPM product sits at the intersection of three regulatory mega-trends. Early customers show 2-3x ARR expansion from DSPM upsell. This could double Rubrik's monetizable TAM.</div>
+    </div>
+    <div class="nx-card">
+      <div class="nx-num">03</div>
+      <div class="nx-title">Zero-Trust Data Protection Switching Cost Moat</div>
+      <div class="nx-score">★★★★★ 9/10</div>
+      <div class="nx-body">Replacing Rubrik requires: migrating petabytes of backup data (6-18 months), retraining IT teams, rebuilding recovery runbooks, re-certifying regulatory compliance, and accepting a coverage gap during transition. For enterprises with 50+ TB under protection, the switching cost exceeds $500K in operational effort alone — before any vendor cost comparison. Rubrik's platform is embedded into the operational DNA of the enterprise DR (Disaster Recovery) function. This creates 95%+ gross retention (confirmed by NRR >120%) and is the most durable revenue stream in enterprise software.</div>
+    </div>
+    <div class="nx-card">
+      <div class="nx-num">04</div>
+      <div class="nx-title">Cyber Resilience as Government Regulatory Mandate</div>
+      <div class="nx-score">★★★★★ 10/10</div>
+      <div class="nx-body">DORA (EU Digital Operational Resilience Act) — effective Jan 2025 — mandates financial institutions in Europe maintain tested, immutable backup and recovery capabilities or face fines up to 2% of global revenue. The SEC's 2023 cybersecurity disclosure rule requires public companies to disclose material cyber incidents within 4 business days. CISA's National Cybersecurity Strategy (2023) explicitly mandates "secure by design" infrastructure including air-gapped data. Each regulatory update is a Rubrik sales call. The regulatory moat is literally written into law across three continents, and tightening every year.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ 7. VALUATION ═══════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">💰</span> Valuation Framework</div>
+  <div class="val-grid">
+    <div class="val-card">
+      <div class="vc-lbl">EV / NTM Revenue</div>
+      <div class="vc-big">~7.5x</div>
+      <div class="vc-sub">FY27 rev guide $1.60B; peer median (CRWD, PANW, ZS) is 14-18x for similar growth</div>
+      <div class="vc-signal trend-up">↑ 50% Discount to Peers</div>
+    </div>
+    <div class="val-card">
+      <div class="vc-lbl">Rule of 40</div>
+      <div class="vc-big">~47%</div>
+      <div class="vc-sub">Rev growth 44% + FCF margin ~19% = ~63% on FCF basis; well above 40% threshold</div>
+      <div class="vc-signal trend-up">↑ Top Decile SaaS</div>
+    </div>
+    <div class="val-card">
+      <div class="vc-lbl">PEG-Style (EV/Rev ÷ Growth)</div>
+      <div class="vc-big">0.17x</div>
+      <div class="vc-sub">7.5x EV/Rev ÷ 44% growth = 0.17x; extraordinary value vs. 0.4-0.6x for peers at same growth</div>
+      <div class="vc-signal trend-up">↑ Deeply Mispriced</div>
+    </div>
+    <div class="val-card">
+      <div class="vc-lbl">Consensus Price Target</div>
+      <div class="vc-big">$106</div>
+      <div class="vc-sub">24 analysts; avg PT $105.56; high $130; low $80; 22 Buy / 1 Hold / 1 Sell; +86% upside</div>
+      <div class="vc-signal trend-up">↑ Strong Buy Consensus</div>
+    </div>
+  </div>
+
+  <div class="fcf-scenario">
+    <table>
+      <thead>
+        <tr><th>FCF Scenario</th><th>FY2027E FCF</th><th>FY2029E FCF</th><th>FCF Multiple</th><th>Implied Mkt Cap</th><th>Return (from $12B)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge b-high">🐂 Bull</span></td>
+          <td>$310M</td><td>$900M</td><td>55x FCF</td><td>$49.5B</td><td class="trend-up">~4x by 2029</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-good">Base</span></td>
+          <td>$270M</td><td>$680M</td><td>45x FCF</td><td>$30.6B</td><td class="trend-up">~2.5x by 2029</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-fair">🐻 Bear</span></td>
+          <td>$220M</td><td>$420M</td><td>35x FCF</td><td>$14.7B</td><td class="trend-flat">~1.2x by 2029</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="price-targets">
+    <div class="pt-card pt-bull">
+      <div class="pt-lbl">🐂 Bull Case — 18 months</div>
+      <div class="pt-price">$130</div>
+      <div class="pt-upside" style="color:#1d8a4a">+128% upside</div>
+      <div class="pt-rationale">ARR re-rates to 15x; FCF margin hits 25%; platform multiple catches up to CrowdStrike/Zscaler; DSPM product contributes meaningfully to ARR</div>
+    </div>
+    <div class="pt-card pt-base">
+      <div class="pt-lbl">📊 Base Case — 12 months</div>
+      <div class="pt-price">$95</div>
+      <div class="pt-upside" style="color:#0d7a6e">+67% upside</div>
+      <div class="pt-rationale">ARR multiple re-rates to 10-12x as FCF inflects; guidance raises through FY27; consistent 30%+ ARR growth confirmed; in line with analyst consensus</div>
+    </div>
+    <div class="pt-card pt-stop">
+      <div class="pt-lbl">🔴 Stop Loss</div>
+      <div class="pt-price">$40</div>
+      <div class="pt-upside" style="color:#c0392b">-30% downside</div>
+      <div class="pt-rationale">ARR growth deceleration below 20%; NRR falls below 110%; Microsoft Azure Backup gains meaningful enterprise share; FCF guidance cuts</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ THESIS SCORECARD ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">📋</span> Thesis Scorecard — Live Tracking</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Thesis Pillar</th>
+        <th>Original Expectation</th>
+        <th>Current Status (Mar 2026)</th>
+        <th>Trend</th>
+        <th>Signal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>ARR Growth Durability</strong></td>
+        <td>Sustain 30%+ ARR growth</td>
+        <td>$1.46B ARR, +34% YoY, NRR &gt;120%</td>
+        <td class="trend-up">↑ Beating</td>
+        <td><span class="badge b-high">ON TRACK</span></td>
+      </tr>
+      <tr>
+        <td><strong>FCF Inflection</strong></td>
+        <td>Turn FCF positive and scale</td>
+        <td>FCF $238M FY26, up from $22M FY25 — 10x in one year</td>
+        <td class="trend-up">↑ Exceeded</td>
+        <td><span class="badge b-high">AHEAD</span></td>
+      </tr>
+      <tr>
+        <td><strong>Enterprise Expansion</strong></td>
+        <td>Grow $100K+ customer base</td>
+        <td>2,805 $100K+ customers, +25% YoY; 87% of ARR</td>
+        <td class="trend-up">↑ On Track</td>
+        <td><span class="badge b-good">ON TRACK</span></td>
+      </tr>
+      <tr>
+        <td><strong>Platform vs. Point Solution</strong></td>
+        <td>Backup → Security platform evolution</td>
+        <td>DSPM launched, Ruby AI Copilot GA; Security Cloud gaining traction</td>
+        <td class="trend-up">↑ Progressing</td>
+        <td><span class="badge b-ahead">WATCH</span></td>
+      </tr>
+      <tr>
+        <td><strong>Gross Margin Defense</strong></td>
+        <td>Maintain 80%+ non-GAAP GM</td>
+        <td>Non-GAAP GM 83.7% Q4; structure improving not eroding</td>
+        <td class="trend-up">↑ Exceeding</td>
+        <td><span class="badge b-high">STRONG</span></td>
+      </tr>
+      <tr>
+        <td><strong>Microsoft Risk Containment</strong></td>
+        <td>Azure Backup bundling does not cause customer churn</td>
+        <td>NRR still &gt;120%; large enterprise preferring multi-cloud neutrality; no material churn detected</td>
+        <td class="trend-flat">→ Holding</td>
+        <td><span class="badge b-fair">MONITOR</span></td>
+      </tr>
+      <tr>
+        <td><strong>Government / Regulated Sector</strong></td>
+        <td>FedRAMP + DORA drive new vertical growth</td>
+        <td>FedRAMP authorized; DORA came into effect Jan 2025 accelerating EU financial sector deals</td>
+        <td class="trend-up">↑ Accelerating</td>
+        <td><span class="badge b-high">TAILWIND</span></td>
+      </tr>
+      <tr>
+        <td><strong>Valuation Re-Rating</strong></td>
+        <td>Market reprices from &lt;10x to 14-18x peers as FCF inflects</td>
+        <td>Still at ~7.5x despite FCF proof; multiple compression from macro; awaiting re-rate catalyst</td>
+        <td class="trend-flat">→ Pending</td>
+        <td><span class="badge b-ahead">OPPORTUNITY</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════════ CATALYST CALENDAR ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">📅</span> Catalyst Calendar — 2026</div>
+  <div class="catalyst-item">
+    <div class="cat-date">May 2026</div>
+    <div class="cat-body">
+      <div class="cat-title">Q1 FY2027 Earnings — First Post-Record-FCF Report Card</div>
+      <div class="cat-desc">First quarter to show whether FY26 FCF trajectory sustains; Q1 revenue guidance midpoint $366M implies +29% YoY. Beat + raise on ARR and FCF guidance would likely catalyze multiple re-rating. <span class="impact-high">● HIGH IMPACT</span></div>
+    </div>
+  </div>
+  <div class="catalyst-item">
+    <div class="cat-date">Jun 2026</div>
+    <div class="cat-body">
+      <div class="cat-title">RSA Conference 2026 — Product Announcements</div>
+      <div class="cat-desc">Annual security conference where Rubrik typically announces platform expansions. Watch for DSPM GA, AI Workload Protection pricing, and new government sector wins. Platform narrative strengthening drives re-rating. <span class="impact-med">● MEDIUM IMPACT</span></div>
+    </div>
+  </div>
+  <div class="catalyst-item">
+    <div class="cat-date">Q2 2026</div>
+    <div class="cat-body">
+      <div class="cat-title">DORA Compliance Wave — EU Financial Sector Deals</div>
+      <div class="cat-desc">European financial institutions under DORA obligation since Jan 2025; many still mid-implementation. Q2-Q3 2026 expected to show meaningful European enterprise deal acceleration as audit deadlines approach. <span class="impact-high">● HIGH IMPACT</span></div>
+    </div>
+  </div>
+  <div class="catalyst-item">
+    <div class="cat-date">Aug 2026</div>
+    <div class="cat-body">
+      <div class="cat-title">Q2 FY2027 Earnings — ARR Trajectory Towards $1.83B Target</div>
+      <div class="cat-desc">Mid-year checkpoint on $1,829-1,839M FY27 ARR target. Any front-loading of ARR could trigger upward revisions. FCF trending above guide also key. <span class="impact-high">● HIGH IMPACT</span></div>
+    </div>
+  </div>
+  <div class="catalyst-item">
+    <div class="cat-date">2026-2027</div>
+    <div class="cat-body">
+      <div class="cat-title">Major Ransomware Incident — "Fear Catalyst"</div>
+      <div class="cat-desc">A high-profile ransomware attack on a Fortune 500 without immutable backup (Colonial Pipeline-scale) would drive a 6-12 month wave of accelerated Rubrik procurement. This is a macro risk to the world but a business accelerant for Rubrik. Historical pattern: major cyber incidents → 30-50% RBRK/cyber sector re-rating within 90 days. <span class="impact-high">● HIGH IMPACT (event-driven)</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ THESIS INVALIDATION ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">🚨</span> Thesis Invalidation Conditions — Exit Triggers</div>
+  <div class="inv-grid">
+    <div class="inv-item">
+      <div class="inv-title">⚠ ARR Growth Falls Below 20% YoY</div>
+      <div class="inv-body">If subscription ARR growth decelerates from 34% to below 20% without a clear macro explanation, it signals competitive share loss or market saturation earlier than expected. Exit on two consecutive quarters below 22%.</div>
+    </div>
+    <div class="inv-item">
+      <div class="inv-title">⚠ NRR Drops Below 110%</div>
+      <div class="inv-body">Net Revenue Retention falling below 110% would indicate customers are not expanding — a sign the platform is being treated as backup-only, not as the security platform thesis requires. This breaks the land-and-expand model.</div>
+    </div>
+    <div class="inv-item">
+      <div class="inv-title">⚠ Microsoft Azure Backup Gains Enterprise Traction</div>
+      <div class="inv-body">If Azure Backup (included in E5 license) displaces Rubrik in Fortune 1000 accounts at scale, the switching cost moat narrows. Monitor win/loss rates quarterly; any 10%+ deterioration in Fortune 500 retention is a red flag.</div>
+    </div>
+    <div class="inv-item">
+      <div class="inv-title">⚠ FCF Growth Reversal or Miss vs. Guide</div>
+      <div class="inv-body">The entire re-rating thesis hinges on FCF scaling from $238M → $500M+ over 3 years. A miss vs. FCF guidance two quarters in a row, or a reversal in FCF margin, invalidates the profitability inflection story.</div>
+    </div>
+    <div class="inv-item">
+      <div class="inv-title">⚠ Gross Margin Structural Deterioration</div>
+      <div class="inv-body">Non-GAAP gross margins above 80% are the quality anchor of the thesis. If cloud infrastructure costs or hardware-related support costs push gross margins below 78% sustainably, the SaaS platform premium is unjustified.</div>
+    </div>
+    <div class="inv-item">
+      <div class="inv-title">⚠ Founder Departure or Dual-Class Elimination</div>
+      <div class="inv-body">Bipul Sinha's departure as CEO or any forced restructuring of the dual-class share structure (e.g., triggered by index inclusion rules) would remove the owner-operator premium and potentially introduce short-term financial engineering incentives. Monitor any regulatory changes to NYSE dual-class rules.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ 10x MATH ═══════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">🔢</span> 10x Return Math — Path to $120B Market Cap</div>
+  <table>
+    <thead>
+      <tr><th>Year</th><th>ARR Assumption</th><th>ARR CAGR</th><th>ARR Multiple</th><th>Market Cap</th><th>Return vs. $12B</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>FY2027E</td><td>$1.83B</td><td>—</td><td>12x</td><td>$22B</td><td class="trend-up">+83%</td></tr>
+      <tr><td>FY2028E</td><td>$2.4B</td><td>+31%</td><td>13x</td><td>$31B</td><td class="trend-up">+2.6x</td></tr>
+      <tr><td>FY2029E</td><td>$3.1B</td><td>+29%</td><td>14x</td><td>$43B</td><td class="trend-up">+3.6x</td></tr>
+      <tr><td>FY2031E</td><td>$5.0B</td><td>+27%</td><td>16x</td><td>$80B</td><td class="trend-up">+6.7x</td></tr>
+      <tr><td>FY2034E (10x)</td><td>$8.0B</td><td>+18%</td><td>15x</td><td>$120B</td><td class="trend-up"><strong>+10x 🎯</strong></td></tr>
+      <tr style="background:#e0f8f4;">
+        <td colspan="5"><strong>Key Assumption:</strong> $8B ARR at 15-18x multiple requires sustained 20%+ growth + DSPM/international expansion; FCF margin of 30%+ by 2034 (achievable for 80%+ GM SaaS at scale)</td>
+        <td><span class="badge b-high">ACHIEVABLE</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div><!-- end .content -->
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<div class="footer">
+  <div>
+    <strong>Rubrik, Inc. (RBRK)</strong> · NYSE Listed · IPO May 2024<br/>
+    Frameworks: SQGLP (Motilal Oswal) · 100 Baggers (C. Mayer) · Owner-Operator · AI Disruption · Growth · Valuation · 4 New 100x Criteria
+  </div>
+  <div style="text-align:right;">
+    <div>Report Date: March 15, 2026</div>
+    <div style="margin-top:3px;color:#c07000;">⚠ For informational purposes only. Not investment advice. All projections are estimates.</div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+</body>
+</html>

@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Zeta Global (ZETA) — Enhanced Investment Thesis</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f0f8;
+  color: #0d0d2a;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.page {
+  max-width: 1020px;
+  margin: 28px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.10);
+  overflow: hidden;
+}
+
+/* ── HEADER ── */
+.header {
+  background: linear-gradient(135deg, #080818 0%, #0f1a38 50%, #c98a00 200%);
+  background: linear-gradient(135deg, #050510 0%, #0e1835 55%, #e8950a 160%);
+  color: #fff;
+  padding: 34px 40px 26px;
+}
+.header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px; }
+.company-block h1 { font-size: 27px; font-weight: 800; letter-spacing: 0.4px; }
+.company-block .sub { font-size: 12.5px; color: #f5c84a; margin-top: 3px; }
+.badge-block { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.buy-badge { background: #e8950a; color: #fff; font-size: 14px; font-weight: 800; padding: 7px 20px; border-radius: 22px; letter-spacing: 0.5px; }
+.conviction-row { font-size: 11px; color: #f5c84a; display: flex; align-items: center; gap: 5px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: #e8950a; }
+.header-meta { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 20px; }
+.meta .lbl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.9px; color: #b0a060; }
+.meta .val { font-size: 15px; font-weight: 800; color: #fff; }
+.meta .val.g { color: #6ee79a; }
+.meta .val.y { color: #f7d070; }
+.meta .val.o { color: #f6a06a; }
+
+/* ── CRASH ALERT BOX ── */
+.crash-box {
+  background: linear-gradient(135deg, #fff8e1, #fef3c7);
+  border-left: 5px solid #e8950a;
+  margin: 18px 38px 0;
+  padding: 13px 20px;
+  border-radius: 4px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.crash-box .crash-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.crash-box .crash-title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: #c07000; font-weight: 800; margin-bottom: 3px; }
+.crash-box .crash-body { font-size: 12.5px; color: #4a3000; line-height: 1.5; }
+
+/* ── THESIS BOX ── */
+.thesis-box {
+  background: #faf7e8;
+  border-left: 5px solid #e8950a;
+  margin: 16px 38px 24px;
+  padding: 16px 22px;
+  border-radius: 4px;
+}
+.thesis-box .tl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.9px; color: #b07000; font-weight: 800; margin-bottom: 5px; }
+.thesis-box p { font-size: 14px; font-style: italic; color: #1a1000; line-height: 1.55; }
+
+/* ── SECTION ── */
+.content { padding: 0 38px 40px; }
+.section { margin-bottom: 30px; }
+.sec-title {
+  font-size: 11.5px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1px; color: #9a6a00;
+  border-bottom: 2px solid #f5e0a0;
+  padding-bottom: 5px; margin-bottom: 15px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-icon {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: #e8950a; color: #fff;
+  font-size: 12px; display: inline-flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+/* ── TABLES ── */
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+thead th {
+  background: #0e1835; color: #fff; padding: 9px 11px;
+  text-align: left; font-size: 10.5px;
+  text-transform: uppercase; letter-spacing: 0.6px;
+}
+tbody tr:nth-child(even) { background: #fdf9f0; }
+tbody tr:hover { background: #faf0d0; }
+tbody td { padding: 9px 11px; border-bottom: 1px solid #f0e0c0; vertical-align: middle; }
+
+/* ── BADGES ── */
+.badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+.b-high { background: #d5f5e3; color: #1d6e40; }
+.b-good { background: #fff3d0; color: #7a5000; }
+.b-fair { background: #fef9e7; color: #7c5c00; border: 1px solid #f0c040; }
+.b-watch { background: #fdecea; color: #a93226; }
+.b-ahead { background: #dbeafe; color: #1e40af; }
+.trend-up { color: #27ae60; font-weight: 700; }
+.trend-flat { color: #f39c12; font-weight: 700; }
+.trend-dn { color: #e74c3c; font-weight: 700; }
+
+/* ── SQGLP ── */
+.sqglp-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.sqglp-card {
+  background: #fdf9f0; border: 1px solid #e8d090; border-radius: 10px;
+  padding: 14px 12px; text-align: center;
+}
+.sqglp-card .letter { font-size: 22px; font-weight: 900; color: #e8950a; }
+.sqglp-card .name { font-size: 9.5px; color: #7a6020; text-transform: uppercase; letter-spacing: 0.6px; margin: 2px 0 8px; }
+.sqglp-card .score { font-size: 26px; font-weight: 900; color: #0d0d2a; }
+.sqglp-card .denom { font-size: 13px; color: #c0a060; }
+.bar-bg { background: #f0d890; border-radius: 4px; height: 7px; margin: 8px 0 6px; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, #e8950a, #c07000); border-radius: 4px; }
+.sqglp-card .verdict { font-size: 9px; color: #9a6a00; font-weight: 700; text-transform: uppercase; }
+.sqglp-total { background: #0e1835; color: #fff; border-radius: 10px; padding: 16px 20px; margin-top: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.sqglp-total .total-score { font-size: 32px; font-weight: 900; color: #f5c84a; }
+.sqglp-total .total-label { font-size: 11px; color: #b0a060; }
+.sqglp-total .verdict-block { text-align: right; }
+.sqglp-total .verdict-tag { background: #e8950a; color: #fff; font-size: 12px; font-weight: 800; padding: 5px 16px; border-radius: 16px; }
+
+/* ── 100 BAGGERS ── */
+.twin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.engine-card {
+  background: linear-gradient(135deg, #fdf9f0, #faf0d0);
+  border: 1.5px solid #e8950a; border-radius: 10px; padding: 16px;
+}
+.engine-card .eng-title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: #9a6a00; font-weight: 800; margin-bottom: 6px; }
+.engine-card .eng-big { font-size: 28px; font-weight: 900; color: #0d0d2a; }
+.engine-card .eng-sub { font-size: 11px; color: #5a4020; }
+.criteria-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+.crit-card {
+  background: #fffdf5; border: 1px solid #e8d090; border-radius: 8px;
+  padding: 12px; text-align: center;
+}
+.crit-card .crit-icon { font-size: 20px; margin-bottom: 5px; }
+.crit-card .crit-label { font-size: 10px; font-weight: 800; color: #0d0d2a; text-transform: uppercase; letter-spacing: 0.5px; }
+.crit-card .crit-val { font-size: 12px; color: #5a4020; margin-top: 3px; }
+.crit-card .crit-status { font-size: 10px; font-weight: 700; margin-top: 4px; }
+.crit-pass { color: #1d8a4a; }
+.crit-warn { color: #c07000; }
+
+/* ── AI DISRUPTION ── */
+.ai-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 14px; }
+.ai-card {
+  background: #fffdf5; border: 1px solid #e8d090;
+  border-radius: 10px; padding: 14px;
+}
+.ai-card .ai-lbl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.8px; color: #9a6a00; font-weight: 800; margin-bottom: 6px; }
+.ai-card .ai-title { font-size: 13.5px; font-weight: 800; color: #0d0d2a; margin-bottom: 5px; }
+.ai-card .ai-body { font-size: 12px; color: #3a2a10; line-height: 1.5; }
+.timeline { background: #fdf9f0; border-radius: 8px; padding: 14px 16px; border: 1px solid #e8d090; }
+.timeline-title { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.8px; color: #9a6a00; font-weight: 800; margin-bottom: 10px; }
+.tl-item { display: flex; gap: 12px; margin-bottom: 8px; align-items: flex-start; }
+.tl-dot { width: 10px; height: 10px; border-radius: 50%; background: #e8950a; margin-top: 4px; flex-shrink: 0; }
+.tl-date { font-size: 10px; font-weight: 800; color: #9a6a00; width: 60px; flex-shrink: 0; }
+.tl-text { font-size: 12px; color: #0d0d2a; }
+
+/* ── OWNER OPERATOR ── */
+.founder-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.founder-card {
+  background: linear-gradient(135deg, #fdf8e8, #fffdf5);
+  border: 1.5px solid #e8950a; border-radius: 10px; padding: 16px;
+}
+.founder-card .fname { font-size: 15px; font-weight: 800; color: #0d0d2a; }
+.founder-card .frole { font-size: 10px; text-transform: uppercase; letter-spacing: 0.7px; color: #9a6a00; font-weight: 700; margin: 3px 0 10px; }
+.founder-card .fstat { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.fstat-item { background: #e8950a; color: #fff; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 10px; }
+.founder-card ul { padding-left: 16px; }
+.founder-card ul li { font-size: 11.5px; color: #3a2a10; margin-bottom: 4px; }
+.dual-class-box { background: #fff8e1; border: 1px solid #f0c040; border-radius: 8px; padding: 12px 16px; margin-top: 12px; font-size: 12px; color: #7c5c00; }
+.dual-class-box strong { display: block; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 4px; }
+
+/* ── GROWTH ── */
+.growth-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.growth-card {
+  background: #fffdf5; border: 1px solid #e8d090; border-radius: 10px;
+  padding: 14px; text-align: center;
+}
+.growth-card .gc-icon { font-size: 22px; margin-bottom: 6px; }
+.growth-card .gc-title { font-size: 11px; font-weight: 800; color: #0d0d2a; text-transform: uppercase; letter-spacing: 0.5px; }
+.growth-card .gc-metric { font-size: 20px; font-weight: 900; color: #e8950a; margin: 6px 0 3px; }
+.growth-card .gc-sub { font-size: 11px; color: #5a4020; }
+
+/* ── 4 NEW 100x CRITERIA ── */
+.nx-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.nx-card {
+  background: linear-gradient(135deg, #fdf9f0, #faf0d0);
+  border: 1.5px solid #e8950a; border-radius: 10px; padding: 16px;
+}
+.nx-card .nx-num { font-size: 28px; font-weight: 900; color: #f5dea0; }
+.nx-card .nx-title { font-size: 13.5px; font-weight: 800; color: #0d0d2a; margin: 3px 0 6px; }
+.nx-card .nx-score { display: inline-block; background: #e8950a; color: #fff; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 10px; margin-bottom: 8px; }
+.nx-card .nx-body { font-size: 12px; color: #3a2a10; line-height: 1.5; }
+
+/* ── VALUATION ── */
+.val-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+.val-card {
+  background: #fdf9f0; border: 1px solid #e8d090; border-radius: 10px;
+  padding: 14px; text-align: center;
+}
+.val-card .vc-lbl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.7px; color: #9a6a00; margin-bottom: 5px; font-weight: 700; }
+.val-card .vc-big { font-size: 22px; font-weight: 900; color: #0d0d2a; }
+.val-card .vc-sub { font-size: 11px; color: #5a4020; margin-top: 3px; }
+.val-card .vc-signal { font-size: 10px; font-weight: 700; margin-top: 6px; }
+.price-targets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+.pt-card { border-radius: 10px; padding: 14px; text-align: center; }
+.pt-bull { background: linear-gradient(135deg, #d5f5e3, #a8dfc0); border: 1.5px solid #1d8a4a; }
+.pt-base { background: linear-gradient(135deg, #fdf8e8, #f5e0a0); border: 1.5px solid #e8950a; }
+.pt-stop { background: linear-gradient(135deg, #fdecea, #f5c0bc); border: 1.5px solid #c0392b; }
+.pt-card .pt-lbl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 800; margin-bottom: 5px; }
+.pt-bull .pt-lbl { color: #1d6e40; }
+.pt-base .pt-lbl { color: #9a6a00; }
+.pt-stop .pt-lbl { color: #a93226; }
+.pt-card .pt-price { font-size: 30px; font-weight: 900; }
+.pt-bull .pt-price { color: #1d8a4a; }
+.pt-base .pt-price { color: #c07000; }
+.pt-stop .pt-price { color: #c0392b; }
+.pt-card .pt-upside { font-size: 11px; font-weight: 700; margin-top: 4px; }
+.pt-card .pt-rationale { font-size: 10.5px; margin-top: 6px; color: #333; }
+
+/* ── SCORECARD / CATALYSTS ── */
+.catalyst-item { display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #f0e0c0; }
+.catalyst-item:last-child { border-bottom: none; }
+.cat-date { font-size: 10.5px; font-weight: 800; color: #9a6a00; width: 80px; flex-shrink: 0; }
+.cat-body .cat-title { font-size: 13px; font-weight: 700; color: #0d0d2a; }
+.cat-body .cat-desc { font-size: 11.5px; color: #5a4020; margin-top: 2px; }
+.impact-high { color: #1d8a4a; font-size: 10px; font-weight: 700; }
+.impact-med { color: #c07000; font-size: 10px; font-weight: 700; }
+
+/* ── INVALIDATION ── */
+.inv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.inv-item { background: #fdecea; border-left: 4px solid #c0392b; border-radius: 6px; padding: 10px 14px; }
+.inv-item .inv-title { font-size: 12px; font-weight: 800; color: #a93226; }
+.inv-item .inv-body { font-size: 11.5px; color: #4a1a18; margin-top: 3px; }
+
+/* ── FOOTER ── */
+.footer { background: #fdf9f0; border-top: 2px solid #f0e0a0; padding: 14px 38px; font-size: 10.5px; color: #7a6020; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.footer strong { color: #9a6a00; }
+
+/* ── FCF TABLE ── */
+.fcf-scenario { margin-top: 14px; }
+.fcf-scenario table thead th { background: #9a6a00; }
+</style>
+</head>
+<body>
+<div style="background:#fff;padding:10px 24px;border-bottom:1px solid #e0e0f5;">
+  <a href="index.html" style="color:#6366f1;font-weight:600;text-decoration:none;font-size:15px;">← Back to Research Hub</a>
+</div>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="header">
+  <div class="header-top">
+    <div class="company-block">
+      <h1>⚡ Zeta Global Holdings (ZETA)</h1>
+      <div class="sub">AI Marketing Cloud · NYSE · Updated March 15, 2026</div>
+    </div>
+    <div class="badge-block">
+      <div class="buy-badge">⬆ STRONG BUY</div>
+      <div class="conviction-row"><span class="dot"></span> HIGH CONVICTION · CRASH-TO-BUY · 100x FRAMEWORK</div>
+    </div>
+  </div>
+  <div class="header-meta">
+    <div class="meta"><div class="lbl">Price</div><div class="val">~$17.84</div></div>
+    <div class="meta"><div class="lbl">Market Cap</div><div class="val">~$4.4B</div></div>
+    <div class="meta"><div class="lbl">FY25 Revenue</div><div class="val g">$1.305B</div></div>
+    <div class="meta"><div class="lbl">Rev Growth</div><div class="val g">+30% YoY</div></div>
+    <div class="meta"><div class="lbl">FY26 Guide</div><div class="val g">$1.755B</div></div>
+    <div class="meta"><div class="lbl">NRR</div><div class="val g">120%</div></div>
+    <div class="meta"><div class="lbl">EV/NTM Rev</div><div class="val y">~2.5x</div></div>
+    <div class="meta"><div class="lbl">B&R Streak</div><div class="val o">18 quarters</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ CRASH ALERT ═══════════════════════ -->
+<div class="crash-box">
+  <div class="crash-icon">🔥</div>
+  <div>
+    <div class="crash-title">Crash-to-Buy Opportunity — Nov 2024 Short Seller Attack</div>
+    <div class="crash-body">Culper Research published a hit piece on Nov 13, 2024, alleging revenue round-tripping and data consent farm practices. Stock crashed 37% in a single day from ~$28 to ~$18. Zeta immediately rebutted all claims, launched a $100M buyback, and management purchased shares personally. The verdict: 18 consecutive beat-and-raise quarters since — the short thesis is empirically wrong. At ~$17.84, the stock has not recovered to pre-crash levels despite fundamentals accelerating. This is the entry point.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ THESIS BOX ═══════════════════════ -->
+<div class="thesis-box">
+  <div class="tl">Core Investment Thesis</div>
+  <p>Zeta Global is the world's only AI Marketing Cloud combining a proprietary 240M+ consumer data graph, native AI built since 2017, and a unified full-stack platform (CDP + Marketing Cloud + DSP) that no competitor has assembled. At 2.5x NTM Revenue for a business growing 30-35% with 120% NRR, 18 consecutive beat-and-raise quarters, and turning GAAP profitable — this is the most mispriced AI software company in the public markets. The AI wave makes Zeta's data moat more valuable, not less: every LLM campaign needs identity resolution, behavioral data, and outcome measurement — all proprietary to Zeta. This is not an AdTech company. This is the operating system for AI-driven marketing ROI.</p>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════ 1. SQGLP ═══════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">📊</span> SQGLP Framework — Motilal Oswal Quality Score</div>
+  <div class="sqglp-grid">
+    <div class="sqglp-card">
+      <div class="letter">S</div>
+      <div class="name">Sales Growth</div>
+      <div class="score">8<span class="denom">/10</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width:80%"></div></div>
+      <div class="verdict">STRONG GROWTH</div>
+      <div style="font-size:10.5px;color:#5a4020;margin-top:5px;">FY25 +30%, FY26 guide +35%; NRR record 120%; Super-Scaled customers +24%; 18 consecutive beat-and-raise quarters</div>
+    </div>
+    <div class="sqglp-card">
+      <div class="letter">Q</div>
+      <div class="name">Quality</div>
+      <div class="score">8<span class="denom">/10</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width:80%"></div></div>
+      <div class="verdict">HIGH QUALITY</div>
+      <div style="font-size:10.5px;color:#5a4020;margin-top:5px;">NRR 120% (record), 240M first-party data graph, ~60%+ non-GAAP GM, subscription-led revenue, GAAP profitable in Q4 2025</div>
+    </div>
+    <div class="sqglp-card">
+      <div class="letter">G</div>
+      <div class="name">Earnings Growth</div>
+      <div class="score">7<span class="denom">/10</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width:70%"></div></div>
+      <div class="verdict">INFLECTING NOW</div>
+      <div style="font-size:10.5px;color:#5a4020;margin-top:5px;">Q4 2025 GAAP net income $6.5M (first positive quarter); adj EBITDA margins expanding; FY26 targets full-year GAAP profitability — inflection point</div>
+    </div>
+    <div class="sqglp-card">
+      <div class="letter">L</div>
+      <div class="name">Longevity</div>
+      <div class="score">9<span class="denom">/10</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div>
+      <div class="verdict">SECULAR RUNWAY</div>
+      <div style="font-size:10.5px;color:#5a4020;margin-top:5px;">$83B+ AI marketing TAM; post-cookie privacy wave = structural tailwind; 1T+ monthly signals = compounding data moat; AI driving CMO budget expansion</div>
+    </div>
+    <div class="sqglp-card">
+      <div class="letter">P</div>
+      <div class="name">Price (Value)</div>
+      <div class="score">10<span class="denom">/10</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div>
+      <div class="verdict">EXTRAORDINARY VALUE</div>
+      <div style="font-size:10.5px;color:#5a4020;margin-top:5px;">~2.5x EV/NTM Rev for a 35%+ grower; PEG ~0.07x; 50%+ off all-time high due to unsubstantiated short report — extreme mispricing vs. fundamentals</div>
+    </div>
+  </div>
+  <div class="sqglp-total">
+    <div>
+      <div class="total-label">SQGLP Total Score</div>
+      <div class="total-score">42 <span style="font-size:18px;font-weight:400;color:#b0a060">/ 50</span></div>
+    </div>
+    <div class="verdict-block">
+      <div style="font-size:11px;color:#b0a060;margin-bottom:5px;">Verdict</div>
+      <div class="verdict-tag">🏆 EXCEPTIONAL BUSINESS</div>
+      <div style="font-size:10px;color:#b0a060;margin-top:5px;">Highest P score (10/10) of all 5 theses. Cheapest quality compounder in the series.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ 2. 100 BAGGERS ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">💎</span> 100 Baggers Framework — Christopher Mayer</div>
+  <div class="twin-grid">
+    <div class="engine-card">
+      <div class="eng-title">🔧 Engine 1 — Revenue CAGR</div>
+      <div class="eng-big">+30–35%</div>
+      <div class="eng-sub">FY25 +30%, FY26 guide +35%; management 2028 targets imply sustained 30%+ CAGR; Super-Scaled customer cohort expanding at 24% annually</div>
+    </div>
+    <div class="engine-card">
+      <div class="eng-title">⚡ Engine 2 — GAAP Profitability Inflection</div>
+      <div class="eng-big">$0 → Profitable</div>
+      <div class="eng-sub">Q4 2025: first GAAP positive quarter ($6.5M); FY2026 targets full-year GAAP profitability; adj EBITDA expanding → multiple re-rating catalyst ahead</div>
+    </div>
+  </div>
+  <div class="criteria-grid">
+    <div class="crit-card">
+      <div class="crit-icon">📈</div>
+      <div class="crit-label">ROIC</div>
+      <div class="crit-val">Pre-GAAP scale; adj EBITDA margins ~18-20%; high-margin software model → ROIC 25%+ at scale</div>
+      <div class="crit-status crit-warn">⚠ Early Stage, Improving</div>
+    </div>
+    <div class="crit-card">
+      <div class="crit-icon">♻️</div>
+      <div class="crit-label">Reinvestment Rate</div>
+      <div class="crit-val">AI R&D + data acquisition reinvestment at high rates; 7 acquisitions since 2019 building the data graph; now shifting to organic expansion</div>
+      <div class="crit-status crit-pass">✅ High & Strategic</div>
+    </div>
+    <div class="crit-card">
+      <div class="crit-icon">🌍</div>
+      <div class="crit-label">TAM Runway</div>
+      <div class="crit-val">$83B "intelligence marketing" TAM; AI marketing projected $1.8T by 2030; only 1.5% penetrated at $1.3B revenue</div>
+      <div class="crit-status crit-pass">✅ Enormous (60x Revenue)</div>
+    </div>
+    <div class="crit-card">
+      <div class="crit-icon">👨‍💼</div>
+      <div class="crit-label">Owner-Operator</div>
+      <div class="crit-val">David Steinberg: ~10% owner, net worth $1B+; co-founded 2007; bought shares personally during short-seller crash in Nov 2024</div>
+      <div class="crit-status crit-pass">✅ Founder-Led, Skin in Game</div>
+    </div>
+    <div class="crit-card">
+      <div class="crit-icon">📦</div>
+      <div class="crit-label">Market Cap Room</div>
+      <div class="crit-val">~$4.4B market cap; 10x = $44B; achievable by FY2030 at $5B revenue × 9x = $45B; math works in 5 years</div>
+      <div class="crit-status crit-pass">✅ 10x Math Works in 5 Years</div>
+    </div>
+    <div class="crit-card">
+      <div class="crit-icon">🏰</div>
+      <div class="crit-label">Competitive Moat</div>
+      <div class="crit-val">240M consumer data graph (15+ yrs), 1T+ monthly signals, native AI since 2017, first-party data advantage vs. cookie-dependent rivals</div>
+      <div class="crit-status crit-pass">✅ Widening Data + AI Moat</div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>Scenario</th><th>FY2030E Revenue</th><th>Revenue Multiple</th><th>Market Cap</th><th>Return from $4.4B</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge b-high">🐂 Bull</span></td><td>$6.5B</td><td>10x Rev</td><td>$65B</td><td class="trend-up">~15x</td></tr>
+      <tr><td><span class="badge b-good">Base</span></td><td>$5.0B</td><td>8x Rev</td><td>$40B</td><td class="trend-up">~9x</td></tr>
+      <tr><td><span class="badge b-fair">🐻 Bear</span></td><td>$3.5B</td><td>6x Rev</td><td>$21B</td><td class="trend-up">~5x</td></tr>
+      <tr><td><span class="badge b-ahead">📖 Honest Verdict</span></td><td colspan="3">10x is achievable in 5 years at current growth rates. Smallest market cap in our series = largest room to run. The GAAP profitability inflection in 2026 is the re-rating catalyst.</td><td></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════════ 3. AI DISRUPTION ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">🤖</span> AI Disruption Analysis</div>
+  <div class="ai-grid">
+    <div class="ai-card">
+      <div class="ai-lbl">🎯 AI Beneficiary Angle</div>
+      <div class="ai-title">AI Marketing Spend is Exploding — Zeta is the Infrastructure</div>
+      <div class="ai-body">Every brand adopting AI marketing needs three things Zeta uniquely provides: (1) a clean, consented identity graph to train on — Zeta has 240M US profiles; (2) a predictive AI engine to model intent — Zeta has 7 years of proprietary ML; (3) an omnichannel activation layer — Zeta's integrated DSP. CMO budgets are shifting from "spray and pray" media to AI-driven ROI-guaranteed campaigns. Zeta's platform is the direct beneficiary of this $500B annual CMO budget reallocation.</div>
+    </div>
+    <div class="ai-card">
+      <div class="ai-lbl">🔑 Key AI Product</div>
+      <div class="ai-title">Zeta Marketing Platform (ZMP) — Native AI Since 2017</div>
+      <div class="ai-body">ZMP unifies CDP (customer data platform), marketing cloud, and DSP in one AI-native stack. The AI layer — built from scratch starting 2017, not acquired — ingests 1 trillion+ monthly behavioral signals to predict purchase intent with 85%+ accuracy. ZetaLive (2025) enables real-time AI personalization at the moment of consumer decision. Competing solutions (Adobe, Salesforce, Oracle) bolt AI onto legacy data architectures — Zeta was built AI-first from the ground up.</div>
+    </div>
+    <div class="ai-card">
+      <div class="ai-lbl">🏰 Competitive Moat vs. AI Startups</div>
+      <div class="ai-title">Data Gravity — 15 Years Cannot Be Purchased</div>
+      <div class="ai-body">An AI marketing startup with $100M in funding cannot replicate Zeta's 240M consumer identity graph built over 15 years with 75% first-party data. Consumer behavioral patterns are time-series data — the value is in the historical longitudinal depth, not just breadth. Zeta's data graph predicts consumer behavior because it has seen that consumer behave across 10+ years of economic cycles, device changes, and life events. No startup can buy or build this in less than a decade.</div>
+    </div>
+    <div class="ai-card">
+      <div class="ai-lbl">⚡ AI Risk Assessment</div>
+      <div class="ai-title">AI Amplifies Zeta's Moat — Not a Threat</div>
+      <div class="ai-body">The concern that LLMs will commoditize AI marketing misunderstands the problem. The bottleneck is not the model — it is the data. ChatGPT cannot run a personalized email campaign for a Fortune 500 brand because it does not know which of the brand's prospects are in-market right now. Zeta's identity graph and behavioral signals are what transforms a generic LLM into a revenue-generating campaign. Zeta licenses its data to hyperscalers; AI infrastructure growth is a direct tailwind.</div>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-title">AI Product Roadmap — Zeta 2017–2027</div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2017</div><div class="tl-text"><strong>Native AI Engine Launch</strong> — Zeta builds predictive intent modeling natively into the platform; unlike competitors who acquire AI capabilities, Zeta engineers it from the data layer up</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2023</div><div class="tl-text"><strong>Generative AI Integration</strong> — ZMP integrates LLM-based content generation for personalized messaging at scale; AI writes, tests, and optimizes creative across 1:1 consumer interactions simultaneously</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2025</div><div class="tl-text"><strong>ZetaLive Launch</strong> — Real-time AI personalization at the consumer decision moment; $100M incremental revenue opportunity identified by management; triggered on in-session behavioral signals</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2026+</div><div class="tl-text"><strong>Autonomous Campaign Management</strong> — AI-orchestrated end-to-end campaigns: audience building → creative generation → channel selection → bid optimization → outcome attribution — with zero human intervention required</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ 4. OWNER-OPERATOR ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">👨‍💼</span> Owner-Operator Analysis</div>
+  <div class="founder-grid">
+    <div class="founder-card">
+      <div class="fname">David A. Steinberg</div>
+      <div class="frole">CEO · Chairman · Co-Founder · Serial Entrepreneur</div>
+      <div class="fstat">
+        <span class="fstat-item">~10% ownership</span>
+        <span class="fstat-item">$1B+ net worth</span>
+        <span class="fstat-item">Washington &amp; Jefferson College</span>
+      </div>
+      <ul>
+        <li>Third unicorn builder: Sterling Cellular (1993, sold), InPhonic (2000, IPO 2004, Inc. 500 #1), Zeta Global (2007, IPO 2021)</li>
+        <li>Built Zeta from $0 to $1.3B revenue over 17 years without losing founder control — rare founder discipline</li>
+        <li>Bought shares personally during the November 2024 short-seller attack at ~$18/share — ultimate insider conviction signal</li>
+        <li>Launched $100M buyback in direct response to the short report; management and board collectively purchased millions in open market</li>
+        <li>2028 long-range targets set publicly at investor day — management accountability to multi-year guidance uncommon for this market cap</li>
+      </ul>
+    </div>
+    <div class="founder-card">
+      <div class="fname">John Sculley</div>
+      <div class="frole">Co-Founder · Former Vice Chairman · Strategic Architect</div>
+      <div class="fstat">
+        <span class="fstat-item">Co-founder (2011 XL Marketing)</span>
+        <span class="fstat-item">Apple CEO legacy</span>
+        <span class="fstat-item">Wharton MBA</span>
+      </div>
+      <ul>
+        <li>Former CEO of Apple (1983–1993) and Pepsi — one of the most celebrated marketers in corporate history; brought consumer brand discipline to Zeta</li>
+        <li>Co-founded XL Marketing with Steinberg in 2011, which merged with Zeta Interactive to form Zeta Global — the inflection point that created the company's full platform ambition</li>
+        <li>Sculley's brand-building expertise is embedded in Zeta's enterprise go-to-market motion: CMO-first sales, marketing ROI language, board-level conversations</li>
+        <li>His involvement gave Zeta instant credibility with Fortune 500 CMOs that a pure-tech founder could not have generated independently</li>
+        <li>Stepped back from day-to-day role as Zeta scaled; Steinberg runs the company solo as CEO/Chairman post-IPO</li>
+      </ul>
+    </div>
+  </div>
+  <div class="dual-class-box">
+    <strong>📋 Founder Conviction Signal — November 2024</strong>
+    When Culper Research published its short-seller report on November 13, 2024, Zeta's stock fell 37% in one day. Rather than going silent, David Steinberg immediately: (1) issued a point-by-point rebuttal; (2) authorized a $100M share repurchase; (3) personally bought shares in the open market at crisis prices. This is textbook founder behavior — capital allocation aligned with shareholder interests under maximum stress. The short thesis has since been invalidated by 3 subsequent beat-and-raise quarters and record NRR of 120%.
+  </div>
+</div>
+
+<!-- ═══════════════════════════ 5. GROWTH VECTORS ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">🚀</span> Growth Framework — 6 Vectors</div>
+  <div class="growth-grid">
+    <div class="growth-card">
+      <div class="gc-icon">⭐</div>
+      <div class="gc-title">Super-Scaled Customer Expansion</div>
+      <div class="gc-metric">184 (+24%)</div>
+      <div class="gc-sub">Super-Scaled customers (largest enterprise accounts) grew 36 new adds YoY; these accounts drive NRR 120%+ and represent most of revenue; pipeline growing faster than adds</div>
+    </div>
+    <div class="growth-card">
+      <div class="gc-icon">🔄</div>
+      <div class="gc-title">Land &amp; Expand (NRR Engine)</div>
+      <div class="gc-metric">120% NRR</div>
+      <div class="gc-sub">Net Revenue Retention hit record 120% in FY2025, up from 114% in FY2024; enterprises expand from one channel to omnichannel as AI proves ROI; virtuous expansion loop</div>
+    </div>
+    <div class="growth-card">
+      <div class="gc-icon">⚡</div>
+      <div class="gc-title">ZetaLive — New Product Revenue</div>
+      <div class="gc-metric">$100M+ opportunity</div>
+      <div class="gc-sub">ZetaLive (real-time AI personalization) represents management-identified $100M incremental revenue; only launched 2025; adds a real-time activation layer on top of existing ZMP contracts</div>
+    </div>
+    <div class="growth-card">
+      <div class="gc-icon">🏛️</div>
+      <div class="gc-title">Regulated Industries — Healthcare &amp; FinServ</div>
+      <div class="gc-metric">Large whitespace</div>
+      <div class="gc-sub">Healthcare (HIPAA-compliant marketing), financial services (FINRA-aware personalization), and insurance verticals are high-value, under-penetrated segments where Zeta's first-party data and compliance posture create an entry barrier competitors struggle to meet</div>
+    </div>
+    <div class="growth-card">
+      <div class="gc-icon">🍪</div>
+      <div class="gc-title">Post-Cookie Tailwind</div>
+      <div class="gc-metric">Structural edge</div>
+      <div class="gc-sub">75% of Zeta's data is first-party; Google's deprecation of third-party cookies eliminates the data advantage of cookie-dependent competitors (LiveRamp, Criteo); Zeta's identity resolution becomes more valuable as cookie-based targeting erodes</div>
+    </div>
+    <div class="growth-card">
+      <div class="gc-icon">🌐</div>
+      <div class="gc-title">International Expansion</div>
+      <div class="gc-metric">EU &amp; APAC</div>
+      <div class="gc-sub">Currently predominantly US-focused; international markets represent a multi-billion-dollar greenfield; GDPR-compliant data practices are a competitive advantage in Europe; APAC digital ad market growing 15%+ annually</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ 6. 4 NEW 100x CRITERIA ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">🎯</span> 4 New 100x Criteria — ZETA-Specific</div>
+  <div class="nx-grid">
+    <div class="nx-card">
+      <div class="nx-num">01</div>
+      <div class="nx-title">240M Consumer Data Graph — 15 Years of Irreproducible Behavioral History</div>
+      <div class="nx-score">★★★★★ 10/10</div>
+      <div class="nx-body">Zeta's 240M+ US consumer identity graph is the single most defensible asset in AI marketing. Built over 15 years through a combination of first-party consent relationships, strategic acquisitions (Sizmek, IgnitionOne, Apsis), and proprietary data partnerships — it processes over 1 trillion behavioral signals monthly. This is longitudinal consumer data: it knows not just who you are, but how your purchasing behavior has evolved across life stages, economic cycles, and device generations. The AI trained on this data is fundamentally smarter than anything a startup or Big Tech entrant can build without a decade of patient data accumulation. This is Zeta's ultimate 100-bagger foundation.</div>
+    </div>
+    <div class="nx-card">
+      <div class="nx-num">02</div>
+      <div class="nx-title">Native AI Since 2017 — 7-Year Algorithmic Head Start</div>
+      <div class="nx-score">★★★★★ 9/10</div>
+      <div class="nx-body">While Adobe, Salesforce, and Oracle were acquiring AI capabilities via bolt-on M&A in 2022-2023, Zeta was already running proprietary ML models at enterprise scale in 2017. This 7-year head start means Zeta's AI has been trained, tested, and refined through billions of real campaign outcomes — not lab conditions. The model's accuracy compounds: every campaign run on ZMP generates feedback signals that improve the next campaign's prediction. No acqui-hire or feature addition can replicate this compounding learning advantage. As AI becomes the primary battleground in MarTech, Zeta fights from a position of entrenched superiority.</div>
+    </div>
+    <div class="nx-card">
+      <div class="nx-num">03</div>
+      <div class="nx-title">Post-Cookie Identity Resolution — Regulatory Tailwind as Moat</div>
+      <div class="nx-score">★★★★☆ 8/10</div>
+      <div class="nx-body">The global deprecation of third-party cookies (Apple ATT, Google Privacy Sandbox, EU ePrivacy Directive) is systematically destroying the competitive advantage of Zeta's cookie-dependent competitors while strengthening Zeta's first-party data advantage. Brands that relied on cookie-based retargeting must now find identity solutions. Zeta's consented, first-party data graph IS the post-cookie identity solution. This is not a cyclical opportunity — it is a permanent structural shift. Every major privacy regulation tightening is a Zeta sales call. The regulatory tailwind turns a business moat into a government-enforced competitive advantage.</div>
+    </div>
+    <div class="nx-card">
+      <div class="nx-num">04</div>
+      <div class="nx-title">Unified Full-Stack (CDP + Marketing Cloud + DSP) — No Competitor Has All Three</div>
+      <div class="nx-score">★★★★★ 9/10</div>
+      <div class="nx-body">The enterprise marketing technology stack is fragmented: Adobe has CDP + Marketing Cloud but no DSP; Oracle has Data Cloud + Marketing but weak DSP; The Trade Desk has world-class DSP but no identity graph or marketing cloud. Zeta is the only vendor offering all three in a unified platform. This "full-stack gravity" means: (1) data flows between modules without latency or engineering effort; (2) attribution is closed-loop and trustworthy; (3) switching cost is three-product replacement, not one. CMOs increasingly want one platform with one P&L, one ROI number, one support relationship. Zeta's consolidation thesis is why NRR accelerates as customers go deeper into the stack.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ 7. VALUATION ═══════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">💰</span> Valuation Framework</div>
+  <div class="val-grid">
+    <div class="val-card">
+      <div class="vc-lbl">EV / NTM Revenue</div>
+      <div class="vc-big">~2.5x</div>
+      <div class="vc-sub">FY26 guide $1.755B; peer median (HubSpot, Adobe, Salesforce) trades 6-10x for similar growth; Zeta at 75% discount</div>
+      <div class="vc-signal trend-up">↑ Cheapest AI SaaS in Market</div>
+    </div>
+    <div class="val-card">
+      <div class="vc-lbl">Rule of 40</div>
+      <div class="vc-big">~50%</div>
+      <div class="vc-sub">Revenue growth 35% + adj EBITDA margin ~18% = ~53%; well above 40%; top-decile among MarTech peers</div>
+      <div class="vc-signal trend-up">↑ Top Quartile SaaS</div>
+    </div>
+    <div class="val-card">
+      <div class="vc-lbl">PEG-Style (EV/Rev ÷ Growth)</div>
+      <div class="vc-big">0.07x</div>
+      <div class="vc-sub">2.5x EV/Rev ÷ 35% growth = 0.07x; peers trade 0.25-0.40x; Zeta is 4-6x cheaper on growth-adjusted basis</div>
+      <div class="vc-signal trend-up">↑ Extreme Mispricing</div>
+    </div>
+    <div class="val-card">
+      <div class="vc-lbl">Analyst Consensus PT</div>
+      <div class="vc-big">$30.86</div>
+      <div class="vc-sub">Average 1-yr PT; range $25-$46; 70% Strong Buy, 10% Buy, 20% Hold; +73% upside from current price</div>
+      <div class="vc-signal trend-up">↑ 80% Buy/Strong Buy</div>
+    </div>
+  </div>
+
+  <div class="fcf-scenario">
+    <table>
+      <thead>
+        <tr><th>Scenario</th><th>FY2026E Rev</th><th>FY2028E Rev</th><th>Rev Multiple</th><th>Implied Mkt Cap</th><th>Return (from $4.4B)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge b-high">🐂 Bull</span></td>
+          <td>$1.85B</td><td>$3.2B</td><td>10x Rev</td><td>$32B</td><td class="trend-up">~7x by 2028</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-good">Base</span></td>
+          <td>$1.75B</td><td>$2.6B</td><td>8x Rev</td><td>$20.8B</td><td class="trend-up">~5x by 2028</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-fair">🐻 Bear</span></td>
+          <td>$1.65B</td><td>$2.0B</td><td>6x Rev</td><td>$12B</td><td class="trend-up">~2.7x by 2028</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="price-targets">
+    <div class="pt-card pt-bull">
+      <div class="pt-lbl">🐂 Bull Case — 18 months</div>
+      <div class="pt-price">$40</div>
+      <div class="pt-upside" style="color:#1d8a4a">+124% upside</div>
+      <div class="pt-rationale">Short-thesis fully cleared; GAAP profitability confirmed; ZetaLive contributes $50M+ ARR; multiple re-rates to 6x revenue; recovers to pre-crash ATH and beyond</div>
+    </div>
+    <div class="pt-card pt-base">
+      <div class="pt-lbl">📊 Base Case — 12 months</div>
+      <div class="pt-price">$28</div>
+      <div class="pt-upside" style="color:#b07000">+57% upside</div>
+      <div class="pt-rationale">In line with analyst consensus; FY26 revenue guides above $1.755B; GAAP profitable full year; stock re-rates from 2.5x to 4x revenue as overhang clears</div>
+    </div>
+    <div class="pt-card pt-stop">
+      <div class="pt-lbl">🔴 Stop Loss</div>
+      <div class="pt-price">$12</div>
+      <div class="pt-upside" style="color:#c0392b">-33% downside</div>
+      <div class="pt-rationale">Short thesis substantiated by revenue deceleration below 20%; NRR falls below 110%; GAAP profitability miss; regulatory action on data practices</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ THESIS SCORECARD ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">📋</span> Thesis Scorecard — Live Tracking</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Thesis Pillar</th>
+        <th>Original Expectation</th>
+        <th>Current Status (Mar 2026)</th>
+        <th>Trend</th>
+        <th>Signal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Revenue Growth Durability</strong></td>
+        <td>Sustain 25%+ revenue growth</td>
+        <td>FY25 +30%, FY26 guide +35% — accelerating, not decelerating</td>
+        <td class="trend-up">↑ Exceeding</td>
+        <td><span class="badge b-high">AHEAD</span></td>
+      </tr>
+      <tr>
+        <td><strong>NRR Expansion</strong></td>
+        <td>NRR sustains above 115%</td>
+        <td>Record 120% NRR in FY25, up from 114% FY24 — accelerating expansion</td>
+        <td class="trend-up">↑ Beating</td>
+        <td><span class="badge b-high">AHEAD</span></td>
+      </tr>
+      <tr>
+        <td><strong>GAAP Profitability Inflection</strong></td>
+        <td>Turn GAAP profitable in FY2026</td>
+        <td>Q4 2025 GAAP net income $6.5M — one quarter ahead of schedule</td>
+        <td class="trend-up">↑ Ahead of Schedule</td>
+        <td><span class="badge b-high">AHEAD</span></td>
+      </tr>
+      <tr>
+        <td><strong>Short Seller Thesis Invalidation</strong></td>
+        <td>Culper Research allegations proven false</td>
+        <td>3 beat-and-raise quarters post-report; revenue acceleration; no regulatory action</td>
+        <td class="trend-up">↑ Clearing</td>
+        <td><span class="badge b-good">ON TRACK</span></td>
+      </tr>
+      <tr>
+        <td><strong>AI Platform Differentiation</strong></td>
+        <td>ZMP maintains full-stack advantage</td>
+        <td>ZetaLive launched 2025 adding real-time AI layer; $100M incremental opportunity identified</td>
+        <td class="trend-up">↑ Expanding</td>
+        <td><span class="badge b-high">STRONG</span></td>
+      </tr>
+      <tr>
+        <td><strong>Post-Cookie Data Moat</strong></td>
+        <td>First-party data advantage expands as cookies deprecate</td>
+        <td>75% first-party data confirmed; Google Privacy Sandbox tightening continues; competitive gap widening</td>
+        <td class="trend-up">↑ Accelerating</td>
+        <td><span class="badge b-high">TAILWIND</span></td>
+      </tr>
+      <tr>
+        <td><strong>Super-Scaled Customer Growth</strong></td>
+        <td>Grow enterprise tier 20%+ per year</td>
+        <td>184 Super-Scaled customers, +24% YoY; +36 net adds FY25 — on track</td>
+        <td class="trend-up">↑ On Track</td>
+        <td><span class="badge b-good">ON TRACK</span></td>
+      </tr>
+      <tr>
+        <td><strong>Valuation Re-Rating</strong></td>
+        <td>Stock re-rates from &lt;3x to 6-8x revenue as overhang clears</td>
+        <td>Still at ~2.5x; market has not yet re-rated despite fundamental proof; most significant near-term catalyst</td>
+        <td class="trend-flat">→ Pending</td>
+        <td><span class="badge b-ahead">OPPORTUNITY</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════════ CATALYST CALENDAR ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">📅</span> Catalyst Calendar — 2026</div>
+  <div class="catalyst-item">
+    <div class="cat-date">May 2026</div>
+    <div class="cat-body">
+      <div class="cat-title">Q1 FY2026 Earnings — First Full GAAP Profitable Year Confirmation</div>
+      <div class="cat-desc">First quarter confirming whether the GAAP profitability inflection holds. If Q1 2026 shows GAAP net income positive and revenue beats the implied $430M+ run-rate of the $1.755B FY guide, the short overhang officially breaks. This is the single most important near-term catalyst for re-rating. <span class="impact-high">● HIGH IMPACT</span></div>
+    </div>
+  </div>
+  <div class="catalyst-item">
+    <div class="cat-date">Q2 2026</div>
+    <div class="cat-body">
+      <div class="cat-title">ZetaLive Revenue Contribution — $100M Opportunity Materializes</div>
+      <div class="cat-desc">Management identified ZetaLive as a $100M incremental revenue opportunity. Any material Q2 contribution — even $15-20M — would confirm the product-market fit and signal NRR will expand further as existing customers adopt the real-time layer. <span class="impact-high">● HIGH IMPACT</span></div>
+    </div>
+  </div>
+  <div class="catalyst-item">
+    <div class="cat-date">2026</div>
+    <div class="cat-body">
+      <div class="cat-title">Index Inclusion (Russell 2000 / S&P SmallCap 600)</div>
+      <div class="cat-desc">At ~$4.4B market cap and growing, Zeta is approaching eligibility for major index inclusion which would drive passive fund buying. Any index inclusion announcement would bring hundreds of millions in forced buying from passive vehicles currently underweight ZETA. <span class="impact-med">● MEDIUM IMPACT</span></div>
+    </div>
+  </div>
+  <div class="catalyst-item">
+    <div class="cat-date">H2 2026</div>
+    <div class="cat-body">
+      <div class="cat-title">Zeta 2028 Targets Update — Mid-Cycle Progress Report</div>
+      <div class="cat-desc">Management set explicit 2028 long-range targets at investor day 2025 (revenue growth to 34%+). An investor day update in H2 2026 showing ahead-of-schedule progress toward 2028 targets would significantly expand analyst price targets and attract longer-duration institutional investors. <span class="impact-high">● HIGH IMPACT</span></div>
+    </div>
+  </div>
+  <div class="catalyst-item">
+    <div class="cat-date">Ongoing</div>
+    <div class="cat-body">
+      <div class="cat-title">Fortune 500 CMO Wins — Proof of Enterprise Platform Status</div>
+      <div class="cat-desc">Each press-released Fortune 500 customer win (especially net-new enterprise logos) directly counters the short seller narrative and demonstrates that the "consent farm" and "round-tripping" allegations had no merit with sophisticated enterprise buyers who perform due diligence. New logo growth is both a revenue catalyst and a reputational moat-builder. <span class="impact-med">● MEDIUM IMPACT</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ THESIS INVALIDATION ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">🚨</span> Thesis Invalidation Conditions — Exit Triggers</div>
+  <div class="inv-grid">
+    <div class="inv-item">
+      <div class="inv-title">⚠ Revenue Growth Decelerates Below 20%</div>
+      <div class="inv-body">Given the FY26 guide of +35%, any outcome below 25% growth signals competitive share loss or macro CMO budget cuts. Two consecutive sub-25% growth quarters without macro justification invalidates the durable compounder thesis.</div>
+    </div>
+    <div class="inv-item">
+      <div class="inv-title">⚠ NRR Falls Below 110%</div>
+      <div class="inv-body">NRR at 120% and rising is the proof that the platform creates net value for customers. A fall below 110% would indicate customers are churning out of upsell modules — the opposite of the land-and-expand playbook that justifies the premium multiple.</div>
+    </div>
+    <div class="inv-item">
+      <div class="inv-title">⚠ Short Seller Allegations Substantiated by Regulator</div>
+      <div class="inv-body">If the FTC, SEC, or a state AG initiates a formal investigation into Zeta's data consent practices (Culper's "consent farm" allegation), even without a final finding, this creates overhang that depresses the multiple and management bandwidth. Any regulatory inquiry escalation is an immediate risk flag.</div>
+    </div>
+    <div class="inv-item">
+      <div class="inv-title">⚠ GAAP Profitability Miss in FY2026</div>
+      <div class="inv-body">Management explicitly guided full-year 2026 GAAP profitability. Missing this milestone — particularly if driven by higher-than-expected S&M or data acquisition costs — would break the operating leverage narrative central to the re-rating thesis.</div>
+    </div>
+    <div class="inv-item">
+      <div class="inv-title">⚠ Big Tech (Google/Meta) Builds Competing Data Graph</div>
+      <div class="inv-body">Google or Meta offering their walled-garden consumer data directly to enterprise CMOs as a managed service would commoditize Zeta's identity resolution advantage. Watch for any Google "Marketing Cloud" announcements that include open enterprise identity resolution capabilities.</div>
+    </div>
+    <div class="inv-item">
+      <div class="inv-title">⚠ Founder Departure or Large Insider Selling</div>
+      <div class="inv-body">David Steinberg buying shares during the short attack was a powerful conviction signal. Any material selling by Steinberg (beyond routine tax-related sales) or a CEO transition announcement would remove the primary reason for the owner-operator premium and would require immediate reassessment of the thesis.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ 10x MATH ═══════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">🔢</span> 10x Return Math — Path to $44B Market Cap</div>
+  <table>
+    <thead>
+      <tr><th>Year</th><th>Revenue Assumption</th><th>Rev CAGR</th><th>Rev Multiple</th><th>Market Cap</th><th>Return vs. $4.4B</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>FY2026E</td><td>$1.755B</td><td>—</td><td>5x</td><td>$8.8B</td><td class="trend-up">+100% (2x)</td></tr>
+      <tr><td>FY2027E</td><td>$2.3B</td><td>+31%</td><td>6x</td><td>$13.8B</td><td class="trend-up">+3.1x</td></tr>
+      <tr><td>FY2028E</td><td>$3.0B</td><td>+30%</td><td>8x</td><td>$24B</td><td class="trend-up">+5.5x</td></tr>
+      <tr><td>FY2030E</td><td>$5.0B</td><td>+29%</td><td>9x</td><td>$45B</td><td class="trend-up"><strong>~10x 🎯</strong></td></tr>
+      <tr><td>FY2032E (Upside)</td><td>$7.5B</td><td>+22%</td><td>8x</td><td>$60B</td><td class="trend-up"><strong>~14x 🚀</strong></td></tr>
+      <tr style="background:#fdf9f0;">
+        <td colspan="5"><strong>Key Assumption:</strong> $5B revenue by FY2030 requires 30% CAGR (vs. current 35%); 9x revenue is below current peers at similar growth stage; full-stack platform premium and AI inflection justify multiple expansion from 2.5x → 9x as GAAP profitability matures</td>
+        <td><span class="badge b-high">HIGHLY ACHIEVABLE</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════════ PEER COMPARISON ═══════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">🔭</span> Peer Comparison — AI Marketing / MarTech</div>
+  <table>
+    <thead>
+      <tr><th>Company</th><th>Market Cap</th><th>EV/NTM Rev</th><th>Rev Growth</th><th>NRR</th><th>Rule of 40</th><th>Verdict</th></tr>
+    </thead>
+    <tbody>
+      <tr style="background:#fdf8e0; font-weight:700;">
+        <td>⚡ Zeta Global (ZETA)</td><td>$4.4B</td><td class="trend-up">2.5x</td><td>35%</td><td>120%</td><td>~50%</td>
+        <td><span class="badge b-high">BEST VALUE</span></td>
+      </tr>
+      <tr>
+        <td>HubSpot (HUBS)</td><td>$22B</td><td>8x</td><td>20%</td><td>~110%</td><td>~45%</td>
+        <td><span class="badge b-fair">Fairly Valued</span></td>
+      </tr>
+      <tr>
+        <td>Braze (BRZE)</td><td>$5B</td><td>6x</td><td>22%</td><td>~115%</td><td>~30%</td>
+        <td><span class="badge b-fair">Fairly Valued</span></td>
+      </tr>
+      <tr>
+        <td>Klaviyo (KVYO)</td><td>$9B</td><td>9x</td><td>30%</td><td>~115%</td><td>~40%</td>
+        <td><span class="badge b-fair">Fairly Valued</span></td>
+      </tr>
+      <tr>
+        <td>Adobe (ADBE) Mktg Cloud</td><td>$160B (blended)</td><td>7x (blended)</td><td>~15%</td><td>—</td><td>~60%</td>
+        <td><span class="badge b-fair">Fair</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="margin-top:10px; font-size:11.5px; color:#5a4020; background:#fdf9f0; padding:10px 14px; border-radius:6px; border:1px solid #e8d090;">
+    <strong>Key Observation:</strong> Zeta trades at a 3-4x valuation discount to every listed peer despite equal or better: revenue growth, NRR, Rule of 40, and a superior data moat. The only explanation for the discount is the residual Culper Research short report overhang and the company's smaller analyst coverage universe. Both are temporary. As FY2026 GAAP profitability is confirmed and analyst coverage expands, the valuation gap with peers represents the primary near-term return driver.
+  </div>
+</div>
+
+</div><!-- end .content -->
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<div class="footer">
+  <div>
+    <strong>Zeta Global Holdings Corp (ZETA)</strong> · NYSE Listed · IPO April 2021<br/>
+    Frameworks: SQGLP (Motilal Oswal) · 100 Baggers (C. Mayer) · Owner-Operator · AI Disruption · Growth · Valuation · 4 New 100x Criteria
+  </div>
+  <div style="text-align:right;">
+    <div>Report Date: March 15, 2026</div>
+    <div style="margin-top:3px;color:#c07000;">⚠ For informational purposes only. Not investment advice. All projections are estimates.</div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+</body>
+</html>

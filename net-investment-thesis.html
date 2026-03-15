@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cloudflare (NET) — Enhanced Investment Thesis</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f2f8;
+  color: #1a1a2e;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.page {
+  max-width: 1020px;
+  margin: 28px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.10);
+  overflow: hidden;
+}
+
+/* ── HEADER ── */
+.header {
+  background: linear-gradient(135deg, #0f0f1a 0%, #1a0a3a 50%, #f6821f 200%);
+  background: linear-gradient(135deg, #0d0d1f 0%, #1c1060 55%, #f05c1c 150%);
+  color: #fff;
+  padding: 34px 40px 26px;
+}
+.header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px; }
+.company-block h1 { font-size: 27px; font-weight: 800; letter-spacing: 0.4px; }
+.company-block .sub { font-size: 12.5px; color: #b0a8e8; margin-top: 3px; }
+.badge-block { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.buy-badge { background: #f6821f; color: #fff; font-size: 14px; font-weight: 800; padding: 7px 20px; border-radius: 22px; letter-spacing: 0.5px; }
+.conviction-row { font-size: 11px; color: #b0a8e8; display: flex; align-items: center; gap: 5px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: #f6821f; }
+.header-meta { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 20px; }
+.meta .lbl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.9px; color: #9088c8; }
+.meta .val { font-size: 15px; font-weight: 800; color: #fff; }
+.meta .val.g { color: #6ee79a; }
+.meta .val.y { color: #f7d070; }
+.meta .val.o { color: #f6a06a; }
+
+/* ── THESIS BOX ── */
+.thesis-box {
+  background: #f5f0ff;
+  border-left: 5px solid #7c3aed;
+  margin: 24px 38px;
+  padding: 16px 22px;
+  border-radius: 4px;
+}
+.thesis-box .tl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.9px; color: #7c3aed; font-weight: 800; margin-bottom: 5px; }
+.thesis-box p { font-size: 14px; font-style: italic; color: #1a0a3a; line-height: 1.55; }
+
+/* ── SECTION ── */
+.content { padding: 0 38px 40px; }
+.section { margin-bottom: 30px; }
+.sec-title {
+  font-size: 11.5px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1px; color: #7c3aed;
+  border-bottom: 2px solid #e8e0f8;
+  padding-bottom: 5px; margin-bottom: 15px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-icon {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: #7c3aed; color: #fff;
+  font-size: 12px; display: inline-flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+/* ── TABLES ── */
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+thead th {
+  background: #1a0a3a; color: #fff; padding: 9px 11px;
+  text-align: left; font-size: 10.5px;
+  text-transform: uppercase; letter-spacing: 0.6px;
+}
+tbody tr:nth-child(even) { background: #f8f6ff; }
+tbody tr:hover { background: #f0eaff; }
+tbody td { padding: 9px 11px; border-bottom: 1px solid #ece5f8; vertical-align: middle; }
+
+/* ── BADGES ── */
+.badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+.b-high { background: #d5f5e3; color: #1d6e40; }
+.b-good { background: #ede5ff; color: #5b21b6; }
+.b-fair { background: #fef9e7; color: #7c5c00; border: 1px solid #f0c040; }
+.b-watch { background: #fdecea; color: #a93226; }
+.b-ahead { background: #dbeafe; color: #1e40af; }
+.trend-up { color: #27ae60; font-weight: 700; }
+.trend-flat { color: #f39c12; font-weight: 700; }
+.trend-dn { color: #e74c3c; font-weight: 700; }
+
+/* ── SQGLP ── */
+.sqglp-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.sqglp-card {
+  background: #f8f6ff; border: 1px solid #d8cef5; border-radius: 10px;
+  padding: 14px 12px; text-align: center;
+}
+.sqglp-letter { font-size: 26px; font-weight: 900; color: #7c3aed; }
+.sqglp-name { font-size: 10px; text-transform: uppercase; letter-spacing: 0.7px; color: #7a6aaa; font-weight: 600; margin-bottom: 10px; }
+.sqglp-score { font-size: 20px; font-weight: 900; margin-bottom: 4px; }
+.s9 { color: #27ae60; }
+.s8 { color: #2e86de; }
+.s7 { color: #f39c12; }
+.s5 { color: #e67e22; }
+.sqglp-bar { height: 6px; border-radius: 3px; background: #ddd8f8; margin: 6px 0; overflow: hidden; }
+.sqglp-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #7c3aed, #f6821f); }
+.sqglp-verdict { font-size: 11px; color: #4a4060; }
+
+/* ── 100 BAGGERS ── */
+.bagger-twin { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.twin-card {
+  background: linear-gradient(135deg, #1a0a3a, #7c3aed);
+  color: #fff; border-radius: 10px; padding: 18px 18px;
+}
+.twin-card .tc-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: #c4aaff; margin-bottom: 4px; }
+.twin-card .tc-main { font-size: 22px; font-weight: 800; color: #f6d06a; }
+.twin-card .tc-sub { font-size: 12px; color: #d4c4ff; margin-top: 4px; }
+.bagger-criteria { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.bc-card {
+  background: #f8f6ff; border: 1px solid #d8cef5; border-radius: 8px;
+  padding: 12px 13px; border-left: 4px solid #7c3aed;
+}
+.bc-card.pass { border-left-color: #27ae60; }
+.bc-card.partial { border-left-color: #f39c12; }
+.bc-title { font-weight: 700; font-size: 12px; color: #1a0a3a; margin-bottom: 4px; }
+.bc-body { font-size: 11.5px; color: #4a3a6a; }
+.bc-status { display: inline-block; font-size: 10px; font-weight: 700; margin-top: 5px; padding: 1px 8px; border-radius: 10px; }
+.bc-s-pass { background: #d5f5e3; color: #1d6e40; }
+.bc-s-partial { background: #fef3cd; color: #7c5c00; }
+
+/* ── 4 NEW 100x ── */
+.criteria-100x { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.c100-card {
+  border-radius: 10px; padding: 16px 16px;
+  background: linear-gradient(135deg, #f8f6ff, #ede5ff);
+  border: 1px solid #d0c0f5;
+}
+.c100-num { font-size: 28px; font-weight: 900; color: #d8ccf0; float: right; line-height: 1; }
+.c100-title { font-size: 13px; font-weight: 800; color: #1a0a3a; margin-bottom: 5px; }
+.c100-body { font-size: 12px; color: #3a2a5a; line-height: 1.5; }
+.c100-verdict { margin-top: 8px; font-size: 11px; font-weight: 700; }
+.c100-verdict.pass { color: #27ae60; }
+.c100-verdict.strong { color: #7c3aed; }
+
+/* ── AI DISRUPTION ── */
+.ai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ai-card {
+  background: #fff5f0; border: 1px solid #f8d5c0; border-radius: 8px;
+  padding: 14px 15px; border-left: 4px solid #f6821f;
+}
+.ai-card .ai-title { font-weight: 700; font-size: 12.5px; color: #6a2000; margin-bottom: 4px; }
+.ai-card .ai-body { font-size: 12px; color: #5a3020; line-height: 1.5; }
+.ai-timeline { background: #fff8f5; border: 1px solid #f8d5c0; border-radius: 8px; padding: 14px 18px; margin-top: 14px; }
+.ai-tl-row { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+.ai-tl-dot { width: 10px; height: 10px; border-radius: 50%; background: #f6821f; flex-shrink: 0; margin-top: 4px; }
+.ai-tl-content .ai-tl-date { font-size: 10px; font-weight: 700; color: #f6821f; text-transform: uppercase; }
+.ai-tl-content .ai-tl-text { font-size: 12px; color: #3a2a1a; }
+
+/* ── OWNER-OPERATOR ── */
+.oo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.oo-person {
+  background: #f8f6ff; border: 1px solid #d8cef5; border-radius: 10px; padding: 16px;
+  border-top: 4px solid #7c3aed;
+}
+.oo-name { font-size: 15px; font-weight: 800; color: #1a0a3a; }
+.oo-role { font-size: 11px; color: #7a6aaa; margin-bottom: 10px; }
+.oo-stat { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 12px; }
+.oo-stat .os-label { color: #7a6aaa; }
+.oo-stat .os-value { font-weight: 700; color: #1a0a3a; }
+.oo-bio { font-size: 11.5px; color: #4a3a6a; margin-top: 10px; border-top: 1px solid #e8e0f8; padding-top: 8px; }
+.oo-flag { background: #fff8e1; border: 1px solid #ffe082; border-radius: 6px; padding: 10px 14px; margin-top: 12px; font-size: 11.5px; color: #5a4500; }
+
+/* ── GROWTH VECTORS ── */
+.growth-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.gv-card {
+  background: #fff8f5; border: 1px solid #f8d5c0; border-radius: 8px;
+  padding: 13px 14px; border-left: 4px solid #f6821f;
+}
+.gv-card .gv-title { font-weight: 700; font-size: 12px; color: #8a3000; margin-bottom: 3px; }
+.gv-card .gv-metric { font-size: 18px; font-weight: 800; color: #5a2000; }
+.gv-card .gv-body { font-size: 11.5px; color: #5a3020; margin-top: 4px; }
+
+/* ── VALUATION ── */
+.val-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+.val-card {
+  background: #f8f6ff; border: 1px solid #d8cef5; border-radius: 8px;
+  padding: 13px 13px; text-align: center;
+}
+.vc-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.7px; color: #7a6aaa; font-weight: 600; margin-bottom: 4px; }
+.vc-val { font-size: 20px; font-weight: 800; color: #7c3aed; }
+.vc-note { font-size: 10.5px; color: #7a8a9a; margin-top: 3px; }
+
+/* ── SCENARIO TARGETS ── */
+.targets { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.tgt-card { border-radius: 10px; padding: 16px; text-align: center; }
+.tgt-card.bull { background: linear-gradient(135deg, #0a3020, #1d6e40); color: #fff; }
+.tgt-card.base { background: linear-gradient(135deg, #1a0a3a, #7c3aed); color: #fff; }
+.tgt-card.stop { background: linear-gradient(135deg, #2a0a0a, #a93226); color: #fff; }
+.tgt-card .tl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.8px; opacity: 0.7; }
+.tgt-card .tv { font-size: 28px; font-weight: 900; margin: 4px 0; }
+.tgt-card .tn { font-size: 11px; opacity: 0.8; }
+
+/* ── PILLARS ── */
+.pillars-risks { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.pr-card { border-radius: 8px; padding: 12px 14px; font-size: 12px; border: 1px solid #d8cef5; background: #f8f6ff; }
+.pr-card.bull { border-left: 4px solid #27ae60; }
+.pr-card.bear { border-left: 4px solid #e74c3c; }
+.pr-card .prt { font-weight: 700; font-size: 12.5px; margin-bottom: 3px; }
+.pr-card.bull .prt { color: #1d6e40; }
+.pr-card.bear .prt { color: #a93226; }
+.pr-card p { color: #4a3a6a; }
+
+/* ── CATALYST ── */
+.cat-row { display: flex; gap: 0; margin-bottom: 10px; }
+.cat-date { width: 96px; flex-shrink: 0; font-size: 11px; font-weight: 700; color: #7c3aed; padding-top: 3px; }
+.cat-body { flex: 1; background: #f8f6ff; border: 1px solid #d8cef5; border-radius: 6px; padding: 10px 14px; }
+.cat-body .ct { font-weight: 700; font-size: 12.5px; color: #1a0a3a; }
+.cat-body .cd { font-size: 12px; color: #4a3a6a; margin-top: 2px; }
+.cat-imp { display: inline-block; margin-top: 5px; font-size: 10px; padding: 1px 8px; border-radius: 10px; font-weight: 700; }
+.ci-h { background: #d5f5e3; color: #1d6e40; }
+.ci-m { background: #fef3cd; color: #7c5c00; }
+
+/* ── FOOTER ── */
+.footer {
+  background: #0d0d1f; color: #5a4a8a; font-size: 10px;
+  padding: 13px 38px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;
+}
+.footer a { color: #9a80d4; }
+
+@media(max-width:700px){
+  .sqglp-grid,.bagger-twin,.bagger-criteria,.criteria-100x,.ai-grid,.oo-grid,.growth-grid,.val-grid,.targets,.pillars-risks{grid-template-columns:1fr;}
+  .content{padding:0 16px 28px;}
+  .header{padding:22px 16px;}
+  .thesis-box{margin:16px;}
+}
+</style>
+</head>
+<body>
+<div style="background:#fff;padding:10px 24px;border-bottom:1px solid #e0e0f5;">
+  <a href="index.html" style="color:#6366f1;font-weight:600;text-decoration:none;font-size:15px;">← Back to Research Hub</a>
+</div>
+<div class="page">
+
+<!-- ── HEADER ── -->
+<div class="header">
+  <div class="header-top">
+    <div class="company-block">
+      <h1>Cloudflare Inc. &nbsp;<span style="font-size:17px;font-weight:400;color:#b0a8e8">NYSE: NET</span></h1>
+      <div class="sub">Connectivity Cloud &nbsp;·&nbsp; Zero Trust Security &nbsp;·&nbsp; AI Infrastructure &nbsp;·&nbsp; Developer Platform &nbsp;·&nbsp; Founder-Led</div>
+    </div>
+    <div class="badge-block">
+      <div class="buy-badge">LONG &nbsp;·&nbsp; HIGH CONVICTION</div>
+      <div class="conviction-row"><span class="dot"></span> Owner-Operator &nbsp;·&nbsp; SQGLP: 39/50 &nbsp;·&nbsp; Rule of 40: ~41%</div>
+    </div>
+  </div>
+  <div class="header-meta">
+    <div class="meta"><div class="lbl">Last Price</div><div class="val">~$229</div></div>
+    <div class="meta"><div class="lbl">Mkt Cap</div><div class="val">~$76B</div></div>
+    <div class="meta"><div class="lbl">FY25 Revenue</div><div class="val g">$2.16B (+27%)</div></div>
+    <div class="meta"><div class="lbl">Q4 FY25 Revenue</div><div class="val g">$614.5M (+34%)</div></div>
+    <div class="meta"><div class="lbl">FY26 Guide</div><div class="val o">$2.79B (+28-29%)</div></div>
+    <div class="meta"><div class="lbl">$100K+ Customers</div><div class="val">4,298 (+23%)</div></div>
+    <div class="meta"><div class="lbl">Median Analyst PT</div><div class="val g">$243</div></div>
+    <div class="meta"><div class="lbl">Bull Price Target</div><div class="val g">$280–$300</div></div>
+    <div class="meta"><div class="lbl">Stop Loss</div><div class="val" style="color:#ff8a8a;">$155–$165</div></div>
+    <div class="meta"><div class="lbl">Thesis Date</div><div class="val">Mar 14, 2026</div></div>
+  </div>
+</div>
+
+<!-- ── THESIS STATEMENT ── -->
+<div class="thesis-box">
+  <div class="tl">Core Thesis</div>
+  <p>Long NET — Cloudflare is building the operating system of the internet: a single, unified platform where every connection, every request, and every AI agent passes through their global network of 330+ cities. Founder-led by Matthew Prince (~7-10% owner), Cloudflare is uniquely positioned at the intersection of the three most durable secular trends of the decade — zero-trust security consolidation, AI infrastructure proliferation, and the shift of compute to the network edge. At 28–34% revenue growth with a $181B TAM barely 1% penetrated, this is the internet's toll road for the AI era.</p>
+</div>
+
+<div class="content">
+
+<!-- ════════════════════════════════ -->
+<!-- 1. SQGLP FRAMEWORK              -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">S</span> SQGLP Scorecard (Motilal Oswal Framework)</div>
+  <div class="sqglp-grid">
+
+    <div class="sqglp-card">
+      <div class="sqglp-letter">S</div>
+      <div class="sqglp-name">Sales Growth</div>
+      <div class="sqglp-score s9">9/10</div>
+      <div class="sqglp-bar"><div class="sqglp-fill" style="width:90%"></div></div>
+      <div class="sqglp-verdict">Q4 FY25 revenue +34% YoY — fastest acceleration since 2021. FY26 guide: +28–29%. New ACV grew ~50% YoY in Q4. Largest deal ever ($42.5M ACV) closed in Q4. Growth re-accelerating driven by AI workloads.</div>
+    </div>
+
+    <div class="sqglp-card">
+      <div class="sqglp-letter">Q</div>
+      <div class="sqglp-name">Quality</div>
+      <div class="sqglp-score s8">8/10</div>
+      <div class="sqglp-bar"><div class="sqglp-fill" style="width:80%"></div></div>
+      <div class="sqglp-verdict">Non-GAAP gross margin 74.9%. Q4 non-GAAP operating income $89.6M (14.6% margin). 80% of major AI companies are Cloudflare customers. Consistent innovation engine — 50+ product launches per year ("Birthday Week" cadence).</div>
+    </div>
+
+    <div class="sqglp-card">
+      <div class="sqglp-letter">G</div>
+      <div class="sqglp-name">Growth (Earnings)</div>
+      <div class="sqglp-score s7">7/10</div>
+      <div class="sqglp-bar"><div class="sqglp-fill" style="width:70%"></div></div>
+      <div class="sqglp-verdict">Non-GAAP EPS growing steadily. Q4 net income $106.8M ($0.28/share). FY26 operating income guide: $378M–$382M (~13.5% margin). EPS power growing faster than revenue. Path to 20%+ operating margins by FY28 visible.</div>
+    </div>
+
+    <div class="sqglp-card">
+      <div class="sqglp-letter">L</div>
+      <div class="sqglp-name">Longevity</div>
+      <div class="sqglp-score s9">9/10</div>
+      <div class="sqglp-bar"><div class="sqglp-fill" style="width:92%"></div></div>
+      <div class="sqglp-verdict">TAM: $181B (2025) → $231B (2028). &lt;1.2% penetrated. Network in 330+ cities / 125+ countries. Developer ecosystem (5M+ Workers developers) creates a two-sided platform flywheel. AI agents need infrastructure — Cloudflare is their backbone.</div>
+    </div>
+
+    <div class="sqglp-card">
+      <div class="sqglp-letter">P</div>
+      <div class="sqglp-name">Price (Valuation)</div>
+      <div class="sqglp-score s6" style="color:#e67e22;">6/10</div>
+      <div class="sqglp-bar"><div class="sqglp-fill" style="width:50%"></div></div>
+      <div class="sqglp-verdict">~27x EV/NTM Revenue — the most expensive major enterprise SaaS name. Justified by the Rule of 40 (~41%), network moat, and AI infrastructure positioning. Not a value play — you pay up for the platform. Requires sustained 25%+ growth to hold the multiple.</div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:14px;background:#ede5ff;border:1px solid #c4aaff;border-radius:8px;padding:13px 18px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;">
+    <div style="text-align:center;">
+      <div style="font-size:36px;font-weight:900;color:#7c3aed;">39<span style="font-size:16px;color:#9a80d4;">/50</span></div>
+      <div style="font-size:11px;color:#7c3aed;font-weight:700;text-transform:uppercase;letter-spacing:0.7px;">SQGLP Score</div>
+    </div>
+    <div style="flex:1;font-size:12.5px;color:#1a0a3a;">
+      <strong>Verdict: Premium Compounder — Pay Up for the Platform.</strong> NET scores near-perfectly on Sales Growth and Longevity, very well on Quality, adequately on Earnings Growth, and is penalized heavily on Price — deservedlyso at 27x EV/Rev. This is a quality-first, growth-first name where entry price matters enormously. A 15–20% correction to 20–22x EV/Rev would make this a near-perfect SQGLP position.
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 2. 100 BAGGERS FRAMEWORK        -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">💯</span> 100 Baggers Framework (Christopher Mayer)</div>
+
+  <div class="bagger-twin">
+    <div class="twin-card">
+      <div class="tc-label">Engine 1 — Revenue Growth</div>
+      <div class="tc-main">~25–30% CAGR</div>
+      <div class="tc-sub">FY26 guide: +28–29%. Q4 FY25 re-accelerated to +34%. New ACV +50% YoY in Q4. Analysts forecast sustained 25%+ growth through FY28. AI traffic monetization is an incremental upside layer not yet in numbers.</div>
+    </div>
+    <div class="twin-card">
+      <div class="tc-label">Engine 2 — Margin Expansion (EPS Power)</div>
+      <div class="tc-main">~35–45% EPS CAGR</div>
+      <div class="tc-sub">74.9% gross margins. Non-GAAP operating margin expanding from ~14.6% → target 20%+ by FY28. EPS growing structurally faster than revenue. At scale, 25%+ FCF margins achievable on a $5B+ revenue base.</div>
+    </div>
+  </div>
+
+  <div class="bagger-criteria">
+
+    <div class="bc-card pass">
+      <div class="bc-title">✦ High ROIC Business at Scale</div>
+      <div class="bc-body">Cloudflare's network is a natural monopoly in edge infrastructure. Once built, each new customer on the network costs very little to serve. At scale, ROIC will be exceptional — a classic utility-like infrastructure asset with SaaS-quality margins.</div>
+      <span class="bc-status bc-s-partial">Approaching High ROIC Phase</span>
+    </div>
+
+    <div class="bc-card pass">
+      <div class="bc-title">✦ Reinvest at High Rates</div>
+      <div class="bc-body">Every dollar invested in network expansion reaches ~95% of the internet-connected world within 50ms — an extraordinary infrastructure return. Developer ecosystem investment (Workers platform) generates compounding two-sided platform value.</div>
+      <span class="bc-status bc-s-pass">Confirmed ✓</span>
+    </div>
+
+    <div class="bc-card pass">
+      <div class="bc-title">✦ Long Runway (&lt;2% TAM)</div>
+      <div class="bc-body">$181B TAM in 2025. $2.16B FY25 revenue = 1.2% penetration. Network security alone is $50B+. Zero Trust is replacing legacy VPN for every enterprise. AI infrastructure is an entirely new and additive layer.</div>
+      <span class="bc-status bc-s-pass">Confirmed ✓</span>
+    </div>
+
+    <div class="bc-card pass">
+      <div class="bc-title">✦ Owner-Operator at the Helm</div>
+      <div class="bc-body">Matthew Prince: co-founder CEO, ~7–10% owner, net worth ~$5.5B concentrated in NET. Michelle Zatlyn: co-founder President, also significant equity holder. 16+ years at the company with no sign of distraction or value-destructive M&A.</div>
+      <span class="bc-status bc-s-pass">Confirmed ✓</span>
+    </div>
+
+    <div class="bc-card pass">
+      <div class="bc-title">✦ Market Cap Leaves Room</div>
+      <div class="bc-body">At $76B market cap, NET needs to reach $7.6T for a literal 100-bagger — not realistic. At 25% revenue CAGR and 20% FCF margins, 10-year implied market cap is $300–500B, representing a 4–7x return from today.</div>
+      <span class="bc-status bc-s-partial">4–7x Potential (7–10 Yrs)</span>
+    </div>
+
+    <div class="bc-card pass">
+      <div class="bc-title">✦ Durable Competitive Advantage</div>
+      <div class="bc-body">The network IS the moat — 330+ cities cannot be replicated affordably. Global presence inside every major internet exchange point. Threat intelligence from 20%+ of global internet traffic. Every new customer makes the network smarter for all others.</div>
+      <span class="bc-status bc-s-pass">Confirmed ✓</span>
+    </div>
+
+  </div>
+
+  <div style="margin-top:14px;background:#1a0a3a;color:#c4aaff;border-radius:8px;padding:14px 18px;font-size:12px;">
+    <strong style="color:#f6d06a;">100 Baggers Verdict:</strong>&nbsp; From today's $76B market cap, a 100-bagger is not achievable in any realistic scenario. However, NET possesses <em>five of six</em> classic 100-bagger traits. The realistic path is a <strong style="color:#f6821f;">4–7x compounder over 7–10 years</strong>: revenues reaching $10–15B by 2034 at 25% CAGR, FCF margins expanding to 20–25%, and a sustained 20–25x EV/FCF multiple. That implies $300–500B market cap vs. today's $76B. For context, $229 → $900–$1,600 over a decade is a category-defining outcome for any portfolio holding.
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 3. 4 NEW 100x CRITERIA          -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">4x</span> 4 New 100x Criteria — Modern Era Framework</div>
+  <div class="criteria-100x">
+
+    <div class="c100-card">
+      <div class="c100-num">01</div>
+      <div class="c100-title">Network Topology Moat — The Unreplicable Asset</div>
+      <div class="c100-body">Cloudflare operates in 330+ cities across 125+ countries, sitting inside virtually every major internet exchange point (IXP) on earth. This physical network took 16+ years and billions of dollars to build — and it gets more valuable with every city added. Any competitor attempting to replicate it would face 10–15 years of capital-intensive buildout, regulatory approvals, and peering agreements. This is the most defensible infrastructure moat in enterprise tech.</div>
+      <div class="c100-verdict pass">✓ IRREPLICABLE — The network IS the moat; no startup or hyperscaler has this footprint</div>
+    </div>
+
+    <div class="c100-card">
+      <div class="c100-num">02</div>
+      <div class="c100-title">Developer-First Two-Sided Platform Flywheel</div>
+      <div class="c100-body">5M+ developers build on Cloudflare Workers — the serverless compute platform at the edge. Each developer who builds on Workers brings their application's traffic to Cloudflare's network, increasing revenue AND strengthening the network. Their applications' users then benefit from low latency, which drives more developer adoption. This two-sided flywheel makes NET structurally harder to displace the larger it gets. Comparable to how AWS became indispensable through its developer community in 2010–2015.</div>
+      <div class="c100-verdict strong">✓ COMPOUNDING — Developer community accelerating; 5M+ developers is a decade-long flywheel</div>
+    </div>
+
+    <div class="c100-card">
+      <div class="c100-num">03</div>
+      <div class="c100-title">The AI Internet Infrastructure Tax</div>
+      <div class="c100-body">CEO Matthew Prince's thesis: "If AI agents are the new users of the internet, Cloudflare is the platform they run on and the network they pass through." Workers AI inference requests grew 4,000% YoY in Q1 2025. AI Gateway requests grew 1,200%. 80% of the world's major AI companies are Cloudflare customers. Every AI agent that makes an API call, processes data, or delivers inference to end users is increasingly doing so through Cloudflare. This is not a feature — it is a structural toll on the AI economy.</div>
+      <div class="c100-verdict pass">✓ EMERGING DOMINANCE — 4,000% inference growth is not a rounding error; this is the AI thesis</div>
+    </div>
+
+    <div class="c100-card">
+      <div class="c100-num">04</div>
+      <div class="c100-title">Zero Trust Security: Replacing the $150B Point-Product Industry</div>
+      <div class="c100-body">Enterprise security has been a fragmented mess of 20–30 point products (VPN, firewalls, DLP, CASB, SASE, web gateway, email security). Cloudflare One offers all of these as a single, unified Zero Trust platform running on the global network. The total legacy security market being disrupted is $150B+. Cloudflare's SASE/Zero Trust platform wins because: (1) no hardware, (2) faster performance (traffic stays on the Cloudflare network), (3) one vendor instead of many. This consolidation wave has years to run.</div>
+      <div class="c100-verdict strong">✓ MULTI-YEAR CYCLE — Zero Trust replacement of legacy VPN/firewalls is ~5-10 year secular tailwind</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 4. AI DISRUPTION ANALYSIS       -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">🤖</span> AI Disruption Analysis</div>
+  <div class="ai-grid">
+
+    <div class="ai-card">
+      <div class="ai-title">Cloudflare AS AI Infrastructure</div>
+      <div class="ai-body">Workers AI turns every Cloudflare edge node into an inference endpoint — 330+ cities with GPUs running models at millisecond latency to end users. Unlike AWS/Azure data center-centric inference, Cloudflare puts AI at the edge of the internet. This is critical for real-time AI applications (autonomous agents, voice AI, AR/VR AI) where central cloud latency is unacceptable.</div>
+    </div>
+
+    <div class="ai-card">
+      <div class="ai-title">AI Gateway — The Control Plane for AI Apps</div>
+      <div class="ai-body">Cloudflare AI Gateway is a middleware layer that sits in front of all AI API calls (OpenAI, Anthropic, Gemini). It provides caching, rate limiting, logging, cost control, and fallback routing. AI Gateway requests grew 1,200% YoY. As enterprises deploy more AI agents, every API call flows through AI Gateway — making Cloudflare the control plane for enterprise AI spend.</div>
+    </div>
+
+    <div class="ai-card">
+      <div class="ai-title">Vectorize + AI Agents Platform</div>
+      <div class="ai-body">Cloudflare Vectorize is an edge-native vector database enabling RAG (Retrieval-Augmented Generation) apps on Workers. Combined with AI Gateway and Durable Objects (stateful Workers), Cloudflare is assembling the full stack required to run autonomous AI agents at the edge. No other company offers inference + storage + routing + security in a single global network.</div>
+    </div>
+
+    <div class="ai-card">
+      <div class="ai-title">Threat Intelligence Moat for AI Security</div>
+      <div class="ai-body">Cloudflare processes ~20%+ of global internet traffic daily, giving them unparalleled threat intelligence data. As AI-generated attacks proliferate (prompt injection, adversarial inputs, bot traffic that looks human), Cloudflare's "Cloudflare for AI" security suite — trained on the world's most comprehensive attack dataset — becomes the de facto security layer for AI applications.</div>
+    </div>
+
+  </div>
+
+  <div class="ai-timeline">
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:#f6821f;font-weight:700;margin-bottom:10px;">Cloudflare AI Roadmap</div>
+    <div class="ai-tl-row">
+      <div class="ai-tl-dot" style="background:#aaa;"></div>
+      <div class="ai-tl-content">
+        <div class="ai-tl-date">FY23–FY24 (Foundation)</div>
+        <div class="ai-tl-text">Workers AI launched (inference at edge). Vectorize (vector DB). AI Gateway (API management). R2 object storage (S3-compatible, zero egress fees). Positioned as the anti-AWS developer platform.</div>
+      </div>
+    </div>
+    <div class="ai-tl-row">
+      <div class="ai-tl-dot" style="background:#f6821f;"></div>
+      <div class="ai-tl-content">
+        <div class="ai-tl-date">FY25–FY26 (Inflection — Current)</div>
+        <div class="ai-tl-text">Workers AI inference +4,000% YoY. AI Gateway +1,200%. 80% of major AI companies as customers. Cloudflare for AI suite launched. Largest ACV deal ever closed ($42.5M/yr). Net new ACV +50% YoY in Q4 FY25. AI workloads becoming a material revenue contributor.</div>
+      </div>
+    </div>
+    <div class="ai-tl-row">
+      <div class="ai-tl-dot" style="background:#27ae60;"></div>
+      <div class="ai-tl-content">
+        <div class="ai-tl-date">FY27–FY28 — KEY SCALING PHASE</div>
+        <div class="ai-tl-text">AI Agents running autonomously on Workers + Durable Objects. Edge inference becoming the default for latency-sensitive AI apps. Cloudflare potentially captures a "compute tax" on trillions of AI inferences per day. Revenue from AI workloads could represent 20–30% of total ARR by FY28.</div>
+      </div>
+    </div>
+    <div class="ai-tl-row" style="margin-bottom:0;">
+      <div class="ai-tl-dot" style="background:#c4aaff;"></div>
+      <div class="ai-tl-content">
+        <div class="ai-tl-date">FY29+ (Horizon)</div>
+        <div class="ai-tl-text">Fully autonomous AI agents transacting across the internet with Cloudflare as the underlying network layer — handling identity, security, routing, and compute. The "OS of the AI internet" thesis fully realized. TAM potentially exceeds $500B as digital-physical economies converge.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 5. OWNER-OPERATOR ANALYSIS      -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">👤</span> Owner-Operator Analysis</div>
+  <div class="oo-grid">
+
+    <div class="oo-person">
+      <div class="oo-name">Matthew Prince</div>
+      <div class="oo-role">Co-Founder, CEO &amp; Co-Chair</div>
+      <div class="oo-stat"><span class="os-label">Ownership (Class A + B)</span><span class="os-value">~7–10% economic, significant voting control</span></div>
+      <div class="oo-stat"><span class="os-label">Net Worth (Feb 2025)</span><span class="os-value">~$5.5B — largely concentrated in NET</span></div>
+      <div class="oo-stat"><span class="os-label">Tenure as CEO</span><span class="os-value">Since founding (Jul 2009) — 16+ years</span></div>
+      <div class="oo-stat"><span class="os-label">Education</span><span class="os-value">JD, University of Chicago Law; BS, Trinity College</span></div>
+      <div class="oo-bio">One of the most technically visionary CEOs in enterprise tech. Built Cloudflare from zero to $76B+ market cap with no pivots in core strategy. Famous for contrarian product decisions that proved prescient (free tier, birthday week launches, refusing to be acquired). Author of the widely-read "Cloudflare blog" which shapes developer community thinking. Stepped down as Chairman in Feb 2025 to focus full-time on product and operations — bullish signal.</div>
+    </div>
+
+    <div class="oo-person">
+      <div class="oo-name">Michelle Zatlyn</div>
+      <div class="oo-role">Co-Founder, President &amp; Co-Chair</div>
+      <div class="oo-stat"><span class="os-label">Role</span><span class="os-value">COO-equivalent; operations, partnerships, GTM</span></div>
+      <div class="oo-stat"><span class="os-label">Background</span><span class="os-value">McGill University; prior Google, product manager</span></div>
+      <div class="oo-stat"><span class="os-label">Board Role</span><span class="os-value">Co-Chair (took over from Prince, Feb 2025)</span></div>
+      <div class="oo-stat"><span class="os-label">Tenure</span><span class="os-value">Co-founder since 2009 — 16+ years</span></div>
+      <div class="oo-bio">Rare combination of technical understanding and commercial execution. Oversaw Cloudflare's expansion from startup to Fortune 500-serving enterprise platform. Strong on enterprise sales culture and partner ecosystem. Both founders remaining deeply engaged 16 years post-founding signals genuine conviction in the long-term mission — not lifestyle founders looking for an exit.</div>
+    </div>
+
+  </div>
+
+  <div class="oo-flag">
+    <strong>⚠ Dual-Class Structure Note:</strong> Cloudflare uses a dual-class share structure (Class A / Class B). Founders retain significant voting control even as their economic ownership dilutes. This is a feature for long-term investors — it protects against short-term activist pressure and ensures the founders can execute their multi-decade infrastructure vision. Monitor for any significant reduction in Class B voting shares as a governance flag.
+  </div>
+
+  <div style="margin-top:12px;background:#fff5f0;border:1px solid #f8d5c0;border-radius:8px;padding:13px 18px;font-size:12.5px;color:#3a1500;">
+    <strong>Capital Allocation Philosophy:</strong> &nbsp;Prince and Zatlyn have consistently chosen long-term network investment over short-term earnings optimization. They have avoided large M&A (disciplined acquirers), launched a free tier that built the developer community, and reinvested aggressively in network expansion. No dividend, no buybacks — every dollar goes back into the platform. This is exactly the behavior you want from an owner-operator running a long-duration infrastructure compounding machine.
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 6. GROWTH VECTORS               -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">📈</span> Growth Framework — Multiple Vectors</div>
+  <div class="growth-grid">
+
+    <div class="gv-card">
+      <div class="gv-title">Large Enterprise Up-Market</div>
+      <div class="gv-metric">4,298 customers $100K+</div>
+      <div class="gv-body">+23% YoY. Record Q4 deal — $42.5M ACV average for the largest contract ever. New ACV grew 50% YoY in Q4. Enterprise multi-product deals driving NRR well above 120%.</div>
+    </div>
+
+    <div class="gv-card">
+      <div class="gv-title">Zero Trust / SASE Expansion</div>
+      <div class="gv-metric">~$50B+ addressable</div>
+      <div class="gv-body">Cloudflare One (SASE + Zero Trust) is replacing legacy VPN and firewall infrastructure. Multi-year enterprise refresh cycle. Each security product sold expands ARPU by $20–100K+. Competing against Zscaler, Palo Alto, and Cisco.</div>
+    </div>
+
+    <div class="gv-card">
+      <div class="gv-title">AI Infrastructure (Workers AI)</div>
+      <div class="gv-metric">+4,000% inference YoY</div>
+      <div class="gv-body">Workers AI, AI Gateway, Vectorize growing explosively. 80% of AI companies are already customers — upsell path is clear. AI workloads are high-margin, high-volume compute revenue with minimal incremental sales cost.</div>
+    </div>
+
+    <div class="gv-card">
+      <div class="gv-title">Developer Platform (Workers)</div>
+      <div class="gv-metric">5M+ developers</div>
+      <div class="gv-body">The Workers platform is to Cloudflare what the iOS App Store is to Apple — a two-sided marketplace that gets stickier with each new developer. Free tier users convert to paid at expanding rates as their applications scale.</div>
+    </div>
+
+    <div class="gv-card">
+      <div class="gv-title">Network Services (CDN, DNS, DDoS)</div>
+      <div class="gv-metric">~$20B+ addressable</div>
+      <div class="gv-body">Core CDN and DDoS mitigation business is highly recurring and sticky. Competing against Akamai (aging platform) and Fastly. Cloudflare consistently wins on price, performance, and feature velocity.</div>
+    </div>
+
+    <div class="gv-card">
+      <div class="gv-title">International &amp; Public Sector</div>
+      <div class="gv-metric">330+ cities, 125+ countries</div>
+      <div class="gv-body">International revenue growing faster than North America. Government/public sector (Project Galileo, Athenian Project) builds brand and creates enterprise pipeline. Expanding presence in APAC and EMEA with local PoPs (points of presence).</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 7. VALUATION FRAMEWORK          -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">$</span> Valuation Framework</div>
+
+  <div class="val-grid">
+    <div class="val-card">
+      <div class="vc-lbl">EV / NTM Revenue</div>
+      <div class="vc-val">~27x</div>
+      <div class="vc-note">NTM Rev ~$2.79B (FY26 guide). EV ~$74B. Most expensive major enterprise SaaS. Demands execution.</div>
+    </div>
+    <div class="val-card">
+      <div class="vc-lbl">Rule of 40</div>
+      <div class="vc-val">~41%</div>
+      <div class="vc-note">Revenue growth ~28% + FCF margin ~12–13%. Solid and improving. Supports premium valuation.</div>
+    </div>
+    <div class="val-card">
+      <div class="vc-lbl">EV/Rev ÷ Growth (PEG-style)</div>
+      <div class="vc-val">~0.96x</div>
+      <div class="vc-note">27x EV/Rev ÷ 28% growth = 0.96x. Elevated vs. IOT (0.36x). You pay for network moat premium.</div>
+    </div>
+    <div class="val-card">
+      <div class="vc-lbl">Consensus Price Target</div>
+      <div class="vc-val">$243</div>
+      <div class="vc-note">48 analysts: 67% Buy or Strong Buy. Range $117–$300. Median $243 (+6% from current).</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:14px;">
+    <table>
+      <thead>
+        <tr>
+          <th>Scenario</th>
+          <th>FY28E Revenue</th>
+          <th>FCF Margin</th>
+          <th>FCF ($B)</th>
+          <th>FCF Multiple</th>
+          <th>Implied Mkt Cap</th>
+          <th>Price / Share</th>
+          <th>Upside</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:#27ae60;">Bull</strong></td>
+          <td>$4.2B (30% CAGR)</td>
+          <td>22%</td>
+          <td>$924M</td>
+          <td>70x</td>
+          <td>$64.7B</td>
+          <td><strong>$280–$300</strong></td>
+          <td class="trend-up">+22–31%</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#7c3aed;">Base</strong></td>
+          <td>$3.7B (26% CAGR)</td>
+          <td>18%</td>
+          <td>$666M</td>
+          <td>60x</td>
+          <td>$52.4B</td>
+          <td><strong>$230–$250</strong></td>
+          <td class="trend-flat">+0–9%</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#e74c3c;">Bear</strong></td>
+          <td>$3.0B (18% CAGR)</td>
+          <td>12%</td>
+          <td>$360M</td>
+          <td>40x</td>
+          <td>$24.3B</td>
+          <td><strong>$155–$165</strong></td>
+          <td class="trend-dn">-28–32%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="targets">
+    <div class="tgt-card bull">
+      <div class="tl">Bull Case (12–18 mo)</div>
+      <div class="tv">$280–300</div>
+      <div class="tn">AI workloads drive growth re-acceleration above 30%. Zero Trust closes record enterprise deals. AI infrastructure premium re-rates the multiple.</div>
+    </div>
+    <div class="tgt-card base">
+      <div class="tl">Base Case (12–18 mo)</div>
+      <div class="tv">$230–250</div>
+      <div class="tn">Sustains 28–29% growth per FY26 guide. Margins expand gradually. ~Flat to +10% from here — stock has already priced much of the upside near term.</div>
+    </div>
+    <div class="tgt-card stop">
+      <div class="tl">Stop Loss / Thesis Break</div>
+      <div class="tv">$155–165</div>
+      <div class="tn">Growth decelerates below 20%. NRR compresses below 115%. AI infrastructure thesis fails to monetize. Macro enterprise spending freeze.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:14px;background:#ede5ff;border:1px solid #c4aaff;border-radius:8px;padding:12px 16px;font-size:12px;color:#1a0a3a;">
+    <strong>Valuation Honest Assessment:</strong> &nbsp;At 27x NTM Revenue, NET is priced for near-perfection. The base case offers only ~0–9% upside over 12 months — meaning the real value of this position is the <em>3–5 year compounding story</em>, not a near-term trade. The risk/reward is more attractive on pullbacks to $180–$200 (20–22x NTM Rev). Initiating at current prices requires high confidence in sustained 25%+ growth and AI infrastructure monetization. 10-Year Math: $229 → $700–$900 requires ~12-14% CAGR — achievable but not exceptional from this entry point. Add aggressively on any 20%+ correction.
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 8. PILLARS & RISKS              -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">⚖</span> Core Pillars &amp; Risks</div>
+  <div class="pillars-risks">
+    <div class="pr-card bull"><div class="prt">▲ Network Topology — Irreplicable Moat</div><p>330+ cities, 125+ countries, inside every major IXP. Took 16 years to build. No startup or hyperscaler has this footprint. The network gets more valuable with every city added.</p></div>
+    <div class="pr-card bear"><div class="prt">▼ Extreme Premium Valuation (27x EV/Rev)</div><p>The most expensive major enterprise SaaS. Any growth miss, guidance cut, or macro shock could cause a 30–40% drawdown. Limited margin for error at current prices.</p></div>
+    <div class="pr-card bull"><div class="prt">▲ AI Infrastructure Positioning (OS of the AI Internet)</div><p>80% of AI companies are Cloudflare customers. Workers AI +4,000% YoY. AI Agents need low-latency infrastructure — Cloudflare is their backbone. Structural tailwind for the next decade.</p></div>
+    <div class="pr-card bear"><div class="prt">▼ Hyperscaler Competition Risk</div><p>AWS CloudFront, Azure CDN, and Google Cloud all compete in CDN and edge compute. As AI workloads grow, hyperscalers could bundle edge infrastructure at cost to defend their cloud platforms. AWS Bedrock at the edge is a credible threat.</p></div>
+    <div class="pr-card bull"><div class="prt">▲ Zero Trust Security Consolidation Wave</div><p>Replacing 20–30 legacy point products with one unified platform. Multi-year enterprise refresh cycle. Competing against Zscaler and Palo Alto but winning on performance + price. $50B+ addressable market barely touched.</p></div>
+    <div class="pr-card bear"><div class="prt">▼ Platform Revenue Monetization Lag</div><p>Workers AI and AI Gateway are growing explosively but are not yet material revenue contributors. Monetizing the developer platform at scale has taken longer than expected. Platform revenue is a 2027–2028 story, not 2026.</p></div>
+    <div class="pr-card bull"><div class="prt">▲ Founder-Led with Dual-Class Structure</div><p>Matthew Prince (~$5.5B net worth in NET) and Michelle Zatlyn still building like Day 1. Dual-class shares protect against activist distraction. Capital allocated exclusively to long-term network expansion.</p></div>
+    <div class="pr-card bear"><div class="prt">▼ Growth Re-acceleration Uncertainty</div><p>FY26 guide of +28–29% implies modest deceleration from Q4's +34%. Whether AI workloads can sustain or accelerate growth above 30% is the pivotal question. A deceleration to 22–24% would compress the multiple sharply.</p></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 9. THESIS SCORECARD             -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">✅</span> Thesis Scorecard — Current Status</div>
+  <table>
+    <thead>
+      <tr><th>Pillar</th><th>Original Expectation</th><th>Current Status (Mar 2026)</th><th>Status</th><th>Trend</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Revenue Growth</strong></td><td>Sustain 25%+ YoY</td><td>Q4 FY25: +34% YoY (re-acceleration); FY26 guide +28–29%</td><td><span class="badge b-ahead">Ahead</span></td><td><span class="trend-up">↑ Re-Accelerating</span></td></tr>
+      <tr><td><strong>Large Enterprise Momentum</strong></td><td>$100K+ customers +20% YoY</td><td>4,298 customers (+23%); record $42.5M ACV deal in Q4; new ACV +50% YoY</td><td><span class="badge b-ahead">Ahead</span></td><td><span class="trend-up">↑ Accelerating</span></td></tr>
+      <tr><td><strong>AI Infrastructure Adoption</strong></td><td>AI workloads material by FY27</td><td>Workers AI +4,000% YoY; AI Gateway +1,200%; 80% of AI cos as customers</td><td><span class="badge b-ahead">Ahead</span></td><td><span class="trend-up">↑ Exceeding Expectations</span></td></tr>
+      <tr><td><strong>Zero Trust / SASE Revenue</strong></td><td>Security segment growing 30%+</td><td>Cloudflare One multi-product deals driving record enterprise ACV; on track</td><td><span class="badge b-high">On Track</span></td><td><span class="trend-up">↑ Strong</span></td></tr>
+      <tr><td><strong>Operating Margin Expansion</strong></td><td>Non-GAAP op. margin toward 20%</td><td>Q4 op. margin 14.6%; FY26 guide ~13.5%; trajectory visible but slower than hoped</td><td><span class="badge b-fair">Watch</span></td><td><span class="trend-flat">→ Gradual Progress</span></td></tr>
+      <tr><td><strong>Developer Platform Monetization</strong></td><td>Workers revenue material by FY26</td><td">Workers AI growing explosively but not yet disclosed as a % of revenue; FY27 story</td><td><span class="badge b-fair">Watch</span></td><td><span class="trend-flat">→ Growth Visible, Rev Not Yet</span></td></tr>
+      <tr><td><strong>Owner-Operator Alignment</strong></td><td>Founders retain meaningful stake</td><td>Prince ~7-10% owner, net worth ~$5.5B in NET; both founders deeply engaged</td><td><span class="badge b-high">Intact</span></td><td><span class="trend-flat">→ Stable</span></td></tr>
+      <tr><td><strong>Network Expansion</strong></td><td>Continued city/country growth</td><td>330+ cities, 125+ countries; 95% of internet-connected population within 50ms</td><td><span class="badge b-high">On Track</span></td><td><span class="trend-up">↑ Expanding</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- 10. CATALYST CALENDAR           -->
+<!-- ════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">📅</span> Catalyst Calendar</div>
+
+  <div class="cat-row">
+    <div class="cat-date">Feb 2026<br/><span style="color:#27ae60;font-size:9.5px;font-weight:700;">✓ COMPLETED</span></div>
+    <div class="cat-body">
+      <div class="ct">Q4 FY2025 Earnings — Re-Acceleration Beat</div>
+      <div class="cd">Revenue $614.5M (+34% YoY) — fastest growth since 2021. Largest ACV deal ever. New ACV +50% YoY. Q1 FY26 guide +29–30%. FY26 guide +28–29%. Stock reacted positively — thesis confirmed for near term.</div>
+      <span class="cat-imp ci-h">High Impact — Growth Re-Acceleration Confirmed</span>
+    </div>
+  </div>
+
+  <div class="cat-row">
+    <div class="cat-date">May 2026<br/><span style="color:#7c3aed;font-size:9.5px;font-weight:700;">KEY CATALYST</span></div>
+    <div class="cat-body">
+      <div class="ct">Q1 FY2026 Earnings — Does Re-Acceleration Hold?</div>
+      <div class="cd">Guide implies +29–30% YoY. Key watch: Can growth hold above 28%? AI workload revenue disclosures? Early AI Agent platform commercial traction? Gross margin stability. This quarter validates whether Q4's re-acceleration was a trend or an outlier.</div>
+      <span class="cat-imp ci-h">High Impact — Go/No-Go for Near-Term Conviction Add</span>
+    </div>
+  </div>
+
+  <div class="cat-row">
+    <div class="cat-date">Sep 2026<br/><span style="color:#7c3aed;font-size:9.5px;font-weight:700;">WATCH</span></div>
+    <div class="cat-body">
+      <div class="ct">Birthday Week — Annual Innovation Event</div>
+      <div class="cd">Cloudflare's annual week of 50+ product announcements. Historically a significant catalyst for developer community engagement and enterprise pipeline. Watch for AI Agent platform announcements, new security products, and international network expansion milestones. A strong Birthday Week often correlates with Q4 deal acceleration.</div>
+      <span class="cat-imp ci-m">Medium Impact — Product Pipeline Signal</span>
+    </div>
+  </div>
+
+  <div class="cat-row">
+    <div class="cat-date">FY27–FY28<br/><span style="color:#888;font-size:9.5px;font-weight:700;">HORIZON</span></div>
+    <div class="cat-body">
+      <div class="ct">AI Infrastructure Revenue Becoming Material (Disclosed Segment)</div>
+      <div class="cd">The moment Cloudflare breaks out AI/Developer Platform revenue as a separate segment, investor perception will shift from "CDN+security company" to "AI infrastructure platform." This re-rating could be 25–40% multiple expansion. Monitor for any management commentary about AI revenue contribution in quarterly calls.</div>
+      <span class="cat-imp ci-h">High Impact — Re-Rating Potential</span>
+    </div>
+  </div>
+
+  <div class="cat-row">
+    <div class="cat-date">Ongoing<br/><span style="color:#888;font-size:9.5px;font-weight:700;">MONITOR</span></div>
+    <div class="cat-body">
+      <div class="ct">Enterprise IT Spending Environment</div>
+      <div class="cd">Cloudflare's enterprise deals are correlated with IT security and cloud budgets. Monitor CIO surveys (Gartner, Forrester) and peer commentary from Zscaler, Palo Alto, and CrowdStrike for signals on enterprise spending health. A budget freeze is the key near-term risk.</div>
+      <span class="cat-imp ci-m">Medium Impact — Macro Risk Monitor</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- THESIS INVALIDATION             -->
+<!-- ════════════════════════════════ -->
+<div class="section" style="margin-bottom:0;">
+  <div class="sec-title"><span class="sec-icon">🚨</span> Thesis Invalidation Conditions</div>
+  <div style="background:#fdecea;border:1px solid #f5b8b5;border-radius:8px;padding:14px 18px;font-size:12.5px;color:#4a0a0a;">
+    Exit or materially reduce position if <strong>any two</strong> of the following occur simultaneously:
+    <ol style="margin-top:8px;padding-left:18px;line-height:2;">
+      <li>Revenue growth decelerates below <strong>20% YoY</strong> for two consecutive quarters</li>
+      <li>NRR falls below <strong>115%</strong> (signals enterprise churn or spending compression)</li>
+      <li>A hyperscaler (AWS/Azure/Google) announces a dedicated edge-native infrastructure product at cost that directly competes with Workers AI at the enterprise tier</li>
+      <li>AI infrastructure revenue (Workers AI + Gateway + Vectorize) fails to become a disclosed, material revenue segment by FY28</li>
+      <li>Founders' combined economic ownership drops below <strong>10%</strong> total (loss of long-term alignment signal)</li>
+      <li>Non-GAAP operating margin expansion stalls below <strong>15%</strong> for two or more consecutive quarters despite scale (signals broken unit economics)</li>
+    </ol>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>Cloudflare (NET) Enhanced Investment Thesis &nbsp;·&nbsp; SQGLP + 100 Baggers + AI Disruption + Owner-Operator + Growth + Valuation + 4 New 100x Criteria &nbsp;·&nbsp; March 14, 2026 &nbsp;·&nbsp; For informational purposes only. Not investment advice.</div>
+  <div>
+    Sources: &nbsp;
+    <a href="https://www.cloudflare.com/press/press-releases/2026/cloudflare-announces-fourth-quarter-and-fiscal-year-2025-financial-results/" target="_blank">Q4 FY25 Results</a> &nbsp;·&nbsp;
+    <a href="https://public.com/stocks/net/forecast-price-target" target="_blank">Analyst Targets</a> &nbsp;·&nbsp;
+    <a href="https://www.klover.ai/cloudflare-ai-strategy-analysis-of-dominance-in-cloud-cybersecurity-ai/" target="_blank">AI Strategy</a> &nbsp;·&nbsp;
+    <a href="https://www.gurufocus.com/insider/129326/matthew-prince" target="_blank">Founder Ownership</a> &nbsp;·&nbsp;
+    <a href="https://www.investing.com/news/company-news/cloudflare-q4-2025-slides-revenue-surges-34-large-customers-drive-growth-93CH-4498481" target="_blank">Q4 Slides</a>
+  </div>
+</div>
+
+</div><!-- /page -->
+</body>
+</html>

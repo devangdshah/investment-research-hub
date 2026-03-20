@@ -130,8 +130,9 @@ A founder, family, or highly aligned CEO with significant skin in the game (idea
 
 | Signal | Points |
 |---|---|
-| Founder still CEO | +3 |
-| Insider ownership > 10% | +3 |
+| Founder still CEO with >10% ownership | +5 |
+| Non-founder CEO with >10% ownership | +3 |
+| CEO with 5–10% ownership | +2 |
 | CEO compensation is mostly equity, not cash bonus | +2 |
 | Long-tenured management (5+ years), capital allocation track record | +1 |
 | **Named to Glassdoor Best Places to Work (current or prior year)** | **+10** |

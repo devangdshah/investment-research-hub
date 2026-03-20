@@ -134,7 +134,6 @@ A founder, family, or highly aligned CEO with significant skin in the game (idea
 | Insider ownership > 10% | +3 |
 | CEO compensation is mostly equity, not cash bonus | +2 |
 | Long-tenured management (5+ years), capital allocation track record | +1 |
-| Strong Glassdoor / employee sentiment | +1 |
 | **Named to Glassdoor Best Places to Work (current or prior year)** | **+10** |
 
 > **Glassdoor Best Places to Work**: This is a rare and meaningful signal — it reflects employee trust, leadership quality, mission clarity, and cultural strength. Companies where employees are genuinely engaged and proud to work tend to attract top talent, retain it, and execute better over time. Always verify via the current Glassdoor Best Places to Work list. Award the full +10 only for confirmed list inclusion; award +3–5 for a high Glassdoor rating (4.2+) without explicit list inclusion.

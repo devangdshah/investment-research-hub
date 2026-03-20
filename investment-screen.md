@@ -18,7 +18,7 @@ This skill applies the user's personal composite investment framework to evaluat
 - **AI Signal Classification**: Is AI a tailwind, headwind, or is AI the product?
 - **Valuation Attractiveness**: PSG ratio, EV/NTM Rev, FCF yield
 
-The composite score is out of **80 points** (SQGLP/50 + OO/10 + TE/10 + RQ/10).
+The composite score is out of **90 points** (SQGLP/50 + OO/10 + TE/10 + RQ/10 + Glassdoor/10).
 
 ---
 
@@ -135,6 +135,9 @@ A founder, family, or highly aligned CEO with significant skin in the game (idea
 | CEO compensation is mostly equity, not cash bonus | +2 |
 | Long-tenured management (5+ years), capital allocation track record | +1 |
 | Strong Glassdoor / employee sentiment | +1 |
+| **Named to Glassdoor Best Places to Work (current or prior year)** | **+10** |
+
+> **Glassdoor Best Places to Work**: This is a rare and meaningful signal — it reflects employee trust, leadership quality, mission clarity, and cultural strength. Companies where employees are genuinely engaged and proud to work tend to attract top talent, retain it, and execute better over time. Always verify via the current Glassdoor Best Places to Work list. Award the full +10 only for confirmed list inclusion; award +3–5 for a high Glassdoor rating (4.2+) without explicit list inclusion.
 
 Reduce score if: frequent equity dilution, large executive departures, or CEO is primarily a "hired manager."
 
@@ -208,7 +211,7 @@ Label each company with its business model type:
 
 ## Part 5 — Composite Score & Output Format
 
-**Composite Score = SQGLP Total (/50) + OO + TE + RQ = Total /80**
+**Composite Score = SQGLP Total (/50) + OO + TE + RQ + Glassdoor = Total /90**
 
 ### Owner-Operated Flag (OO?)
 
@@ -226,7 +229,7 @@ This flag appears as its own column in the master table, separate from the OO/10
 Always output the ranking table in this format (use markdown table or HTML as appropriate):
 
 ```
-Rank | Ticker | Company | Mkt Cap | OO? | S/10 | Q/10 | G/10 | L/10 | P/10 | SQGLP/50 | OO/10 | TE/10 | RQ/10 | Total/80 | Model | AI Signal | Valuation
+Rank | Ticker | Company | Mkt Cap | OO? | S/10 | Q/10 | G/10 | L/10 | P/10 | SQGLP/50 | OO/10 | TE/10 | RQ/10 | Glassdoor/10 | Total/90 | Model | AI Signal | Valuation
 ```
 
 ### Valuation Column
@@ -237,12 +240,12 @@ Include:
 - Val. Rating: one of ✅ Attractive / ⚠️ Fair / ❌ Expensive
 
 ### Score Interpretation
-| Total /80 | Tier | Label |
+| Total /90 | Tier | Label |
 |---|---|---|
-| 65–80 | Tier 1 | 🏆 Core Holding — Highest conviction |
-| 55–64 | Tier 2 | ⭐ High Conviction |
-| 45–54 | Tier 3 | 👀 Watch List |
-| < 45 | Tier 4 | ❌ Avoid / Trim |
+| 75–90 | Tier 1 | 🏆 Core Holding — Highest conviction |
+| 62–74 | Tier 2 | ⭐ High Conviction |
+| 50–61 | Tier 3 | 👀 Watch List |
+| < 50 | Tier 4 | ❌ Avoid / Trim |
 
 ---
 
